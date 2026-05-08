@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "file": "Sample Section",
+      "questions": [
+        {
+          "id": "sample-section-1",
+          "question_number": 1,
+          "question_text": "Sample generated question. Replace by running npm run parse:data with your local PDF.",
+          "images": [],
+          "options": [
+            { "id": "A", "text": "Option A", "images": [] },
+            { "id": "B", "text": "Option B", "images": [] },
+            { "id": "C", "text": "Option C", "images": [] },
+            { "id": "D", "text": "Option D", "images": [] },
+            { "id": "E", "text": "Option E", "images": [] }
+          ],
+          "correct_answers": ["B"],
+          "type": "single",
+          "source_page": 1
+        }
+      ]
+    }
+  ]
+}
