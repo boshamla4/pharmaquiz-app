@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "PharmaQuiz",
-  description: "Offline-first pharma quiz app backed by static parsed JSON",
+  description: "Pharma quiz app with Supabase-backed sessions, saved attempts, review history, and Vercel-ready deployment",
 };
 
 export default function RootLayout({

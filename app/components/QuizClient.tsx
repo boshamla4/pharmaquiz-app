@@ -1,25 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ParsedQuestionsFile, ParsedQuestion } from "@/lib/quiz-types";
-
-function QuestionMedia({ images }: { images?: string[] }) {
-  if (!images || images.length === 0) return null;
-  return (
-    <div className="mt-3 grid gap-3">
-      {images.map((src) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={src}
-          src={src}
-          alt="Question visual"
-          className="max-h-72 w-auto rounded-lg border border-gray-200"
-          loading="lazy"
-        />
-      ))}
-    </div>
-  );
-}
+import QuestionCard from "@/app/components/QuestionCard";
+import type { ParsedQuestionsFile } from "@/lib/quiz-types";
 
 export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
   const sections = data.files;
@@ -33,11 +16,11 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
     [sections, sectionName],
   );
 
-  const question = section?.questions[index] as ParsedQuestion | undefined;
+  const question = section?.questions[index];
 
   if (!section || !question) {
     return (
-      <main className="mx-auto w-full max-w-3xl px-4 py-8">
+      <main className="mx-auto w-full max-w-4xl px-4 py-8">
         <h1 className="text-2xl font-bold">PharmaQuiz</h1>
         <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-700">
           No parsed questions were found. Run <code>npm run parse:data</code> after placing your PDF at
@@ -47,16 +30,18 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
     );
   }
 
-  const activeQuestion = question;
+  const activeQuestion = {
+    ...question,
+    section: section.file,
+    source_order: index,
+  };
   const currentSelections = answers[activeQuestion.id] ?? [];
-  const isMultiple =
-    (activeQuestion.type ?? (activeQuestion.correct_answers.length > 1 ? "multiple" : "single")) === "multiple";
   const isRevealed = Boolean(revealed[activeQuestion.id]);
 
-  function selectOption(optionId: string, checked: boolean) {
+  function toggleOption(optionId: string, checked: boolean) {
     setAnswers((prev) => {
-      if (!isMultiple) {
-        return { ...prev, [activeQuestion.id]: [optionId] };
+      if ((activeQuestion.type ?? "single") !== "multiple") {
+        return { ...prev, [activeQuestion.id]: checked ? [optionId] : [] };
       }
 
       const next = new Set(prev[activeQuestion.id] ?? []);
@@ -66,12 +51,17 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
     });
   }
 
-  const answeredCount = Object.values(answers).filter((v) => v.length > 0).length;
+  const answeredCount = Object.values(answers).filter((value) => value.length > 0).length;
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 py-8">
-      <h1 className="text-3xl font-bold">PharmaQuiz</h1>
-      <p className="mt-2 text-sm text-gray-600">Static quiz mode with section-based question banks.</p>
+    <main className="mx-auto w-full max-w-4xl px-4 py-8">
+      <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800">
+        Supabase is not configured yet, so you are seeing the local preview mode. Configure the environment variables in
+        the README to unlock authentication, saved attempts, review history, and Vercel-ready hosting.
+      </div>
+
+      <h1 className="mt-6 text-3xl font-bold">PharmaQuiz</h1>
+      <p className="mt-2 text-sm text-gray-600">Responsive preview mode using the generated question bank from your PDF.</p>
 
       <div className="mt-6 rounded-xl border border-gray-200 bg-white p-4">
         <label htmlFor="section" className="mb-2 block text-sm font-semibold text-gray-700">
@@ -80,8 +70,8 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
         <select
           id="section"
           value={section.file}
-          onChange={(e) => {
-            setSectionName(e.target.value);
+          onChange={(event) => {
+            setSectionName(event.target.value);
             setIndex(0);
           }}
           className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
@@ -94,80 +84,48 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
         </select>
       </div>
 
-      <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6">
-        <div className="mb-4 flex items-center justify-between text-xs uppercase tracking-wide text-gray-500">
-          <span>
-            Question {index + 1} / {section.questions.length}
-          </span>
-          <span>{answeredCount} answered</span>
-        </div>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-sm text-gray-600">
+        <span>
+          Question {index + 1} / {section.questions.length}
+        </span>
+        <span>{answeredCount} answered</span>
+      </div>
 
-        <p className="text-base font-medium leading-relaxed">{activeQuestion.question_text}</p>
-        <QuestionMedia images={activeQuestion.images} />
+      <div className="mt-4">
+        <QuestionCard
+          question={activeQuestion}
+          selectedIds={currentSelections}
+          disabled={isRevealed}
+          showResults={isRevealed}
+          scoreWeight={isRevealed ? (activeQuestion.correct_answers.every((id) => currentSelections.includes(id)) && currentSelections.length === activeQuestion.correct_answers.length ? 1 : 0) : null}
+          onToggle={toggleOption}
+        />
+      </div>
 
-        <div className="mt-5 space-y-3">
-          {activeQuestion.options.map((option) => {
-            const checked = currentSelections.includes(option.id);
-            const correct = activeQuestion.correct_answers.includes(option.id);
-            const wrongPick = isRevealed && checked && !correct;
-            const missed = isRevealed && !checked && correct;
-            const rightPick = isRevealed && checked && correct;
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+        <button
+          onClick={() => setIndex((value) => Math.max(0, value - 1))}
+          disabled={index === 0}
+          className="rounded-lg border border-gray-300 px-4 py-2 text-sm disabled:opacity-50"
+        >
+          ← Previous
+        </button>
 
-            let classes = "border-gray-200";
-            if (rightPick) classes = "border-green-300 bg-green-50";
-            else if (wrongPick) classes = "border-red-300 bg-red-50";
-            else if (missed) classes = "border-amber-300 bg-amber-50";
-            else if (checked) classes = "border-blue-300 bg-blue-50";
+        <button
+          onClick={() => setRevealed((prev) => ({ ...prev, [activeQuestion.id]: true }))}
+          disabled={isRevealed || currentSelections.length === 0}
+          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+        >
+          Check answer
+        </button>
 
-            return (
-              <label key={option.id} className={`block rounded-lg border p-3 ${classes}`}>
-                <div className="flex items-start gap-3">
-                  <input
-                    type={isMultiple ? "checkbox" : "radio"}
-                    name={`q-${activeQuestion.id}`}
-                    checked={checked}
-                    onChange={(e) => selectOption(option.id, e.target.checked)}
-                    disabled={isRevealed}
-                    className="mt-1"
-                  />
-                  <div>
-                    <p className="text-sm leading-relaxed">
-                      <span className="mr-1 font-semibold">{option.id}.</span>
-                      {option.text}
-                    </p>
-                    <QuestionMedia images={option.images} />
-                  </div>
-                </div>
-              </label>
-            );
-          })}
-        </div>
-
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-          <button
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
-            disabled={index === 0}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm disabled:opacity-50"
-          >
-            ← Previous
-          </button>
-
-          <button
-            onClick={() => setRevealed((prev) => ({ ...prev, [activeQuestion.id]: true }))}
-            disabled={isRevealed || currentSelections.length === 0}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
-          >
-            Check answer
-          </button>
-
-          <button
-            onClick={() => setIndex((i) => Math.min(section.questions.length - 1, i + 1))}
-            disabled={index === section.questions.length - 1}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm disabled:opacity-50"
-          >
-            Next →
-          </button>
-        </div>
+        <button
+          onClick={() => setIndex((value) => Math.min(section.questions.length - 1, value + 1))}
+          disabled={index === section.questions.length - 1}
+          className="rounded-lg border border-gray-300 px-4 py-2 text-sm disabled:opacity-50"
+        >
+          Next →
+        </button>
       </div>
     </main>
   );
