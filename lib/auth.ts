@@ -110,7 +110,7 @@ export async function authenticateAccessToken(token: string): Promise<{ id: stri
 export async function createSession(profileId: string, request: NextRequest): Promise<string> {
   const db = getServiceSupabase();
   const sessionId = randomUUID();
-  const rawToken = `${randomUUID()}-${randomBytes(18).toString("hex")}`;
+  const plainTextSessionToken = `${randomUUID()}-${randomBytes(18).toString("hex")}`;
 
   await db
     .from("user_sessions")
@@ -123,7 +123,7 @@ export async function createSession(profileId: string, request: NextRequest): Pr
   const { error } = await db.from("user_sessions").insert({
     id: sessionId,
     profile_id: profileId,
-    session_hash: hashValue(rawToken),
+    session_hash: hashValue(plainTextSessionToken),
     user_agent: request.headers.get("user-agent") ?? "",
     ip_address:
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? request.headers.get("x-real-ip") ?? "unknown",
@@ -134,7 +134,7 @@ export async function createSession(profileId: string, request: NextRequest): Pr
     throw new Error(`Failed to create user session: ${error.message}`);
   }
 
-  return rawToken;
+  return plainTextSessionToken;
 }
 
 export async function revokeSession(token: string | null | undefined): Promise<void> {

@@ -229,7 +229,19 @@ export async function saveAttemptProgress(
     ),
   );
 
-  const answeredQuestions = answers.filter((entry) => entry.selectedAnswerIds.length > 0).length;
+  const { data: persistedAnswers, error: persistedError } = await db
+    .from("attempt_questions")
+    .select("selected_answer_ids")
+    .eq("attempt_id", attemptId);
+
+  if (persistedError || !persistedAnswers) {
+    throw new Error(`Failed to reload attempt progress: ${persistedError?.message ?? "unknown error"}`);
+  }
+
+  const answeredQuestions = persistedAnswers.filter((entry) => {
+    const selected = entry.selected_answer_ids as string[] | null | undefined;
+    return Array.isArray(selected) && selected.length > 0;
+  }).length;
 
   const { error } = await db
     .from("quiz_attempts")
