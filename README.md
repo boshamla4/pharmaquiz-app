@@ -91,9 +91,9 @@ npm run build
 npm run check:data
 ```
 
-## PDF parsing pipeline (one-time / local)
+## PDF parsing pipeline
 
-1. Place your source PDF at:
+1. Commit the source PDF at:
 
 ```text
 scripts/input/source.pdf
@@ -116,11 +116,21 @@ This creates:
 - `scripts/generated/parsed-questions.json`
 - extracted images in `public/pharmaquiz-media/`
 
+Parser expectations:
+
+- Questions must be text-extractable (not scanned-only unless OCR is applied first).
+- Options are expected in `A`-through-`E` form.
+- Correct answers are detected from yellow highlights.
+- One highlighted option becomes a `single` question; multiple highlighted options become `multiple`.
+
 Override the input PDF path if needed:
 
 ```bash
 PDF_PATH=/absolute/path/to/your.pdf npm run parse:data
 ```
+
+If the parser cannot extract enough text, run OCR first (for example with OCRmyPDF) and then re-run `npm run parse:data`.
+If no yellow highlights are detected, confirm the PDF keeps highlight annotations or yellow fill rectangles.
 
 ## Supabase schema overview
 

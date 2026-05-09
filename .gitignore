@@ -41,3 +41,4 @@ yarn-error.log*
 next-env.d.ts
 # local parser input
 /scripts/input/*.pdf
+!/scripts/input/source.pdf
