@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import QuestionCard from "@/app/components/QuestionCard";
-import type { ParsedQuestionsFile } from "@/lib/quiz-types";
+import { isFullyCorrect } from "@/lib/scoring";
+import type { ParsedQuestionsFile, QuestionSnapshot } from "@/lib/quiz-types";
 
 export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
   const sections = data.files;
@@ -34,7 +35,7 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
     ...question,
     section: section.file,
     source_order: index,
-  };
+  } satisfies QuestionSnapshot;
   const currentSelections = answers[activeQuestion.id] ?? [];
   const isRevealed = Boolean(revealed[activeQuestion.id]);
 
@@ -52,6 +53,7 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
   }
 
   const answeredCount = Object.values(answers).filter((value) => value.length > 0).length;
+  const previewScore = isFullyCorrect(activeQuestion, currentSelections) ? 1 : 0;
 
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-8">
@@ -97,7 +99,7 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
           selectedIds={currentSelections}
           disabled={isRevealed}
           showResults={isRevealed}
-          scoreWeight={isRevealed ? (activeQuestion.correct_answers.every((id) => currentSelections.includes(id)) && currentSelections.length === activeQuestion.correct_answers.length ? 1 : 0) : null}
+          scoreWeight={isRevealed ? previewScore : null}
           onToggle={toggleOption}
         />
       </div>

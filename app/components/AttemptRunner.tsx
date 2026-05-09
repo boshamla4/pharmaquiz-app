@@ -42,7 +42,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
     });
   }
 
-  const saveProgress = useCallback(async (nextIndex = index, message = "Progress saved.") => {
+  const saveProgress = useCallback(async (nextIndex: number, message = "Progress saved.") => {
     setPending(true);
     const payload = {
       currentIndex: nextIndex,
@@ -68,7 +68,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
     setStatus(message);
     setPending(false);
     return true;
-  }, [answers, attempt.id, index, questions]);
+  }, [answers, attempt.id, questions]);
 
   const submitAttempt = useCallback(async () => {
     setPending(true);
