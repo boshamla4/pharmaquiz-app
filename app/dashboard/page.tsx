@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getDashboardData, getAvailableSections } from "@/lib/attempts";
 import { requirePageSession } from "@/lib/auth";
 import { formatScore } from "@/lib/scoring";
+import ActiveUsersBadge from "@/app/components/ActiveUsersBadge";
+import FeedbackForm from "@/app/components/FeedbackForm";
 import StartAttemptForm from "@/app/components/StartAttemptForm";
 
 export const dynamic = "force-dynamic";
@@ -19,11 +21,14 @@ export default async function DashboardPage() {
           <h1 className="text-3xl font-bold">{session.displayName}</h1>
           <p className="mt-2 text-sm text-gray-600">Start a test, resume an unfinished one, or review your previous scores.</p>
         </div>
-        <form action="/api/auth/logout" method="post">
-          <button type="submit" className="rounded-lg border border-gray-300 px-4 py-2 text-sm">
-            Logout
-          </button>
-        </form>
+        <div className="flex flex-wrap items-center gap-3">
+          <ActiveUsersBadge />
+          <form action="/api/auth/logout" method="post">
+            <button type="submit" className="rounded-lg border border-gray-300 px-4 py-2 text-sm">
+              Logout
+            </button>
+          </form>
+        </div>
       </div>
 
       <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -42,16 +47,16 @@ export default async function DashboardPage() {
       </div>
 
       <div className="mt-8 grid gap-6 xl:grid-cols-[2fr,1fr]">
-        <section className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold">Start a new test</h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Choose ordered or randomized delivery, filter by section/type, optionally enable a timer, and save progress at
-            any point.
-          </p>
-          <div className="mt-6">
-            <StartAttemptForm sections={sections} />
-          </div>
-        </section>
+          <section className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-semibold">Start a new test</h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Choose ordered or randomized delivery, filter by section/type, optionally enable a timer, and save progress at
+              any point.
+            </p>
+            <div className="mt-6">
+              <StartAttemptForm sections={sections} />
+            </div>
+          </section>
 
         <div className="space-y-6">
           <section className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -100,8 +105,34 @@ export default async function DashboardPage() {
               )}
             </div>
           </section>
+
+          <section className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-semibold">Quick actions</h2>
+            <div className="mt-4 space-y-3 text-sm">
+              <Link href="/final-mock" className="block rounded-lg bg-emerald-50 px-4 py-3 font-semibold text-emerald-800">
+                Start final mock exam →
+              </Link>
+              <Link href="/stats" className="block rounded-lg border border-gray-200 px-4 py-3 font-semibold text-gray-700">
+                View performance stats →
+              </Link>
+              <Link href="/api-docs" className="block rounded-lg border border-gray-200 px-4 py-3 font-semibold text-gray-700">
+                API docs →
+              </Link>
+            </div>
+          </section>
         </div>
       </div>
+
+      <section className="mt-10 rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Feedback</p>
+            <h2 className="text-xl font-semibold">Help improve PharmaQuiz</h2>
+          </div>
+          <span className="text-xs text-gray-500">Optional contact details are available below</span>
+        </div>
+        <FeedbackForm />
+      </section>
     </main>
   );
 }

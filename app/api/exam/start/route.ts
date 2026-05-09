@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAttempt } from "@/lib/attempts";
 import { requireApiSession } from "@/lib/auth";
-import { formatServerTiming, recordApiMetric } from "@/lib/performanceMetrics";
 
 function normalizeStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.filter((entry): entry is string => typeof entry === "string").map((entry) => entry.trim()).filter(Boolean) : [];
@@ -11,18 +10,14 @@ export async function POST(request: NextRequest) {
   const session = await requireApiSession(request);
   if (session instanceof NextResponse) return session;
 
-  const requestStart = Date.now();
-  const stages: Record<string, number> = {};
-
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
   if (!body) {
     return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
 
   try {
-    const createStart = Date.now();
     const attemptId = await createAttempt(session.profileId, {
-      sections: normalizeStringArray(body.sections),
+      sections: normalizeStringArray(body.sections ?? body.files),
       questionTypes: normalizeStringArray(body.questionTypes).filter(
         (entry): entry is "single" | "multiple" => entry === "single" || entry === "multiple",
       ),
@@ -30,30 +25,14 @@ export async function POST(request: NextRequest) {
       includeRepeated: body.includeRepeated !== false,
       wrongOnly: body.wrongOnly === true,
       useAllQuestions: Boolean(body.useAllQuestions),
-      limit: Math.max(1, Math.min(200, Number(body.limit) || 25)),
+      limit: Math.max(1, Math.min(200, Number(body.limit) || 20)),
       timerMinutes: typeof body.timerMinutes === "number" ? Math.max(1, Math.min(240, body.timerMinutes)) : null,
-      sourceAttemptId: typeof body.sourceAttemptId === "string" ? body.sourceAttemptId : undefined,
-      redoMode: body.redoMode === "wrong_only" ? "wrong_only" : "all",
     });
-    stages.create_attempt = Date.now() - createStart;
 
-    const totalMs = Date.now() - requestStart;
-    const response = NextResponse.json({ attemptId });
-    response.headers.set("Server-Timing", formatServerTiming(stages, totalMs));
-    await recordApiMetric({
-      route: "/api/attempts/start",
-      statusCode: 200,
-      profileId: session.profileId,
-      totalMs,
-      stages,
-      meta: {
-        limit: Math.max(1, Math.min(200, Number(body.limit) || 25)),
-      },
-    });
-    return response;
+    return NextResponse.json({ examId: attemptId });
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to start attempt." },
+      { error: error instanceof Error ? error.message : "Failed to start exam." },
       { status: 400 },
     );
   }

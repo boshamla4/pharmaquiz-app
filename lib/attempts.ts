@@ -8,11 +8,20 @@ export interface StartAttemptOptions {
   sections: string[];
   questionTypes: Array<"single" | "multiple">;
   orderMode: "ordered" | "random";
+  includeRepeated?: boolean;
+  wrongOnly?: boolean;
   useAllQuestions: boolean;
   limit: number;
   timerMinutes: number | null;
   sourceAttemptId?: string;
   redoMode?: "all" | "wrong_only";
+}
+
+interface HistoryRow {
+  question_id: string | null;
+  question_snapshot: QuestionSnapshot | null;
+  selected_answer_ids: string[] | null;
+  is_correct: boolean | null;
 }
 
 function toQuestionRow(question: QuestionSnapshot) {
@@ -102,6 +111,74 @@ async function fetchRedoQuestions(profileId: string, sourceAttemptId: string, re
   return questionRows.map((row) => row.question_snapshot as QuestionSnapshot);
 }
 
+async function fetchAnswerHistory(profileId: string): Promise<{ answeredIds: Set<string>; wrongIds: Set<string> }> {
+  const db = getServiceSupabase();
+  const { data: attempts, error } = await db
+    .from("quiz_attempts")
+    .select("id")
+    .eq("profile_id", profileId)
+    .eq("status", "submitted");
+
+  if (error) {
+    throw new Error(`Failed to load attempt history: ${error.message}`);
+  }
+
+  const attemptIds = (attempts ?? []).map((attempt) => attempt.id).filter(Boolean);
+  if (attemptIds.length === 0) {
+    return { answeredIds: new Set(), wrongIds: new Set() };
+  }
+
+  const answeredIds = new Set<string>();
+  const wrongIds = new Set<string>();
+  const chunkSize = 50;
+
+  for (let index = 0; index < attemptIds.length; index += chunkSize) {
+    const chunk = attemptIds.slice(index, index + chunkSize);
+    const { data: rows, error: rowsError } = await db
+      .from("attempt_questions")
+      .select("question_id, question_snapshot, selected_answer_ids, is_correct")
+      .in("attempt_id", chunk);
+
+    if (rowsError) {
+      throw new Error(`Failed to load attempt question history: ${rowsError.message}`);
+    }
+
+    for (const row of (rows ?? []) as HistoryRow[]) {
+      const snapshotId = row.question_snapshot?.id;
+      const questionId = row.question_id ?? (typeof snapshotId === "string" ? snapshotId : null);
+      if (!questionId) continue;
+
+      const selected = Array.isArray(row.selected_answer_ids) ? row.selected_answer_ids : [];
+      if (selected.length > 0) {
+        answeredIds.add(questionId);
+      }
+      if (row.is_correct === false) {
+        wrongIds.add(questionId);
+      }
+    }
+  }
+
+  return { answeredIds, wrongIds };
+}
+
+async function applyHistoryFilters(
+  profileId: string,
+  questions: QuestionSnapshot[],
+  options: { includeRepeated?: boolean; wrongOnly?: boolean },
+): Promise<QuestionSnapshot[]> {
+  if (!options.wrongOnly && options.includeRepeated !== false) {
+    return questions;
+  }
+
+  const { answeredIds, wrongIds } = await fetchAnswerHistory(profileId);
+
+  if (options.wrongOnly) {
+    return questions.filter((question) => wrongIds.has(question.id));
+  }
+
+  return questions.filter((question) => !answeredIds.has(question.id));
+}
+
 async function persistQuestions(questions: QuestionSnapshot[]): Promise<void> {
   const db = getServiceSupabase();
   const uniqueRows = Array.from(new Map(questions.map((question) => [question.id, toQuestionRow(question)])).values());
@@ -117,7 +194,11 @@ export async function createAttempt(profileId: string, options: StartAttemptOpti
   const db = getServiceSupabase();
   const sourceQuestions = options.sourceAttemptId
     ? await fetchRedoQuestions(profileId, options.sourceAttemptId, options.redoMode ?? "all")
-    : filterQuestionBank({ sections: options.sections, questionTypes: options.questionTypes });
+    : await applyHistoryFilters(
+        profileId,
+        filterQuestionBank({ sections: options.sections, questionTypes: options.questionTypes }),
+        { includeRepeated: options.includeRepeated, wrongOnly: options.wrongOnly },
+      );
 
   const sortedQuestions = sortQuestions(sourceQuestions, options.orderMode);
   const selectedQuestions = options.useAllQuestions ? sortedQuestions : sortedQuestions.slice(0, options.limit);
@@ -143,6 +224,8 @@ export async function createAttempt(profileId: string, options: StartAttemptOpti
       settings: {
         sections: options.sections,
         questionTypes: options.questionTypes,
+        includeRepeated: options.includeRepeated ?? true,
+        wrongOnly: options.wrongOnly ?? false,
         useAllQuestions: options.useAllQuestions,
         limit: options.useAllQuestions ? selectedQuestions.length : options.limit,
         redoMode: options.redoMode ?? null,
@@ -357,4 +440,57 @@ export async function getAttemptHistory(profileId: string): Promise<QuizAttemptR
 
 export function getAvailableSections() {
   return getSections();
+}
+
+export async function getAttemptPreview(
+  profileId: string,
+  options: {
+    sections: string[];
+    questionTypes: Array<"single" | "multiple">;
+    includeRepeated?: boolean;
+    wrongOnly?: boolean;
+    useAllQuestions: boolean;
+    limit: number;
+  },
+): Promise<{
+  totalMatchingBeforeHistory: number;
+  totalAvailable: number;
+  plannedQuestionCount: number;
+  sectionRows: Array<{ section: string; total_questions: number; available_questions: number }>;
+}> {
+  const allQuestions = filterQuestionBank({ sections: options.sections, questionTypes: options.questionTypes });
+  const filtered = await applyHistoryFilters(profileId, allQuestions, {
+    includeRepeated: options.includeRepeated,
+    wrongOnly: options.wrongOnly,
+  });
+
+  const totalBySection = new Map<string, number>();
+  const availableBySection = new Map<string, number>();
+
+  for (const question of allQuestions) {
+    totalBySection.set(question.section, (totalBySection.get(question.section) ?? 0) + 1);
+  }
+
+  for (const question of filtered) {
+    availableBySection.set(question.section, (availableBySection.get(question.section) ?? 0) + 1);
+  }
+
+  const sections = new Set([...totalBySection.keys(), ...availableBySection.keys()]);
+  const sectionRows = [...sections]
+    .map((section) => ({
+      section,
+      total_questions: totalBySection.get(section) ?? 0,
+      available_questions: availableBySection.get(section) ?? 0,
+    }))
+    .sort((left, right) => left.section.localeCompare(right.section));
+
+  const totalAvailable = filtered.length;
+  const plannedQuestionCount = options.useAllQuestions ? totalAvailable : Math.min(options.limit, totalAvailable);
+
+  return {
+    totalMatchingBeforeHistory: allQuestions.length,
+    totalAvailable,
+    plannedQuestionCount,
+    sectionRows,
+  };
 }

@@ -16,6 +16,11 @@ It now supports two runtime modes:
 - Start / save / resume / submit test lifecycle.
 - Review submitted answers and redo all questions or only incorrect ones.
 - Section/category filters, single-vs-multiple filters, optional timer, and scoring summary.
+- History-aware filters (exclude previously answered or focus on wrong-only questions).
+- Performance stats by section with last-vs-all toggle.
+- Final mock exam launcher with weighted section blueprint.
+- Feedback form + active user snapshot.
+- OpenAPI spec + Swagger UI docs for API routes.
 - Responsive layout for desktop and mobile browsers.
 - Supabase schema + RLS policies + optional question-bank sync script.
 
@@ -83,6 +88,10 @@ npm run dev
 
 Sign in on `/login` with the plain-text token you inserted above.
 
+### API docs
+
+Visit `/api-docs` after signing in to browse the OpenAPI-backed Swagger UI.
+
 ## Validation commands
 
 ```bash
@@ -93,11 +102,27 @@ npm run check:data
 
 ## PDF parsing pipeline
 
-1. Commit the source PDF at:
+1. Ensure the source PDF lives at:
 
 ```text
 scripts/input/source.pdf
 ```
+
+The repo tracks `scripts/input/*.pdf` with Git LFS (see `.gitattributes`) so Codespaces can parse without downloading from Google Drive. If you replace the PDF, commit the new file (or re-upload to LFS) so future Codespaces have it automatically.
+
+Codespaces note: if Git LFS is not yet enabled in your Codespace, run `git lfs install` once after creating the Codespace so `scripts/input/source.pdf` is pulled automatically.
+
+### Codespaces PDF workflow
+
+Preferred (one-time setup):
+
+1. Keep `scripts/input/source.pdf` committed (Git LFS is already configured).
+2. In a new Codespace, run `git lfs install` and then `git lfs pull` if the PDF pointer has not been hydrated.
+
+Alternative (no git history change):
+
+1. Upload the PDF into the Codespace file explorer and save it as `scripts/input/source.pdf`.
+2. Run `npm run parse:data`.
 
 2. Install the parser dependency:
 
