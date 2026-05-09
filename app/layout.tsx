@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ThemeToggle from "@/app/components/ThemeToggle";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,7 +17,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white text-gray-900">
         <div className="flex flex-1 flex-col">{children}</div>
         <footer className="border-t border-gray-200 bg-white px-4 py-3 text-center text-xs text-gray-500">
-          PharmaQuiz © 2026
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <span>PharmaQuiz © 2026</span>
+            <ThemeToggle />
+          </div>
         </footer>
       </body>
     </html>

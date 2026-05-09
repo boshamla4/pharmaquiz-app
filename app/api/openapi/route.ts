@@ -22,6 +22,14 @@ export async function GET() {
       },
     },
     paths: {
+      "/api/questions": {
+        get: {
+          summary: "Fetch question metadata or question bank",
+          security: [{ cookieAuth: [] }],
+          parameters: [{ name: "meta", in: "query", schema: { type: "string" } }],
+          responses: { "200": { description: "Question metadata returned" } },
+        },
+      },
       "/api/auth/login": {
         post: {
           summary: "Authenticate with access token",
@@ -53,9 +61,55 @@ export async function GET() {
           responses: { "200": { description: "Attempt started" }, "400": { description: "Invalid request" } },
         },
       },
+      "/api/attempts/preview": {
+        post: {
+          summary: "Preview attempt availability",
+          security: [{ cookieAuth: [] }],
+        },
+      },
+      "/api/exam/start": {
+        post: {
+          summary: "Start a new exam (compat)",
+          security: [{ cookieAuth: [] }],
+        },
+      },
+      "/api/exam/preview": {
+        post: {
+          summary: "Preview exam availability (compat)",
+          security: [{ cookieAuth: [] }],
+        },
+      },
+      "/api/exam/retry": {
+        post: {
+          summary: "Retry an exam (compat)",
+          security: [{ cookieAuth: [] }],
+        },
+      },
+      "/api/exam/history": {
+        get: {
+          summary: "Exam history (compat)",
+          security: [{ cookieAuth: [] }],
+        },
+      },
+      "/api/exam/save-progress": {
+        post: {
+          summary: "Save exam progress (compat)",
+          security: [{ cookieAuth: [] }],
+        },
+      },
+      "/api/exam/submit": {
+        post: {
+          summary: "Submit exam (compat)",
+          security: [{ cookieAuth: [] }],
+        },
+      },
       "/api/attempts/final-mock/start": {
         get: { summary: "Get final mock blueprint", security: [{ cookieAuth: [] }] },
         post: { summary: "Start final mock attempt", security: [{ cookieAuth: [] }] },
+      },
+      "/api/exam/final-mock/start": {
+        get: { summary: "Get final mock blueprint (compat)", security: [{ cookieAuth: [] }] },
+        post: { summary: "Start final mock exam (compat)", security: [{ cookieAuth: [] }] },
       },
       "/api/stats": {
         get: {
