@@ -42,7 +42,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
     });
   }
 
-  const saveProgress = useCallback(async (nextIndex: number, message = "Progress saved.") => {
+  const handleSaveProgress = useCallback(async (nextIndex: number, message = "Progress saved.") => {
     setPending(true);
     const payload = {
       currentIndex: nextIndex,
@@ -72,7 +72,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
 
   const submitAttempt = useCallback(async () => {
     setPending(true);
-    const saveOk = await saveProgress(index, "Submitting test…");
+    const saveOk = await handleSaveProgress(index, "Submitting test…");
     if (!saveOk) return;
 
     const response = await fetch(`/api/attempts/${attempt.id}/submit`, {
@@ -89,7 +89,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
 
     router.replace(`/review/${attempt.id}`);
     router.refresh();
-  }, [attempt.id, index, router, saveProgress]);
+  }, [attempt.id, index, router, handleSaveProgress]);
 
   useEffect(() => {
     if (attempt.timer_seconds === null) return;
@@ -115,13 +115,13 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
     }
 
     autoSaveRef.current = window.setTimeout(() => {
-      void saveProgress(index, "Progress auto-saved.");
+      void handleSaveProgress(index, "Progress auto-saved.");
     }, 2500);
 
     return () => {
       if (autoSaveRef.current) window.clearTimeout(autoSaveRef.current);
     };
-  }, [answers, index, saveProgress]);
+  }, [answers, index, handleSaveProgress]);
 
   if (!activeQuestion) {
     return <p className="rounded-lg bg-amber-50 p-4 text-sm text-amber-700">This attempt does not contain any questions.</p>;
@@ -165,7 +165,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
         <div className="flex flex-wrap gap-3">
           <button
             type="button"
-            onClick={() => void saveProgress(index, "Progress saved. You can continue later from the dashboard.")}
+            onClick={() => void handleSaveProgress(index, "Progress saved. You can continue later from the dashboard.")}
             disabled={pending}
             className="rounded-lg border border-gray-300 px-4 py-2 text-sm disabled:opacity-50"
           >
