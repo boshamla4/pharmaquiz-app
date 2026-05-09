@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "parse:data": "node scripts/parse-pdf.mjs",
-    "check:data": "node scripts/check-output.mjs"
+    "check:data": "node scripts/check-output.mjs",
+    "sync:supabase-questions": "node scripts/sync-supabase-questions.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.105.3",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4"

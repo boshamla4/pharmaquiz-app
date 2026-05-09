@@ -23,3 +23,35 @@ export interface ParsedSection {
 export interface ParsedQuestionsFile {
   files: ParsedSection[];
 }
+
+export interface QuestionSnapshot extends ParsedQuestion {
+  section: string;
+  source_order: number;
+}
+
+export interface AttemptQuestionRecord {
+  id: string;
+  attempt_id: string;
+  position: number;
+  question_id: string | null;
+  question_snapshot: QuestionSnapshot;
+  selected_answer_ids: string[];
+  is_correct: boolean | null;
+  score_weight: number | null;
+}
+
+export interface QuizAttemptRecord {
+  id: string;
+  profile_id: string;
+  status: "in_progress" | "submitted";
+  mode: "ordered" | "random";
+  timer_seconds: number | null;
+  current_index: number;
+  answered_questions: number;
+  total_questions: number;
+  score: number | null;
+  settings: Record<string, unknown>;
+  started_at: string;
+  updated_at: string;
+  submitted_at: string | null;
+}
