@@ -12,10 +12,21 @@ except Exception as exc:
     print("PyMuPDF is required. Install with: pip install pymupdf", file=sys.stderr)
     raise
 
-QUESTION_RE = re.compile(r"^(\d{1,4})[\.)]\s*(.+)$")
+QUESTION_RE = re.compile(r"^([1-9]\d{0,3})[\.)]\s*(.+)$")
+# Bare question number on its own line: "1." or "11." with nothing after
+BARE_QUESTION_RE = re.compile(r"^([1-9]\d{0,3})[.)]\s*$")
 # Match uppercase A-E or lowercase a-e with optional leading paren and trailing paren/period
 OPTION_RE = re.compile(r"^\(?([a-eA-E])\s*[).]\s*(.*)$")
 SECTION_RE = re.compile(r"^(SECTION|PART|MODULE|CHAPTER)\b", re.IGNORECASE)
+
+# Strip leading CS/CM/SC/SM/C.s./C.m. type prefix from question text.
+# Examples: "CS Indicate...", "SC Indicate...", "CM Select...", "C. s. Name...", "CS Acidity..."
+TYPE_PREFIX_RE = re.compile(
+    r"^(?:C[MS]|S[CM]|C\.\s*[ms]\.)\s*",
+    re.IGNORECASE,
+)
+# Opening quote chars sometimes follow the type prefix
+OPEN_QUOTE_CHARS = "“”„‘’«»\"\'"
 
 
 def slugify(text: str) -> str:
@@ -33,8 +44,18 @@ def is_section_heading(text: str) -> bool:
         return True
     if QUESTION_RE.match(text) or OPTION_RE.match(text):
         return False
-    has_letters = any(ch.isalpha() for ch in text)
-    return has_letters and len(text) < 90 and text == text.upper()
+    # Must be all-caps (ignores non-letter chars like commas, dashes)
+    if text != text.upper():
+        return False
+    # Must have at least 10 letter characters — rejects single symbols like "Λ",
+    # "O - C", "OH", and chemical formula fragments like "CH - CH 2 - NH - CH 3".
+    letter_count = sum(1 for ch in text if ch.isalpha())
+    if letter_count < 10:
+        return False
+    # Must contain at least 2 words of 2+ letters — rejects things like "T K V X"
+    # (table headers) while keeping "SINGLE CHOICE", "MULTIPLE CHOISE", etc.
+    long_words = re.findall(r"[A-Za-z]{2,}", text)
+    return len(long_words) >= 2
 
 
 def union_bbox(a, b):
@@ -49,12 +70,26 @@ def bbox_intersects(a, b):
     return not (a[2] < b[0] or a[0] > b[2] or a[3] < b[1] or a[1] > b[3])
 
 
+def highlight_marks_option(highlight, opt_bbox, tolerance=3):
+    """Check if a highlight rect marks an option using the highlight's center Y.
+
+    Using center Y prevents a single underline from falsely marking the option
+    immediately below when line gaps are smaller than EXPAND.
+    """
+    if opt_bbox is None:
+        return False
+    center_y = (highlight[1] + highlight[3]) / 2
+    x_overlap = not (highlight[2] < opt_bbox[0] or highlight[0] > opt_bbox[2])
+    y_in_range = opt_bbox[1] - tolerance <= center_y <= opt_bbox[3] + tolerance
+    return x_overlap and y_in_range
+
+
 def is_yellow_color(color):
     """Return True for any yellow-ish color (fill or stroke)."""
     if not color or len(color) < 3:
         return False
     r, g, b = color[0], color[1], color[2]
-    # Standard yellow (R high, G high, B low)
+    # Standard yellow fill (R high, G high, B low)
     if r >= 0.75 and g >= 0.75 and b <= 0.45:
         return True
     # Pure yellow stroke used with Multiply blend mode in this PDF format
@@ -68,6 +103,27 @@ def extract_image(doc, xref, out_path):
     if pix.n - pix.alpha > 3:
         pix = fitz.Pixmap(fitz.csRGB, pix)
     pix.save(out_path)
+
+
+def build_question_starts(lines):
+    """Return sorted list of (y_top, question_number_str) for all question lines on a page."""
+    starts = []
+    for line in lines:
+        m = QUESTION_RE.match(line["text"])
+        if m:
+            starts.append((line["bbox"][1], m.group(1)))
+    starts.sort(key=lambda x: x[0])
+    return starts
+
+
+def question_image_zone(q_start_y, page_height, question_starts):
+    """Return (y_top, y_bottom) that belongs to this question on the current page."""
+    y_bottom = page_height
+    for (y, _) in question_starts:
+        if y > q_start_y + 2:   # +2 tolerance for floating-point
+            y_bottom = y
+            break
+    return q_start_y, y_bottom
 
 
 def main():
@@ -91,6 +147,11 @@ def main():
     current_section = "General"
     global_question_counter = 0
 
+    # These persist across page boundaries so that questions spanning two pages
+    # are finalized only when the *next* question (or section) starts.
+    current_question = None
+    current_option = None
+
     for page_index in range(doc.page_count):
         page = doc[page_index]
         words = page.get_text("words")
@@ -110,6 +171,25 @@ def main():
                 lines.append({"text": text, "bbox": bbox})
 
         lines.sort(key=lambda item: (item["bbox"][1], item["bbox"][0]))
+
+        # Merge bare question-number lines ("1.") with the following text line so
+        # QUESTION_RE can match them as "1. CS Acidity index...".
+        merged = []
+        i = 0
+        while i < len(lines):
+            if BARE_QUESTION_RE.match(lines[i]["text"]) and i + 1 < len(lines):
+                combined_text = lines[i]["text"].rstrip() + " " + lines[i + 1]["text"]
+                combined_bbox = union_bbox(lines[i]["bbox"], lines[i + 1]["bbox"])
+                merged.append({"text": combined_text, "bbox": combined_bbox})
+                i += 2
+            else:
+                merged.append(lines[i])
+                i += 1
+        lines = merged
+
+        # Pre-compute question start Y positions for image zone assignment.
+        page_question_starts = build_question_starts(lines)
+        page_height = page.rect.height
 
         highlight_rects = []
 
@@ -152,9 +232,6 @@ def main():
         if current_section not in sections:
             sections[current_section] = []
 
-        current_question = None
-        current_option = None
-
         def finalize_question():
             nonlocal current_question, current_option, global_question_counter
             if not current_question:
@@ -166,21 +243,25 @@ def main():
                     {"id": letter, "text_parts": [], "bbox": None, "images": []},
                 )
 
-            correct = []
-            for letter, option in current_question["options"].items():
-                if any(bbox_intersects(option["bbox"], rect) for rect in highlight_rects):
-                    correct.append(letter)
+            # correct_set is populated in real-time as options are parsed, which
+            # handles questions whose options/highlights span a page boundary.
+            correct = list(current_question.get("correct_set", set()))
 
             global_question_counter += 1
             qid = f"{slugify(current_section)}-{global_question_counter}"
 
-            qbbox = current_question.get("bbox")
+            # Use the Y-range from this question's start to the next question's start
+            # so that images below the last option line are still captured.
+            q_start_y = current_question.get("start_y", current_question.get("bbox", [0, 0, 0, 0])[1])
+            zone_top, zone_bottom = question_image_zone(q_start_y, page_height, page_question_starts)
+            image_zone = [0, zone_top, page.rect.width, zone_bottom]
+
             question_images = []
             saved_images = set()
 
             for idx, img in enumerate(page_images, start=1):
                 img_box = img["bbox"]
-                if not bbox_intersects(qbbox, img_box):
+                if not bbox_intersects(image_zone, img_box):
                     continue
                 key = (img["xref"], tuple(round(v, 2) for v in img_box))
                 if key in saved_images:
@@ -199,6 +280,14 @@ def main():
                         option["images"].append(public_src)
 
             question_text = normalize_line(" ".join(current_question["question_text_parts"]))
+            # Strip leading CS / CM / C. s. / C. m. type prefix from question text
+            type_hint = None
+            m = TYPE_PREFIX_RE.match(question_text)
+            if m:
+                prefix_upper = re.sub(r"[^a-zA-Z]", "", m.group(0)).upper()
+                type_hint = "multiple" if prefix_upper in ("CM", "MC", "SM") else "single"
+                question_text = question_text[m.end():].strip().lstrip(OPEN_QUOTE_CHARS).strip()
+
             option_items = []
             for letter in ["A", "B", "C", "D", "E"]:
                 option = current_question["options"][letter]
@@ -210,6 +299,15 @@ def main():
                     }
                 )
 
+            n_correct = len(set(correct))
+            if n_correct > 1:
+                q_type = "multiple"
+            elif n_correct == 1:
+                q_type = "single"
+            else:
+                # Fall back to the explicit CS/CM prefix if no highlights found
+                q_type = type_hint or "single"
+
             sections[current_section].append(
                 {
                     "id": qid,
@@ -218,7 +316,7 @@ def main():
                     "images": question_images,
                     "options": option_items,
                     "correct_answers": sorted(set(correct)),
-                    "type": "multiple" if len(set(correct)) > 1 else "single",
+                    "type": q_type,
                     "source_page": page_index + 1,
                 }
             )
@@ -243,7 +341,9 @@ def main():
                     "question_number": qmatch.group(1),
                     "question_text_parts": [qmatch.group(2)],
                     "bbox": bbox,
+                    "start_y": bbox[1],
                     "options": {},
+                    "correct_set": set(),
                 }
                 current_option = None
                 continue
@@ -255,6 +355,10 @@ def main():
             if omatch:
                 letter = omatch.group(1).upper()
                 current_option = letter
+                # Check highlight at capture time — this works across page boundaries
+                # because both the option bbox and highlight_rects are from this page.
+                if any(highlight_marks_option(rect, bbox) for rect in highlight_rects):
+                    current_question["correct_set"].add(letter)
                 current_question["options"][letter] = {
                     "id": letter,
                     "text_parts": [omatch.group(2)],
@@ -274,7 +378,8 @@ def main():
 
             current_question["bbox"] = union_bbox(current_question["bbox"], bbox)
 
-        finalize_question()
+    # Finalize the last question after all pages are processed.
+    finalize_question()
 
     if total_words < 100:
         raise RuntimeError(
