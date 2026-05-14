@@ -2,7 +2,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 
 const root = process.cwd();
-const inputPdf = process.env.PDF_PATH || path.resolve(root, "scripts/input/source.pdf");
+const inputPdf = process.env.PDF_PATH || path.resolve(root, "data/Teste eng.pdf");
 const outputJson = path.resolve(root, "scripts/generated/parsed-questions.json");
 const mediaDir = path.resolve(root, "public/pharmaquiz-media");
 

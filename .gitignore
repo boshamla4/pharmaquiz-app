@@ -39,6 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-# local parser input
+# local parser input — put your PDF in data/ (never commit PDFs)
 /scripts/input/*.pdf
-!/scripts/input/source.pdf
+/data/*.pdf
