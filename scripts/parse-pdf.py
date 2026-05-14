@@ -13,7 +13,8 @@ except Exception as exc:
     raise
 
 QUESTION_RE = re.compile(r"^(\d{1,4})[\.)]\s*(.+)$")
-OPTION_RE = re.compile(r"^([A-E])[\.)]\s*(.*)$")
+# Match uppercase A-E or lowercase a-e with optional leading paren and trailing paren/period
+OPTION_RE = re.compile(r"^\(?([a-eA-E])\s*[).]\s*(.*)$")
 SECTION_RE = re.compile(r"^(SECTION|PART|MODULE|CHAPTER)\b", re.IGNORECASE)
 
 
@@ -48,11 +49,18 @@ def bbox_intersects(a, b):
     return not (a[2] < b[0] or a[0] > b[2] or a[3] < b[1] or a[1] > b[3])
 
 
-def is_yellow(fill):
-    if not fill or len(fill) < 3:
+def is_yellow_color(color):
+    """Return True for any yellow-ish color (fill or stroke)."""
+    if not color or len(color) < 3:
         return False
-    r, g, b = fill[0], fill[1], fill[2]
-    return r >= 0.75 and g >= 0.75 and b <= 0.45
+    r, g, b = color[0], color[1], color[2]
+    # Standard yellow (R high, G high, B low)
+    if r >= 0.75 and g >= 0.75 and b <= 0.45:
+        return True
+    # Pure yellow stroke used with Multiply blend mode in this PDF format
+    if r >= 0.95 and g >= 0.95 and b <= 0.1:
+        return True
+    return False
 
 
 def extract_image(doc, xref, out_path):
@@ -114,11 +122,24 @@ def main():
             annot = annot.next
 
         for drawing in page.get_drawings():
-            if not is_yellow(drawing.get("fill")):
+            is_yellow_fill = is_yellow_color(drawing.get("fill"))
+            is_yellow_stroke = is_yellow_color(drawing.get("color"))
+            if not (is_yellow_fill or is_yellow_stroke):
                 continue
             rect = drawing.get("rect")
-            if rect:
-                highlight_rects.append([rect.x0, rect.y0, rect.x1, rect.y1])
+            if not rect:
+                continue
+            x0, y0, x1, y1 = rect.x0, rect.y0, rect.x1, rect.y1
+            # Yellow strokes used as highlights are often zero-height horizontal
+            # lines — expand vertically so they intersect with text bboxes.
+            EXPAND = 5
+            if abs(y1 - y0) < EXPAND:
+                y0 -= EXPAND
+                y1 += EXPAND
+            if abs(x1 - x0) < EXPAND:
+                x0 -= EXPAND
+                x1 += EXPAND
+            highlight_rects.append([x0, y0, x1, y1])
 
         total_highlight_rects += len(highlight_rects)
 
@@ -232,7 +253,7 @@ def main():
 
             omatch = OPTION_RE.match(text)
             if omatch:
-                letter = omatch.group(1)
+                letter = omatch.group(1).upper()
                 current_option = letter
                 current_question["options"][letter] = {
                     "id": letter,
@@ -262,9 +283,10 @@ def main():
         )
 
     if total_highlight_rects == 0:
-        raise RuntimeError(
-            "No yellow highlights detected. Ensure the PDF keeps highlight annotations or yellow fill rectangles. "
-            "If highlights are flattened into a non-yellow color layer, adjust detection thresholds in scripts/parse-pdf.py."
+        print(
+            "WARNING: No yellow highlights detected. Correct answers will be empty. "
+            "Check scripts/parse-pdf.py if the PDF uses a non-standard highlight encoding.",
+            file=sys.stderr,
         )
 
     files = []
