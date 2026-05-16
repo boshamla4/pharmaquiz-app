@@ -14,13 +14,10 @@ export default function ReviewAttemptClient({
   questions: AttemptQuestionRecord[];
 }) {
   const router = useRouter();
-  const [index, setIndex] = useState(0);
   const [pendingRedo, setPendingRedo] = useState<"all" | "wrong_only" | null>(null);
-  const activeQuestion = questions[index];
 
   async function redo(filter: "all" | "wrong_only") {
     setPendingRedo(filter);
-
     const response = await fetch("/api/attempts/start", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,18 +30,16 @@ export default function ReviewAttemptClient({
         questionTypes: [],
       }),
     });
-
     const payload = (await response.json().catch(() => null)) as { attemptId?: string; error?: string } | null;
     if (response.ok && payload?.attemptId) {
       router.push(`/attempt/${payload.attemptId}`);
       router.refresh();
       return;
     }
-
     setPendingRedo(null);
   }
 
-  if (!activeQuestion) {
+  if (questions.length === 0) {
     return (
       <p className="rounded-xl bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-amber-700 dark:text-amber-400">
         No reviewable questions were found.
@@ -56,10 +51,19 @@ export default function ReviewAttemptClient({
   const total = attempt.total_questions;
   const pct = total > 0 ? Math.round((score / total) * 100) : 0;
 
+  const wrongCount = questions.filter((q) => {
+    const correct = q.question_snapshot.correct_answers;
+    const selected = q.selected_answer_ids ?? [];
+    return !(
+      correct.length === selected.length &&
+      correct.every((id) => selected.includes(id))
+    );
+  }).length;
+
   return (
-    <div className="space-y-4">
-      {/* Score header */}
-      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5 shadow-sm">
+    <div className="space-y-5">
+      {/* Score header — sticky on scroll */}
+      <div className="sticky top-0 z-10 rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 backdrop-blur p-5 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">Final score</p>
@@ -73,7 +77,9 @@ export default function ReviewAttemptClient({
                 style={{ width: `${pct}%` }}
               />
             </div>
-            <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">{pct}% correct</p>
+            <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+              {pct}% · {wrongCount} wrong
+            </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button
@@ -90,42 +96,27 @@ export default function ReviewAttemptClient({
               disabled={pendingRedo !== null}
               className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-40 transition-colors"
             >
-              {pendingRedo === "wrong_only" ? "Creating…" : "Redo wrong only"}
+              {pendingRedo === "wrong_only" ? "Creating…" : `Redo wrong (${wrongCount})`}
             </button>
           </div>
         </div>
       </div>
 
-      <QuestionCard
-        question={activeQuestion.question_snapshot}
-        selectedIds={activeQuestion.selected_answer_ids}
-        showResults
-        disabled
-        scoreWeight={activeQuestion.score_weight}
-      />
-
-      {/* Navigation */}
-      <div className="flex items-center justify-between gap-3">
-        <button
-          type="button"
-          onClick={() => setIndex((value) => Math.max(0, value - 1))}
-          disabled={index === 0}
-          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
-        >
-          ← Previous
-        </button>
-        <p className="text-xs text-gray-400 dark:text-gray-500">
-          {index + 1} / {questions.length}
-        </p>
-        <button
-          type="button"
-          onClick={() => setIndex((value) => Math.min(questions.length - 1, value + 1))}
-          disabled={index === questions.length - 1}
-          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
-        >
-          Next →
-        </button>
-      </div>
+      {/* All questions */}
+      {questions.map((q, i) => (
+        <div key={q.id}>
+          <p className="mb-2 text-xs font-medium text-gray-400 dark:text-gray-500 px-1">
+            {i + 1} / {questions.length}
+          </p>
+          <QuestionCard
+            question={q.question_snapshot}
+            selectedIds={q.selected_answer_ids ?? []}
+            showResults
+            disabled
+            scoreWeight={q.score_weight}
+          />
+        </div>
+      ))}
     </div>
   );
 }

@@ -14,15 +14,24 @@ interface AttemptRunnerProps {
 export default function AttemptRunner({ attempt, questions, initialRemainingSeconds }: AttemptRunnerProps) {
   const router = useRouter();
   const initialAnswers = useMemo(
-    () => Object.fromEntries(questions.map((question) => [question.id, question.selected_answer_ids ?? []])),
+    () => Object.fromEntries(questions.map((q) => [q.id, q.selected_answer_ids ?? []])),
     [questions],
   );
+
   const [answers, setAnswers] = useState<Record<string, string[]>>(initialAnswers);
   const [index, setIndex] = useState(attempt.current_index);
-  const [status, setStatus] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState<number | null>(initialRemainingSeconds);
   const [revealedSet, setRevealedSet] = useState<Set<string>>(new Set());
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+
+  // Refs so background save always sees latest values without re-creating callbacks
+  const answersRef = useRef(answers);
+  const indexRef = useRef(index);
+  useEffect(() => { answersRef.current = answers; }, [answers]);
+  useEffect(() => { indexRef.current = index; }, [index]);
+
   const autoSaveRef = useRef<number | null>(null);
 
   const activeQuestion = questions[index];
@@ -31,15 +40,12 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
     const isMultiple = (activeQuestion.question_snapshot.type ?? "single") === "multiple";
     setAnswers((prev) => {
       const current = prev[activeQuestion.id] ?? [];
-      if (!isMultiple) {
-        return { ...prev, [activeQuestion.id]: checked ? [optionId] : [] };
-      }
+      if (!isMultiple) return { ...prev, [activeQuestion.id]: checked ? [optionId] : [] };
       const next = new Set(current);
       if (checked) next.add(optionId);
       else next.delete(optionId);
       return { ...prev, [activeQuestion.id]: Array.from(next) };
     });
-    // CS: auto-reveal immediately on selection
     if (!isMultiple) {
       setRevealedSet((prev) => new Set([...prev, activeQuestion.id]));
     }
@@ -49,37 +55,52 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
     setRevealedSet((prev) => new Set([...prev, activeQuestion.id]));
   }
 
-  const handleSaveProgress = useCallback(async (nextIndex: number, message = "Progress saved.") => {
-    setPending(true);
+  // Background auto-save — never touches `pending`, completely silent
+  const backgroundSave = useCallback(async () => {
     const payload = {
-      currentIndex: nextIndex,
-      answers: questions.map((question) => ({
-        attemptQuestionId: question.id,
-        selectedAnswerIds: answers[question.id] ?? [],
+      currentIndex: indexRef.current,
+      answers: questions.map((q) => ({
+        attemptQuestionId: q.id,
+        selectedAnswerIds: answersRef.current[q.id] ?? [],
       })),
     };
+    await fetch(`/api/attempts/${attempt.id}/save`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => null); // swallow errors silently
+  }, [attempt.id, questions]);
 
+  // Explicit save — blocks UI so user knows the action completed
+  const explicitSave = useCallback(async (): Promise<boolean> => {
+    setPending(true);
+    setSubmitError(null);
+    const payload = {
+      currentIndex: indexRef.current,
+      answers: questions.map((q) => ({
+        attemptQuestionId: q.id,
+        selectedAnswerIds: answersRef.current[q.id] ?? [],
+      })),
+    };
     const response = await fetch(`/api/attempts/${attempt.id}/save`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
-
     const body = (await response.json().catch(() => null)) as { error?: string } | null;
     if (!response.ok) {
-      setStatus(body?.error ?? "Failed to save progress.");
+      setSubmitError(body?.error ?? "Failed to save. Please try again.");
       setPending(false);
       return false;
     }
-
-    setStatus(message);
     setPending(false);
     return true;
-  }, [answers, attempt.id, questions]);
+  }, [attempt.id, questions]);
 
   const submitAttempt = useCallback(async () => {
     setPending(true);
-    const saveOk = await handleSaveProgress(index, "Submitting…");
+    setSubmitError(null);
+    const saveOk = await explicitSave();
     if (!saveOk) return;
 
     const response = await fetch(`/api/attempts/${attempt.id}/submit`, {
@@ -87,48 +108,34 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
       headers: { "Content-Type": "application/json" },
     });
     const body = (await response.json().catch(() => null)) as { error?: string } | null;
-
     if (!response.ok) {
-      setStatus(body?.error ?? "Failed to submit the test.");
+      setSubmitError(body?.error ?? "Failed to submit. Please try again.");
       setPending(false);
       return;
     }
-
     router.replace(`/review/${attempt.id}`);
     router.refresh();
-  }, [attempt.id, index, router, handleSaveProgress]);
+  }, [attempt.id, explicitSave, router]);
 
+  // Timer
   useEffect(() => {
     if (attempt.timer_seconds === null) return;
-
     const interval = window.setInterval(() => {
-      setRemainingSeconds((value) => {
-        if (value === null) return value;
-        if (value <= 1) {
-          window.clearInterval(interval);
-          void submitAttempt();
-          return 0;
-        }
-        return value - 1;
+      setRemainingSeconds((v) => {
+        if (v === null) return v;
+        if (v <= 1) { window.clearInterval(interval); void submitAttempt(); return 0; }
+        return v - 1;
       });
     }, 1000);
-
     return () => window.clearInterval(interval);
   }, [attempt.timer_seconds, submitAttempt]);
 
+  // Background auto-save — 4 s debounce, never blocks UI
   useEffect(() => {
-    if (autoSaveRef.current) {
-      window.clearTimeout(autoSaveRef.current);
-    }
-
-    autoSaveRef.current = window.setTimeout(() => {
-      void handleSaveProgress(index, "Auto-saved.");
-    }, 2500);
-
-    return () => {
-      if (autoSaveRef.current) window.clearTimeout(autoSaveRef.current);
-    };
-  }, [answers, index, handleSaveProgress]);
+    if (autoSaveRef.current) window.clearTimeout(autoSaveRef.current);
+    autoSaveRef.current = window.setTimeout(() => void backgroundSave(), 4000);
+    return () => { if (autoSaveRef.current) window.clearTimeout(autoSaveRef.current); };
+  }, [answers, index, backgroundSave]);
 
   if (!activeQuestion) {
     return (
@@ -138,108 +145,138 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
     );
   }
 
-  const answeredCount = Object.values(answers).filter((entry) => entry.length > 0).length;
+  const answeredCount = Object.values(answers).filter((e) => e.length > 0).length;
+  const unanswered = questions.length - answeredCount;
   const progressPct = Math.round((answeredCount / questions.length) * 100);
   const isRevealed = revealedSet.has(activeQuestion.id);
   const isMultipleActive = (activeQuestion.question_snapshot.type ?? "single") === "multiple";
   const currentAnswers = answers[activeQuestion.id] ?? [];
 
   return (
-    <div className="space-y-4">
-      {/* Progress header */}
-      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <div>
-            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-              Question {index + 1} <span className="font-normal text-gray-400">of {questions.length}</span>
-            </p>
-            <p className="text-xs text-gray-400 dark:text-gray-500">{answeredCount} answered · {progressPct}% complete</p>
+    <>
+      <div className="space-y-4">
+        {/* Progress header */}
+        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                Question {index + 1} <span className="font-normal text-gray-400">of {questions.length}</span>
+              </p>
+              <p className="text-xs text-gray-400 dark:text-gray-500">{answeredCount} answered · {progressPct}%</p>
+            </div>
+            <div className="text-right text-xs">
+              {remainingSeconds !== null ? (
+                <span className={`font-mono font-semibold text-sm ${remainingSeconds < 300 ? "text-red-500" : "text-gray-600 dark:text-gray-300"}`}>
+                  {Math.floor(remainingSeconds / 60)}:{String(remainingSeconds % 60).padStart(2, "0")}
+                </span>
+              ) : (
+                <span className="capitalize text-gray-400 dark:text-gray-500">{attempt.mode}</span>
+              )}
+            </div>
           </div>
-          <div className="text-right text-xs text-gray-400 dark:text-gray-500">
-            {remainingSeconds !== null ? (
-              <span className={`font-mono font-semibold ${remainingSeconds < 300 ? "text-red-500" : "text-gray-600 dark:text-gray-300"}`}>
-                {Math.floor(remainingSeconds / 60)}:{String(remainingSeconds % 60).padStart(2, "0")}
-              </span>
-            ) : (
-              <span className="capitalize">{attempt.mode}</span>
-            )}
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+            <div className="h-1.5 rounded-full bg-teal-500 transition-all duration-300" style={{ width: `${progressPct}%` }} />
           </div>
         </div>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
-          <div
-            className="h-1.5 rounded-full bg-teal-500 transition-all duration-300"
-            style={{ width: `${progressPct}%` }}
-          />
-        </div>
-      </div>
 
-      <QuestionCard
-        question={activeQuestion.question_snapshot}
-        selectedIds={currentAnswers}
-        showResults={isRevealed}
-        disabled={isRevealed}
-        onToggle={isRevealed ? undefined : updateSelection}
-      />
+        <QuestionCard
+          question={activeQuestion.question_snapshot}
+          selectedIds={currentAnswers}
+          showResults={isRevealed}
+          disabled={isRevealed}
+          onToggle={isRevealed ? undefined : updateSelection}
+        />
 
-      {/* CM: explicit check button */}
-      {isMultipleActive && !isRevealed && currentAnswers.length > 0 && (
-        <button
-          type="button"
-          onClick={revealCurrentQuestion}
-          className="w-full rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700 transition-colors"
-        >
-          Check answer
-        </button>
-      )}
-
-      {status ? (
-        <p className="rounded-xl bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-500 dark:text-gray-400">
-          {status}
-        </p>
-      ) : null}
-
-      {/* Navigation */}
-      <div className="flex items-center justify-between gap-3">
-        <button
-          type="button"
-          onClick={() => setIndex((value) => Math.max(0, value - 1))}
-          disabled={index === 0 || pending}
-          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
-        >
-          ← Previous
-        </button>
-
-        <div className="flex flex-wrap gap-2">
+        {isMultipleActive && !isRevealed && currentAnswers.length > 0 && (
           <button
             type="button"
-            onClick={async () => {
-              const ok = await handleSaveProgress(index);
-              if (ok) router.push("/dashboard");
-            }}
-            disabled={pending}
+            onClick={revealCurrentQuestion}
+            className="w-full rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700 transition-colors"
+          >
+            Check answer
+          </button>
+        )}
+
+        {submitError ? (
+          <p className="rounded-xl bg-red-50 dark:bg-red-900/20 px-4 py-2.5 text-sm text-red-700 dark:text-red-400">
+            {submitError}
+          </p>
+        ) : null}
+
+        {/* Navigation */}
+        <div className="flex items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={() => setIndex((v) => Math.max(0, v - 1))}
+            disabled={index === 0}
             className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
           >
-            Save & exit
+            ← Previous
           </button>
+
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={async () => { const ok = await explicitSave(); if (ok) router.push("/dashboard"); }}
+              disabled={pending}
+              className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
+            >
+              Save & exit
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                if (unanswered > 0) setShowSubmitModal(true);
+                else void submitAttempt();
+              }}
+              disabled={pending}
+              className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-40 transition-colors"
+            >
+              {pending ? "Submitting…" : "Submit test"}
+            </button>
+          </div>
+
           <button
             type="button"
-            onClick={() => void submitAttempt()}
-            disabled={pending}
-            className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-40 transition-colors"
+            onClick={() => setIndex((v) => Math.min(questions.length - 1, v + 1))}
+            disabled={index === questions.length - 1}
+            className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
           >
-            {pending ? "Submitting…" : "Submit test"}
+            Next →
           </button>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setIndex((value) => Math.min(questions.length - 1, value + 1))}
-          disabled={index === questions.length - 1 || pending}
-          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
-        >
-          Next →
-        </button>
       </div>
-    </div>
+
+      {/* Submit confirmation modal */}
+      {showSubmitModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white dark:bg-gray-900 p-6 shadow-2xl ring-1 ring-gray-200 dark:ring-gray-800">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Finish test early?</h3>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+              You have answered <strong className="text-gray-900 dark:text-gray-100">{answeredCount}</strong> of{" "}
+              <strong className="text-gray-900 dark:text-gray-100">{questions.length}</strong> questions.{" "}
+              <strong className="text-amber-600 dark:text-amber-400">{unanswered} unanswered</strong>{" "}
+              {unanswered === 1 ? "question" : "questions"} will be marked wrong.
+            </p>
+            <div className="mt-5 flex gap-3">
+              <button
+                type="button"
+                onClick={() => setShowSubmitModal(false)}
+                className="flex-1 rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                Keep going
+              </button>
+              <button
+                type="button"
+                onClick={() => { setShowSubmitModal(false); void submitAttempt(); }}
+                className="flex-1 rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-red-700 transition-colors"
+              >
+                Submit anyway
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
