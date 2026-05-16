@@ -35,7 +35,7 @@ export default function FinalMockStarter() {
         return;
       }
 
-      setConfig(payload);
+      setConfig(payload as FinalMockConfig);
       setError(null);
       setLoading(false);
     }

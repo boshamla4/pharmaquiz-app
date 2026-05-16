@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCurrentSession } from "@/lib/auth";
+import { getSessionValidation, SESSION_COOKIE_NAME } from "@/lib/auth";
 import { hasSupabaseServerEnv } from "@/lib/env";
 
 export async function GET(_request: NextRequest) {
@@ -7,14 +7,19 @@ export async function GET(_request: NextRequest) {
     return NextResponse.json({ error: "Supabase is not configured." }, { status: 503 });
   }
 
-  const session = await getCurrentSession();
-  if (!session) {
-    return NextResponse.json({ error: "Session invalid or missing." }, { status: 401 });
+  const result = await getSessionValidation();
+
+  if (!result.session) {
+    const response = NextResponse.json({ error: "Session invalid.", code: result.code }, { status: 401 });
+    if (result.code !== "SESSION_MISSING") {
+      response.cookies.set(SESSION_COOKIE_NAME, "", { maxAge: 0, path: "/" });
+    }
+    return response;
   }
 
   return NextResponse.json({
     valid: true,
-    profileId: session.profileId,
-    displayName: session.displayName,
+    profileId: result.session.profileId,
+    displayName: result.session.displayName,
   });
 }
