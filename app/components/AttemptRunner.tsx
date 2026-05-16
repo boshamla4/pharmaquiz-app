@@ -189,7 +189,10 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={() => void handleSaveProgress(index, "Saved. Resume from the dashboard anytime.")}
+            onClick={async () => {
+              const ok = await handleSaveProgress(index);
+              if (ok) router.push("/dashboard");
+            }}
             disabled={pending}
             className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
           >

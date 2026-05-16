@@ -25,7 +25,7 @@ export default function StartAttemptForm({ sections }: { sections: SectionOption
   const [orderMode, setOrderMode] = useState<"ordered" | "random">("ordered");
   const [includeRepeated, setIncludeRepeated] = useState(true);
   const [wrongOnly, setWrongOnly] = useState(false);
-  const [useAllQuestions, setUseAllQuestions] = useState(false);
+  const [useAllQuestions, setUseAllQuestions] = useState(true);
   const [limit, setLimit] = useState(25);
   const [timerMinutes, setTimerMinutes] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -221,8 +221,9 @@ export default function StartAttemptForm({ sections }: { sections: SectionOption
         </div>
 
         {/* Quantity & timer */}
-        <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">Quantity</p>
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 space-y-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">Quantity & timer</p>
+
           <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
             <input
               type="checkbox"
@@ -230,29 +231,47 @@ export default function StartAttemptForm({ sections }: { sections: SectionOption
               onChange={(e) => setUseAllQuestions(e.target.checked)}
               className="accent-teal-600"
             />
-            Use all matching
+            Use all matching questions
           </label>
-          <div className="flex gap-3">
-            <div className="flex-1">
-              <label className="mb-1 block text-xs text-gray-400 dark:text-gray-500">Limit</label>
-              <input
-                type="number"
-                min={1}
-                value={limit}
-                onChange={(e) => setLimit(Number(e.target.value) || 1)}
-                disabled={useAllQuestions}
-                className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100 disabled:opacity-40"
-              />
+
+          <div className={useAllQuestions ? "opacity-40 pointer-events-none" : ""}>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-xs text-gray-400 dark:text-gray-500">Question limit</label>
+              <span className="text-sm font-semibold text-teal-600 dark:text-teal-400 tabular-nums">{limit}</span>
             </div>
-            <div className="flex-1">
-              <label className="mb-1 block text-xs text-gray-400 dark:text-gray-500">Timer (min)</label>
-              <input
-                type="number"
-                min={0}
-                value={timerMinutes}
-                onChange={(e) => setTimerMinutes(Number(e.target.value) || 0)}
-                className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100"
-              />
+            <input
+              type="range"
+              min={5}
+              max={200}
+              step={5}
+              value={limit}
+              onChange={(e) => setLimit(Number(e.target.value))}
+              disabled={useAllQuestions}
+              className="w-full h-2 rounded-full accent-teal-600 cursor-pointer touch-pan-x"
+            />
+            <div className="flex justify-between text-xs text-gray-300 dark:text-gray-600 mt-0.5">
+              <span>5</span><span>200</span>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-xs text-gray-400 dark:text-gray-500">Timer</label>
+              <span className="text-sm font-semibold text-teal-600 dark:text-teal-400 tabular-nums">
+                {timerMinutes === 0 ? "Off" : `${timerMinutes} min`}
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={180}
+              step={5}
+              value={timerMinutes}
+              onChange={(e) => setTimerMinutes(Number(e.target.value))}
+              className="w-full h-2 rounded-full accent-teal-600 cursor-pointer touch-pan-x"
+            />
+            <div className="flex justify-between text-xs text-gray-300 dark:text-gray-600 mt-0.5">
+              <span>Off</span><span>3 hr</span>
             </div>
           </div>
         </div>
