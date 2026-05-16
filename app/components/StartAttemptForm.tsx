@@ -8,6 +8,16 @@ interface SectionOption {
   count: number;
 }
 
+function shortName(name: string): string {
+  return name
+    .replace(/\s*department\s*/i, "")
+    .replace(/\s*of\s+/i, " ")
+    .trim()
+    .split(" ")
+    .slice(0, 4)
+    .join(" ");
+}
+
 export default function StartAttemptForm({ sections }: { sections: SectionOption[] }) {
   const router = useRouter();
   const [selectedSections, setSelectedSections] = useState<string[]>([]);
@@ -27,13 +37,16 @@ export default function StartAttemptForm({ sections }: { sections: SectionOption
     plannedQuestionCount: number;
   } | null>(null);
 
-  function toggleListValue<T extends string>(value: T, current: T[], setter: (next: T[]) => void) {
-    if (current.includes(value)) {
-      setter(current.filter((entry) => entry !== value));
-      return;
-    }
+  function toggleSection(name: string) {
+    setSelectedSections((prev) =>
+      prev.includes(name) ? prev.filter((s) => s !== name) : [...prev, name],
+    );
+  }
 
-    setter([...current, value]);
+  function toggleType(type: "single" | "multiple") {
+    setQuestionTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
+    );
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -91,9 +104,7 @@ export default function StartAttemptForm({ sections }: { sections: SectionOption
       if (!cancelled && response.ok && payload) {
         setPreview(payload);
       }
-      if (!cancelled) {
-        setPreviewLoading(false);
-      }
+      if (!cancelled) setPreviewLoading(false);
     }, 200);
 
     return () => {
@@ -103,134 +114,174 @@ export default function StartAttemptForm({ sections }: { sections: SectionOption
   }, [selectedSections, questionTypes, includeRepeated, wrongOnly, useAllQuestions, limit]);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid gap-5 md:grid-cols-2">
-        <fieldset className="rounded-2xl border border-gray-200 p-4">
-          <legend className="px-2 text-sm font-semibold text-gray-700">Categories / sections</legend>
-          <div className="mt-3 space-y-2 text-sm text-gray-700">
-            {sections.map((section) => (
-              <label key={section.name} className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={selectedSections.includes(section.name)}
-                  onChange={() => toggleListValue(section.name, selectedSections, setSelectedSections)}
-                />
-                <span>
-                  {section.name} ({section.count})
-                </span>
-              </label>
-            ))}
-          </div>
-        </fieldset>
-
-        <div className="space-y-5">
-          <fieldset className="rounded-2xl border border-gray-200 p-4">
-            <legend className="px-2 text-sm font-semibold text-gray-700">Question types</legend>
-            <div className="mt-3 flex flex-col gap-2 text-sm text-gray-700">
-              {(["single", "multiple"] as const).map((type) => (
-                <label key={type} className="flex items-center gap-2 capitalize">
-                  <input
-                    type="checkbox"
-                    checked={questionTypes.includes(type)}
-                    onChange={() => toggleListValue(type, questionTypes, setQuestionTypes)}
-                  />
-                  {type}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          <fieldset className="rounded-2xl border border-gray-200 p-4">
-            <legend className="px-2 text-sm font-semibold text-gray-700">Question delivery mode</legend>
-            <div className="mt-3 flex flex-col gap-2 text-sm text-gray-700">
-              <label className="flex items-center gap-2">
-                <input type="radio" checked={orderMode === "ordered"} onChange={() => setOrderMode("ordered")} />
-                Ordered questions (PDF section order)
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" checked={orderMode === "random"} onChange={() => setOrderMode("random")} />
-                Randomized questions
-              </label>
-            </div>
-          </fieldset>
-
-          <fieldset className="rounded-2xl border border-gray-200 p-4">
-            <legend className="px-2 text-sm font-semibold text-gray-700">History filters</legend>
-            <div className="mt-3 flex flex-col gap-2 text-sm text-gray-700">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={includeRepeated}
-                  onChange={(event) => setIncludeRepeated(event.target.checked || wrongOnly)}
-                  disabled={wrongOnly}
-                />
-                Allow previously answered questions
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={wrongOnly}
-                  onChange={(event) => {
-                    setWrongOnly(event.target.checked);
-                    if (event.target.checked) {
-                      setIncludeRepeated(true);
-                    }
-                  }}
-                />
-                Only previously wrong questions
-              </label>
-            </div>
-          </fieldset>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Sections */}
+      <div>
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+          Sections <span className="normal-case font-normal text-gray-400">(all if none selected)</span>
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {sections.map((section) => {
+            const active = selectedSections.includes(section.name);
+            return (
+              <button
+                key={section.name}
+                type="button"
+                onClick={() => toggleSection(section.name)}
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                  active
+                    ? "bg-teal-600 text-white"
+                    : "border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-teal-300 dark:hover:border-teal-700"
+                }`}
+                title={`${section.name} (${section.count})`}
+              >
+                {shortName(section.name)} ({section.count})
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <label className="rounded-2xl border border-gray-200 p-4 text-sm text-gray-700">
-          <span className="mb-2 block font-semibold">Use all matching questions</span>
-          <input type="checkbox" checked={useAllQuestions} onChange={(event) => setUseAllQuestions(event.target.checked)} />
-        </label>
+      {/* Settings grid */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        {/* Question types */}
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">
+            Type <span className="normal-case font-normal">(all if none selected)</span>
+          </p>
+          <div className="flex gap-2">
+            {(["single", "multiple"] as const).map((type) => {
+              const active = questionTypes.includes(type);
+              return (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => toggleType(type)}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-medium capitalize transition-colors ${
+                    active
+                      ? "bg-teal-600 text-white"
+                      : "border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300"
+                  }`}
+                >
+                  {type}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-        <label className="rounded-2xl border border-gray-200 p-4 text-sm text-gray-700">
-          <span className="mb-2 block font-semibold">Question limit</span>
-          <input
-            type="number"
-            min={1}
-            value={limit}
-            onChange={(event) => setLimit(Number(event.target.value) || 1)}
-            disabled={useAllQuestions}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2"
-          />
-        </label>
+        {/* Delivery mode */}
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">Delivery</p>
+          <div className="flex gap-2">
+            {(["ordered", "random"] as const).map((mode) => (
+              <button
+                key={mode}
+                type="button"
+                onClick={() => setOrderMode(mode)}
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium capitalize transition-colors ${
+                  orderMode === mode
+                    ? "bg-teal-600 text-white"
+                    : "border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300"
+                }`}
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+        </div>
 
-        <label className="rounded-2xl border border-gray-200 p-4 text-sm text-gray-700">
-          <span className="mb-2 block font-semibold">Timer (minutes)</span>
-          <input
-            type="number"
-            min={0}
-            value={timerMinutes}
-            onChange={(event) => setTimerMinutes(Number(event.target.value) || 0)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2"
-          />
-        </label>
+        {/* History filters */}
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">History</p>
+          <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={includeRepeated}
+                onChange={(e) => setIncludeRepeated(e.target.checked || wrongOnly)}
+                disabled={wrongOnly}
+                className="accent-teal-600"
+              />
+              Allow repeated questions
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={wrongOnly}
+                onChange={(e) => {
+                  setWrongOnly(e.target.checked);
+                  if (e.target.checked) setIncludeRepeated(true);
+                }}
+                className="accent-teal-600"
+              />
+              Wrong answers only
+            </label>
+          </div>
+        </div>
+
+        {/* Quantity & timer */}
+        <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 dark:text-gray-500">Quantity</p>
+          <label className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={useAllQuestions}
+              onChange={(e) => setUseAllQuestions(e.target.checked)}
+              className="accent-teal-600"
+            />
+            Use all matching
+          </label>
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <label className="mb-1 block text-xs text-gray-400 dark:text-gray-500">Limit</label>
+              <input
+                type="number"
+                min={1}
+                value={limit}
+                onChange={(e) => setLimit(Number(e.target.value) || 1)}
+                disabled={useAllQuestions}
+                className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100 disabled:opacity-40"
+              />
+            </div>
+            <div className="flex-1">
+              <label className="mb-1 block text-xs text-gray-400 dark:text-gray-500">Timer (min)</label>
+              <input
+                type="number"
+                min={0}
+                value={timerMinutes}
+                onChange={(e) => setTimerMinutes(Number(e.target.value) || 0)}
+                className="w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      {error ? <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p> : null}
-
-      <div className="rounded-lg border border-blue-100 bg-blue-50 px-3 py-2 text-xs text-blue-800">
+      {/* Preview */}
+      <div className="rounded-xl bg-gray-50 dark:bg-gray-800 px-4 py-3 text-xs text-gray-500 dark:text-gray-400">
         {previewLoading ? (
-          <p>Calculating available questions…</p>
+          <p>Calculating…</p>
         ) : preview ? (
-          <>
-            <p>Total matched before history filters: {preview.totalMatchingBeforeHistory}</p>
-            <p>Available after history filters: {preview.totalAvailable}</p>
-            <p>Questions in this test: {preview.plannedQuestionCount}</p>
-          </>
+          <div className="flex flex-wrap gap-4">
+            <span><strong className="text-gray-700 dark:text-gray-200">{preview.totalMatchingBeforeHistory}</strong> matched</span>
+            <span><strong className="text-gray-700 dark:text-gray-200">{preview.totalAvailable}</strong> available</span>
+            <span><strong className="text-teal-600 dark:text-teal-400">{preview.plannedQuestionCount}</strong> in this test</span>
+          </div>
         ) : (
-          <p>Preview data will appear here once you choose filters.</p>
+          <p>Select filters above to preview question count.</p>
         )}
       </div>
 
-      <button type="submit" disabled={pending} className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">
+      {error ? (
+        <p className="rounded-xl bg-red-50 dark:bg-red-900/20 px-4 py-2.5 text-sm text-red-700 dark:text-red-400">{error}</p>
+      ) : null}
+
+      <button
+        type="submit"
+        disabled={pending}
+        className="rounded-xl bg-teal-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-50 transition-colors"
+      >
         {pending ? "Starting…" : "Start test"}
       </button>
     </form>

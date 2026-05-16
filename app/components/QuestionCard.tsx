@@ -22,19 +22,29 @@ export default function QuestionCard({
   const isMultiple = (question.type ?? "single") === "multiple";
 
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-2 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-        <span>{question.section}</span>
-        <span>
-          Question {question.question_number}
-          {question.source_page ? ` · Page ${question.source_page}` : ""}
+    <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5 shadow-sm">
+      {/* Meta row */}
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <span className="text-xs font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400">
+          {question.section}
+        </span>
+        <span className="text-xs text-gray-400 dark:text-gray-500">
+          Q{question.question_number}{question.source_page ? ` · p.${question.source_page}` : ""}
         </span>
       </div>
 
-      <p className="mt-3 text-base font-medium leading-relaxed text-gray-900 dark:text-gray-100">{question.question_text}</p>
+      {isMultiple && (
+        <span className="mb-3 inline-flex items-center rounded-full bg-amber-50 dark:bg-amber-900/30 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:text-amber-400">
+          Select all that apply
+        </span>
+      )}
+
+      <p className="text-base font-medium leading-relaxed text-gray-900 dark:text-gray-100">
+        {question.question_text}
+      </p>
       <QuestionMedia images={question.images} alt="Question visual" />
 
-      <div className="mt-5 space-y-3">
+      <div className="mt-5 space-y-2">
         {question.options.map((option) => {
           const checked = selectedIds.includes(option.id);
           const correct = question.correct_answers.includes(option.id);
@@ -42,30 +52,49 @@ export default function QuestionCard({
           const missed = showResults && !checked && correct;
           const rightPick = showResults && checked && correct;
 
-          let classes = "border-gray-200 dark:border-gray-600";
-          if (rightPick) classes = "border-green-300 bg-green-50 dark:border-green-700 dark:bg-green-900/30";
-          else if (wrongPick) classes = "border-red-300 bg-red-50 dark:border-red-700 dark:bg-red-900/30";
-          else if (missed) classes = "border-amber-300 bg-amber-50 dark:border-amber-700 dark:bg-amber-900/30";
-          else if (checked) classes = "border-blue-300 bg-blue-50 dark:border-blue-600 dark:bg-blue-900/30";
+          let rowClass =
+            "border-gray-200 dark:border-gray-700 " +
+            (!disabled ? "cursor-pointer hover:border-teal-300 dark:hover:border-teal-700 hover:bg-teal-50/40 dark:hover:bg-teal-900/10" : "cursor-default");
+          let badgeClass = "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400";
+
+          if (checked && !showResults) {
+            rowClass = "border-teal-400 dark:border-teal-600 bg-teal-50 dark:bg-teal-900/20 cursor-pointer";
+            badgeClass = "bg-teal-600 text-white";
+          }
+          if (rightPick) {
+            rowClass = "border-emerald-400 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 cursor-default";
+            badgeClass = "bg-emerald-500 text-white";
+          }
+          if (wrongPick) {
+            rowClass = "border-red-400 dark:border-red-600 bg-red-50 dark:bg-red-900/20 cursor-default";
+            badgeClass = "bg-red-500 text-white";
+          }
+          if (missed) {
+            rowClass = "border-amber-400 dark:border-amber-600 bg-amber-50 dark:bg-amber-900/20 cursor-default";
+            badgeClass = "bg-amber-400 text-white";
+          }
 
           return (
-            <label key={option.id} className={`block rounded-lg border p-3 ${classes}`}>
-              <div className="flex items-start gap-3">
-                <input
-                  type={isMultiple ? "checkbox" : "radio"}
-                  name={`question-${question.id}`}
-                  checked={checked}
-                  onChange={(event) => onToggle?.(option.id, event.target.checked)}
-                  disabled={disabled}
-                  className="mt-1"
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm leading-relaxed text-gray-800 dark:text-gray-200">
-                    <span className="mr-1 font-semibold">{option.id}.</span>
-                    {option.text}
-                  </p>
-                  <QuestionMedia images={option.images} alt={`Option ${option.id} visual`} />
-                </div>
+            <label
+              key={option.id}
+              className={`flex items-start gap-3 rounded-xl border-2 p-3 transition-colors ${rowClass}`}
+            >
+              <input
+                type={isMultiple ? "checkbox" : "radio"}
+                name={`question-${question.id}`}
+                checked={checked}
+                onChange={(event) => onToggle?.(option.id, event.target.checked)}
+                disabled={disabled}
+                className="sr-only"
+              />
+              <span
+                className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-bold transition-colors ${badgeClass}`}
+              >
+                {option.id}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm leading-relaxed text-gray-800 dark:text-gray-200">{option.text}</p>
+                <QuestionMedia images={option.images} alt={`Option ${option.id} visual`} />
               </div>
             </label>
           );
@@ -73,7 +102,9 @@ export default function QuestionCard({
       </div>
 
       {showResults && scoreWeight !== null ? (
-        <p className="mt-4 rounded-lg bg-slate-50 dark:bg-slate-700 px-3 py-2 text-sm text-slate-700 dark:text-slate-200">{scoreFeedback(scoreWeight)}</p>
+        <p className="mt-4 rounded-xl bg-gray-50 dark:bg-gray-800 px-4 py-3 text-sm text-gray-600 dark:text-gray-300">
+          {scoreFeedback(scoreWeight)}
+        </p>
       ) : null}
     </div>
   );

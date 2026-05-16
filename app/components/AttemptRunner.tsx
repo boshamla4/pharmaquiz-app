@@ -72,7 +72,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
 
   const submitAttempt = useCallback(async () => {
     setPending(true);
-    const saveOk = await handleSaveProgress(index, "Submitting test…");
+    const saveOk = await handleSaveProgress(index, "Submitting…");
     if (!saveOk) return;
 
     const response = await fetch(`/api/attempts/${attempt.id}/submit`, {
@@ -115,7 +115,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
     }
 
     autoSaveRef.current = window.setTimeout(() => {
-      void handleSaveProgress(index, "Progress auto-saved.");
+      void handleSaveProgress(index, "Auto-saved.");
     }, 2500);
 
     return () => {
@@ -124,23 +124,42 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
   }, [answers, index, handleSaveProgress]);
 
   if (!activeQuestion) {
-    return <p className="rounded-lg bg-amber-50 p-4 text-sm text-amber-700">This attempt does not contain any questions.</p>;
+    return (
+      <p className="rounded-xl bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-amber-700 dark:text-amber-400">
+        This attempt does not contain any questions.
+      </p>
+    );
   }
 
   const answeredCount = Object.values(answers).filter((entry) => entry.length > 0).length;
+  const progressPct = Math.round((answeredCount / questions.length) * 100);
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
-        <div>
-          <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
-            Question {index + 1} / {questions.length}
-          </p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">{answeredCount} answered</p>
+      {/* Progress header */}
+      <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-4 shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div>
+            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+              Question {index + 1} <span className="font-normal text-gray-400">of {questions.length}</span>
+            </p>
+            <p className="text-xs text-gray-400 dark:text-gray-500">{answeredCount} answered · {progressPct}% complete</p>
+          </div>
+          <div className="text-right text-xs text-gray-400 dark:text-gray-500">
+            {remainingSeconds !== null ? (
+              <span className={`font-mono font-semibold ${remainingSeconds < 300 ? "text-red-500" : "text-gray-600 dark:text-gray-300"}`}>
+                {Math.floor(remainingSeconds / 60)}:{String(remainingSeconds % 60).padStart(2, "0")}
+              </span>
+            ) : (
+              <span className="capitalize">{attempt.mode}</span>
+            )}
+          </div>
         </div>
-        <div className="text-right text-sm text-gray-600 dark:text-gray-400">
-          <p>Mode: {attempt.mode === "ordered" ? "Ordered" : "Random"}</p>
-          <p>{remainingSeconds !== null ? `Time left: ${Math.floor(remainingSeconds / 60)}m ${remainingSeconds % 60}s` : "No timer"}</p>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-800">
+          <div
+            className="h-1.5 rounded-full bg-teal-500 transition-all duration-300"
+            style={{ width: `${progressPct}%` }}
+          />
         </div>
       </div>
 
@@ -150,34 +169,39 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
         onToggle={updateSelection}
       />
 
-      {status ? <p className="rounded-lg bg-slate-50 dark:bg-slate-700 px-3 py-2 text-sm text-slate-700 dark:text-slate-200">{status}</p> : null}
+      {status ? (
+        <p className="rounded-xl bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-500 dark:text-gray-400">
+          {status}
+        </p>
+      ) : null}
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      {/* Navigation */}
+      <div className="flex items-center justify-between gap-3">
         <button
           type="button"
           onClick={() => setIndex((value) => Math.max(0, value - 1))}
           disabled={index === 0 || pending}
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm disabled:opacity-50"
+          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
         >
           ← Previous
         </button>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
-            onClick={() => void handleSaveProgress(index, "Progress saved. You can continue later from the dashboard.")}
+            onClick={() => void handleSaveProgress(index, "Saved. Resume from the dashboard anytime.")}
             disabled={pending}
-            className="rounded-lg border border-gray-300 px-4 py-2 text-sm disabled:opacity-50"
+            className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
           >
-            Save & continue later
+            Save & exit
           </button>
           <button
             type="button"
             onClick={() => void submitAttempt()}
             disabled={pending}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+            className="rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-40 transition-colors"
           >
-            Submit test
+            {pending ? "Submitting…" : "Submit test"}
           </button>
         </div>
 
@@ -185,7 +209,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
           type="button"
           onClick={() => setIndex((value) => Math.min(questions.length - 1, value + 1))}
           disabled={index === questions.length - 1 || pending}
-          className="rounded-lg border border-gray-300 px-4 py-2 text-sm disabled:opacity-50"
+          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-40 transition-colors"
         >
           Next →
         </button>

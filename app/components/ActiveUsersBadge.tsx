@@ -33,9 +33,9 @@ export default function ActiveUsersBadge() {
   }, []);
 
   return (
-    <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-800 ring-1 ring-blue-200">
-      Active users now: {snapshot?.activeUsers ?? "…"}
-      {snapshot?.windowMinutes ? ` (last ${snapshot.windowMinutes} min)` : ""}
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1 text-xs font-medium text-gray-500 dark:text-gray-400">
+      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+      {snapshot?.activeUsers ?? "…"} online
     </span>
   );
 }

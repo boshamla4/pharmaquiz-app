@@ -16,14 +16,14 @@ export default async function ReviewAttemptPage({ params }: { params: Promise<{ 
   }
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-4 py-8">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-bold">Review answers</h1>
-          <p className="mt-2 text-sm text-gray-600">Inspect each question, review the score, then redo everything or only the missed items.</p>
-        </div>
-        <Link href="/history" className="rounded-lg border border-gray-300 px-4 py-2 text-sm">
-          Back to history
+    <main className="mx-auto w-full max-w-3xl px-4 py-6">
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <p className="text-xs font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400">Review</p>
+        <Link
+          href="/history"
+          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+        >
+          ← History
         </Link>
       </div>
       <ReviewAttemptClient attempt={data.attempt} questions={data.questions} />
