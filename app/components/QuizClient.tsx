@@ -65,8 +65,8 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
       <h1 className="mt-6 text-3xl font-bold">PharmaQuiz</h1>
       <p className="mt-2 text-sm text-gray-600">Responsive preview mode using the generated question bank from your PDF.</p>
 
-      <div className="mt-6 rounded-xl border border-gray-200 bg-white p-4">
-        <label htmlFor="section" className="mb-2 block text-sm font-semibold text-gray-700">
+      <div className="mt-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+        <label htmlFor="section" className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
           Section
         </label>
         <select
@@ -76,7 +76,7 @@ export default function QuizClient({ data }: { data: ParsedQuestionsFile }) {
             setSectionName(event.target.value);
             setIndex(0);
           }}
-          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-gray-100 px-3 py-2 text-sm"
         >
           {sections.map((item) => (
             <option key={item.file} value={item.file}>

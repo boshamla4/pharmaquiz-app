@@ -15,13 +15,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-white text-gray-900">
+      <body className="min-h-full flex flex-col bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <SessionGuard>
           <div className="flex flex-1 flex-col">{children}</div>
         </SessionGuard>
-        <footer className="border-t border-gray-200 bg-white px-4 py-3 text-center text-xs text-gray-500">
+        <footer className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-3 text-center text-xs text-gray-500 dark:text-gray-400">
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <span>PharmaQuiz © 2026</span>
+            <span>PharmaQuiz by Aladin B. © 2026</span>
             <ThemeToggle />
           </div>
         </footer>

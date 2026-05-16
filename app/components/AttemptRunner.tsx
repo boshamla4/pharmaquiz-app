@@ -131,14 +131,14 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
         <div>
-          <p className="text-sm font-semibold text-gray-800">
+          <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
             Question {index + 1} / {questions.length}
           </p>
-          <p className="text-sm text-gray-600">{answeredCount} answered</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">{answeredCount} answered</p>
         </div>
-        <div className="text-right text-sm text-gray-600">
+        <div className="text-right text-sm text-gray-600 dark:text-gray-400">
           <p>Mode: {attempt.mode === "ordered" ? "Ordered" : "Random"}</p>
           <p>{remainingSeconds !== null ? `Time left: ${Math.floor(remainingSeconds / 60)}m ${remainingSeconds % 60}s` : "No timer"}</p>
         </div>
@@ -150,7 +150,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
         onToggle={updateSelection}
       />
 
-      {status ? <p className="rounded-lg bg-slate-50 px-3 py-2 text-sm text-slate-700">{status}</p> : null}
+      {status ? <p className="rounded-lg bg-slate-50 dark:bg-slate-700 px-3 py-2 text-sm text-slate-700 dark:text-slate-200">{status}</p> : null}
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <button

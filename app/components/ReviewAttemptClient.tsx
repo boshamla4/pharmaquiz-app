@@ -50,10 +50,10 @@ export default function ReviewAttemptClient({
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
         <div>
-          <p className="text-sm font-semibold text-gray-800">Reviewing submitted test</p>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">Reviewing submitted test</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Score {formatScore(attempt.score ?? 0)} / {attempt.total_questions}
           </p>
         </div>
