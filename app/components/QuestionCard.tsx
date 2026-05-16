@@ -33,11 +33,25 @@ export default function QuestionCard({
         </span>
       </div>
 
-      {isMultiple && (
-        <span className="mb-3 inline-flex items-center rounded-full bg-amber-50 dark:bg-amber-900/30 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:text-amber-400">
-          Select all that apply
-        </span>
-      )}
+      {/* Question type badge */}
+      <span
+        className={`mb-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${
+          isMultiple
+            ? "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400"
+            : "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400"
+        }`}
+      >
+        {/* Shape icon: circle = single, squares = multiple */}
+        {isMultiple ? (
+          <span className="flex gap-0.5">
+            <span className="block h-2 w-2 rounded-sm bg-current opacity-80" />
+            <span className="block h-2 w-2 rounded-sm bg-current opacity-80" />
+          </span>
+        ) : (
+          <span className="block h-2 w-2 rounded-full bg-current opacity-80" />
+        )}
+        {isMultiple ? "Multiple choice — select all that apply" : "Single choice — select one answer"}
+      </span>
 
       <p className="text-base font-medium leading-relaxed text-gray-900 dark:text-gray-100">
         {question.question_text}
@@ -54,7 +68,9 @@ export default function QuestionCard({
 
           let rowClass =
             "border-gray-200 dark:border-gray-700 " +
-            (!disabled ? "cursor-pointer hover:border-teal-300 dark:hover:border-teal-700 hover:bg-teal-50/40 dark:hover:bg-teal-900/10" : "cursor-default");
+            (!disabled
+              ? "cursor-pointer hover:border-teal-300 dark:hover:border-teal-700 hover:bg-teal-50/40 dark:hover:bg-teal-900/10"
+              : "cursor-default");
           let badgeClass = "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400";
 
           if (checked && !showResults) {
@@ -74,6 +90,9 @@ export default function QuestionCard({
             badgeClass = "bg-amber-400 text-white";
           }
 
+          /* CS = radio (circle badge), CM = checkbox (square badge) */
+          const badgeShape = isMultiple ? "rounded-md" : "rounded-full";
+
           return (
             <label
               key={option.id}
@@ -88,7 +107,7 @@ export default function QuestionCard({
                 className="sr-only"
               />
               <span
-                className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-bold transition-colors ${badgeClass}`}
+                className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center ${badgeShape} text-xs font-bold transition-colors ${badgeClass}`}
               >
                 {option.id}
               </span>

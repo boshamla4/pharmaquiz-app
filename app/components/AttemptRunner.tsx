@@ -22,24 +22,31 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
   const [status, setStatus] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState<number | null>(initialRemainingSeconds);
+  const [revealedSet, setRevealedSet] = useState<Set<string>>(new Set());
   const autoSaveRef = useRef<number | null>(null);
 
   const activeQuestion = questions[index];
 
   function updateSelection(optionId: string, checked: boolean) {
+    const isMultiple = (activeQuestion.question_snapshot.type ?? "single") === "multiple";
     setAnswers((prev) => {
       const current = prev[activeQuestion.id] ?? [];
-      const isMultiple = (activeQuestion.question_snapshot.type ?? "single") === "multiple";
-
       if (!isMultiple) {
         return { ...prev, [activeQuestion.id]: checked ? [optionId] : [] };
       }
-
       const next = new Set(current);
       if (checked) next.add(optionId);
       else next.delete(optionId);
       return { ...prev, [activeQuestion.id]: Array.from(next) };
     });
+    // CS: auto-reveal immediately on selection
+    if (!isMultiple) {
+      setRevealedSet((prev) => new Set([...prev, activeQuestion.id]));
+    }
+  }
+
+  function revealCurrentQuestion() {
+    setRevealedSet((prev) => new Set([...prev, activeQuestion.id]));
   }
 
   const handleSaveProgress = useCallback(async (nextIndex: number, message = "Progress saved.") => {
@@ -133,6 +140,9 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
 
   const answeredCount = Object.values(answers).filter((entry) => entry.length > 0).length;
   const progressPct = Math.round((answeredCount / questions.length) * 100);
+  const isRevealed = revealedSet.has(activeQuestion.id);
+  const isMultipleActive = (activeQuestion.question_snapshot.type ?? "single") === "multiple";
+  const currentAnswers = answers[activeQuestion.id] ?? [];
 
   return (
     <div className="space-y-4">
@@ -165,9 +175,22 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
 
       <QuestionCard
         question={activeQuestion.question_snapshot}
-        selectedIds={answers[activeQuestion.id] ?? []}
-        onToggle={updateSelection}
+        selectedIds={currentAnswers}
+        showResults={isRevealed}
+        disabled={isRevealed}
+        onToggle={isRevealed ? undefined : updateSelection}
       />
+
+      {/* CM: explicit check button */}
+      {isMultipleActive && !isRevealed && currentAnswers.length > 0 && (
+        <button
+          type="button"
+          onClick={revealCurrentQuestion}
+          className="w-full rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700 transition-colors"
+        >
+          Check answer
+        </button>
+      )}
 
       {status ? (
         <p className="rounded-xl bg-gray-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-500 dark:text-gray-400">
