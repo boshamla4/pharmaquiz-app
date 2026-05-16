@@ -1,11 +1,16 @@
 import { createClient } from "@supabase/supabase-js";
-import parsedQuestions from "../scripts/generated/parsed-questions.json" assert { type: "json" };
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
-const url = process.env.SUPABASE_URL;
-const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const parsedQuestions = JSON.parse(
+  readFileSync(resolve(process.cwd(), "scripts/generated/parsed-questions.json"), "utf8"),
+);
+
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const serviceKey = process.env.SUPABASE_SERVICE_KEY;
 
 if (!url || !serviceKey) {
-  console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY.");
+  console.error("Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_KEY — run via: npm run sync:supabase-questions");
   process.exit(1);
 }
 

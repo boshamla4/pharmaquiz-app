@@ -9,7 +9,8 @@
     "lint": "eslint",
     "parse:data": "node scripts/parse-pdf.mjs",
     "check:data": "node scripts/check-output.mjs",
-    "sync:supabase-questions": "node scripts/sync-supabase-questions.mjs"
+    "sync:supabase-questions": "node --env-file=.env.local scripts/sync-supabase-questions.mjs",
+    "seed:tokens": "node --env-file=.env.local scripts/seed-tokens.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.3",
