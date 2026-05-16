@@ -11,15 +11,25 @@ if (!url || !serviceKey) {
 
 const db = createClient(url, serviceKey, { auth: { persistSession: false } });
 
-const count = parseInt(process.argv[2] ?? "10", 10);
+const args = process.argv.slice(2);
+const wipeFlag = args.includes("--wipe");
+const countArg = args.find((a) => /^\d+$/.test(a));
+const count = countArg ? parseInt(countArg, 10) : 10;
 
-// 8-char uppercase base64url — same format as medquiz
-function genToken() {
-  return randomBytes(16).toString("base64url").toUpperCase().slice(0, 8);
+// 8-char uppercase alphanumeric token [A-Z0-9]
+function genToken(len = 8) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const bytes = randomBytes(len * 2);
+  let result = "";
+  for (let i = 0; i < bytes.length && result.length < len; i++) {
+    const idx = bytes[i] % chars.length;
+    result += chars[idx];
+  }
+  return result;
 }
 
 // Optional: wipe existing Student profiles before re-seeding
-const wipe = process.argv.includes("--wipe");
+const wipe = wipeFlag;
 if (wipe) {
   const { data: existing } = await db
     .from("profiles")
