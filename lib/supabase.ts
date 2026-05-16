@@ -5,7 +5,7 @@ let serviceClient: SupabaseClient | null = null;
 
 export function getServiceSupabase(): SupabaseClient {
   if (!serviceClient) {
-    serviceClient = createClient(getRequiredServerEnv("SUPABASE_URL"), getRequiredServerEnv("SUPABASE_SERVICE_ROLE_KEY"), {
+    serviceClient = createClient(getRequiredServerEnv("NEXT_PUBLIC_SUPABASE_URL"), getRequiredServerEnv("SUPABASE_SERVICE_KEY"), {
       auth: { persistSession: false },
     });
   }

@@ -1,4 +1,4 @@
-const requiredServerEnv = ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"] as const;
+const requiredServerEnv = ["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_KEY"] as const;
 
 export function hasSupabaseServerEnv(): boolean {
   return requiredServerEnv.every((key) => Boolean(process.env[key]));
