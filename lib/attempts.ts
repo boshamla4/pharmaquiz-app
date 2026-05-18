@@ -302,29 +302,32 @@ export async function saveAttemptProgress(
     throw new Error("Attempt has already been submitted.");
   }
 
-  await Promise.all(
-    answers.map((entry) =>
-      db
-        .from("attempt_questions")
-        .update({ selected_answer_ids: entry.selectedAnswerIds })
-        .eq("id", entry.attemptQuestionId)
-        .eq("attempt_id", attemptId),
-    ),
-  );
+  // Only update rows whose answers actually changed — avoids N parallel writes for unchanged questions
+  const existingById = new Map(attempt.questions.map((q) => [q.id, q.selected_answer_ids]));
+  const changed = answers.filter((entry) => {
+    const prev = existingById.get(entry.attemptQuestionId) ?? [];
+    if (prev.length !== entry.selectedAnswerIds.length) return true;
+    return entry.selectedAnswerIds.some((id) => !prev.includes(id));
+  });
 
-  const { data: persistedAnswers, error: persistedError } = await db
-    .from("attempt_questions")
-    .select("selected_answer_ids")
-    .eq("attempt_id", attemptId);
-
-  if (persistedError || !persistedAnswers) {
-    throw new Error(`Failed to reload attempt progress: ${persistedError?.message ?? "unknown error"}`);
+  if (changed.length > 0) {
+    await Promise.all(
+      changed.map((entry) =>
+        db
+          .from("attempt_questions")
+          .update({ selected_answer_ids: entry.selectedAnswerIds })
+          .eq("id", entry.attemptQuestionId)
+          .eq("attempt_id", attemptId),
+      ),
+    );
   }
 
-  const answeredQuestions = persistedAnswers.filter((entry) => {
-    const selected = entry.selected_answer_ids as string[] | null | undefined;
-    return Array.isArray(selected) && selected.length > 0;
-  }).length;
+  // Compute answered count from the merged in-memory + changed state (no extra DB round-trip)
+  const mergedAnswers = new Map(existingById);
+  for (const entry of changed) {
+    mergedAnswers.set(entry.attemptQuestionId, entry.selectedAnswerIds);
+  }
+  const answeredQuestions = [...mergedAnswers.values()].filter((ids) => ids.length > 0).length;
 
   const { error } = await db
     .from("quiz_attempts")
@@ -354,23 +357,26 @@ export async function submitAttempt(profileId: string, attemptId: string): Promi
     };
   }
 
+  // Score all questions in memory first, then batch-upsert in one round-trip
   let totalScore = 0;
-
-  for (const question of attempt.questions) {
+  const scoredRows = attempt.questions.map((question) => {
     const score = scoreQuestion(question.question_snapshot, question.selected_answer_ids);
     totalScore += score;
+    return {
+      id: question.id,
+      attempt_id: question.attempt_id,
+      position: question.position,
+      question_id: question.question_id,
+      question_snapshot: question.question_snapshot,
+      selected_answer_ids: question.selected_answer_ids,
+      is_correct: isFullyCorrect(question.question_snapshot, question.selected_answer_ids),
+      score_weight: Number(score.toFixed(2)),
+    };
+  });
 
-    const { error } = await db
-      .from("attempt_questions")
-      .update({
-        is_correct: isFullyCorrect(question.question_snapshot, question.selected_answer_ids),
-        score_weight: Number(score.toFixed(2)),
-      })
-      .eq("id", question.id);
-
-    if (error) {
-      throw new Error(`Failed to score attempt question: ${error.message}`);
-    }
+  const { error: scoreError } = await db.from("attempt_questions").upsert(scoredRows, { onConflict: "id" });
+  if (scoreError) {
+    throw new Error(`Failed to score attempt questions: ${scoreError.message}`);
   }
 
   const roundedScore = Number(totalScore.toFixed(2));
