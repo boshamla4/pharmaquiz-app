@@ -19,6 +19,14 @@ BARE_QUESTION_RE = re.compile(r"^([1-9]\d{0,3})[.)]\s*$")
 OPTION_RE = re.compile(r"^\(?([a-eA-E])\s*[).]\s*(.*)$")
 SECTION_RE = re.compile(r"^(SECTION|PART|MODULE|CHAPTER)\b", re.IGNORECASE)
 
+# Uppercase lines that look like headings but are actually question-type labels,
+# not department/chapter names — exclude them from section detection.
+SECTION_HEADING_EXCLUDE = {
+    "SINGLE CHOICE", "SINGLE CHOISE",
+    "MULTIPLE CHOICE", "MULTIPLE CHOISE",
+    "CS", "CM", "SC", "SM",
+}
+
 # Strip leading CS/CM/SC/SM/C.s./C.m. type prefix from question text.
 # Examples: "CS Indicate...", "SC Indicate...", "CM Select...", "C. s. Name...", "CS Acidity..."
 TYPE_PREFIX_RE = re.compile(
@@ -40,6 +48,9 @@ def normalize_line(text: str) -> str:
 def is_section_heading(text: str) -> bool:
     if not text:
         return False
+    # Exclude known type-label lines that look like headings but aren't departments
+    if text.strip().upper() in SECTION_HEADING_EXCLUDE:
+        return False
     if SECTION_RE.match(text):
         return True
     if QUESTION_RE.match(text) or OPTION_RE.match(text):
@@ -52,8 +63,7 @@ def is_section_heading(text: str) -> bool:
     letter_count = sum(1 for ch in text if ch.isalpha())
     if letter_count < 10:
         return False
-    # Must contain at least 2 words of 2+ letters — rejects things like "T K V X"
-    # (table headers) while keeping "SINGLE CHOICE", "MULTIPLE CHOISE", etc.
+    # Must contain at least 2 words of 2+ letters — rejects table headers like "T K V X"
     long_words = re.findall(r"[A-Za-z]{2,}", text)
     return len(long_words) >= 2
 
