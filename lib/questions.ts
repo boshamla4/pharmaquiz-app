@@ -34,7 +34,10 @@ export function getQuestionBank(): QuestionSnapshot[] {
 }
 
 export function getSections(): Array<{ name: string; count: number }> {
-  return questionsFile.files.map((section) => ({ name: section.file, count: section.questions.length }));
+  return questionsFile.files.map((section) => ({
+    name: section.file,
+    count: section.questions.filter((q) => q.correct_answers.length > 0).length,
+  }));
 }
 
 export function filterQuestionBank(options: {
@@ -45,6 +48,7 @@ export function filterQuestionBank(options: {
   const typeFilter = new Set((options.questionTypes ?? []).filter(Boolean));
 
   return getQuestionBank().filter((question) => {
+    if (question.correct_answers.length === 0) return false;
     if (sectionFilter.size > 0 && !sectionFilter.has(question.section)) return false;
     if (typeFilter.size > 0 && !typeFilter.has(question.type ?? "single")) return false;
     return true;

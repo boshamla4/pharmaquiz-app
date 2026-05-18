@@ -1,16 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-function randomFakeToken() {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return Array.from({ length: 8 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
-}
 
 export default function LoginForm() {
   const router = useRouter();
-  const placeholder = useMemo(() => randomFakeToken(), []);
   const [token, setToken] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -29,7 +23,7 @@ export default function LoginForm() {
     const payload = (await response.json().catch(() => null)) as { error?: string } | null;
 
     if (!response.ok) {
-      setError(payload?.error ?? "Invalid access code. Please try again.");
+      setError(payload?.error ?? "Invalid access token. Please try again.");
       setPending(false);
       return;
     }
@@ -42,16 +36,16 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label htmlFor="token" className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
-          Access code
+          Access token
         </label>
         <input
           id="token"
-          type="text"
+          type="password"
           value={token}
           onChange={(event) => setToken(event.target.value.toUpperCase().trim())}
-          placeholder={placeholder}
+          placeholder="Enter the token provided to you"
           className="w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-mono tracking-widest text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-600 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20"
-          autoComplete="off"
+          autoComplete="current-password"
           spellCheck={false}
           required
         />
