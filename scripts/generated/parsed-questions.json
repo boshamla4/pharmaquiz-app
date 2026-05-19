@@ -8055,7 +8055,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-206",
           "question_number": 6,
           "question_text": "According to the chemical structure Epinephrine Hydrochloride (Adrenaline) is: HO . HCl HO CH - CH2 - NH - CH3 OH",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/ch2-q006-body.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -8079,7 +8081,7 @@
             },
             {
               "id": "E",
-              "text": "Aminoacid O O - C NH2 is:",
+              "text": "Aminoacid",
               "images": []
             }
           ],
@@ -8093,7 +8095,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-207",
           "question_number": 7,
           "question_text": "Functional groupe",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/ch2-q007-body.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -8245,7 +8249,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-211",
           "question_number": 11,
           "question_text": "The indicated formula is used for assay of drug substances using the titration technique:",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/ch2-q011-body.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -8485,28 +8491,38 @@
           "options": [
             {
               "id": "A",
-              "text": " A l  1 % A cm 1 C",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q017-opt-a.png"
+              ]
             },
             {
               "id": "B",
-              "text": "A  1 % A cm 1  C l",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q017-opt-b.png"
+              ]
             },
             {
               "id": "C",
-              "text": "   1 % A cm A C l",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q017-opt-c.png"
+              ]
             },
             {
               "id": "D",
-              "text": "1 C  1 % A cm 1  A l",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q017-opt-d.png"
+              ]
             },
             {
               "id": "E",
               "text": "",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q017-opt-e.png"
+              ]
             }
           ],
           "correct_answers": [
@@ -8869,7 +8885,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-227",
           "question_number": 27,
           "question_text": "For the quantitative determination of Sulfanilamide (Streptocide) in ointment, the following method is used in internal pharmaceutical control: H2N SO2 - NH2",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/ch2-q027-body.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -9059,32 +9077,44 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-232",
           "question_number": 32,
           "question_text": "Positive reaction with ninhydrin after acid hydrolysis forms the following structural fragment of Folic Acid: OH O N CH2 - NH C - NH - CH - C N 4 5 3 OH 6 CH2 2 7 8 1 O H2N N N CH2 O C OH N 3 2 1 H2N N",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/ch2-q032-body.png"
+          ],
           "options": [
             {
               "id": "A",
-              "text": "NH C O",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q032-opt-a.png"
+              ]
             },
             {
               "id": "B",
-              "text": "O NH - CH - C OH CH2 CH2 O C OH",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q032-opt-b.png"
+              ]
             },
             {
               "id": "C",
-              "text": "OH N 4 5",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q032-opt-c.png"
+              ]
             },
             {
               "id": "D",
-              "text": "OH N CH2 N H2N N N",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q032-opt-d.png"
+              ]
             },
             {
               "id": "E",
               "text": "",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q032-opt-e.png"
+              ]
             }
           ],
           "correct_answers": [
@@ -9097,32 +9127,44 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-233",
           "question_number": 33,
           "question_text": "Select the structural fragment from the sulphothiazole molecule that leads to the reaction of azo dye: N H2N SO2 - NH S",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/ch2-q033-body.png"
+          ],
           "options": [
             {
               "id": "A",
-              "text": "S",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q033-opt-a.png"
+              ]
             },
             {
               "id": "B",
-              "text": "H2N",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q033-opt-b.png"
+              ]
             },
             {
               "id": "C",
               "text": "",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q033-opt-c.png"
+              ]
             },
             {
               "id": "D",
-              "text": "- SO2 - NH - N S",
-              "images": []
+              "text": "- SO2 - NH -",
+              "images": [
+                "/pharmaquiz-media/ch2-q033-opt-d.png"
+              ]
             },
             {
               "id": "E",
               "text": "",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q033-opt-e.png"
+              ]
             }
           ],
           "correct_answers": [
@@ -9177,28 +9219,38 @@
           "options": [
             {
               "id": "A",
-              "text": "Sulfamide O O S NH2",
-              "images": []
+              "text": "Sulfamide",
+              "images": [
+                "/pharmaquiz-media/ch2-q035-opt-a.png"
+              ]
             },
             {
               "id": "B",
-              "text": "Sulfamide substituated O O S NH - R",
-              "images": []
+              "text": "Sulfamide substituated",
+              "images": [
+                "/pharmaquiz-media/ch2-q035-opt-b.png"
+              ]
             },
             {
               "id": "C",
-              "text": "Carbamide O -C NH2",
-              "images": []
+              "text": "Carbamide",
+              "images": [
+                "/pharmaquiz-media/ch2-q035-opt-c.png"
+              ]
             },
             {
               "id": "D",
-              "text": "Aldehyde O -C H",
-              "images": []
+              "text": "Aldehyde",
+              "images": [
+                "/pharmaquiz-media/ch2-q035-opt-d.png"
+              ]
             },
             {
               "id": "E",
-              "text": "Ester O -C OR",
-              "images": []
+              "text": "Ester",
+              "images": [
+                "/pharmaquiz-media/ch2-q035-opt-e.png"
+              ]
             }
           ],
           "correct_answers": [
@@ -9216,27 +9268,37 @@
             {
               "id": "A",
               "text": "Nitro - NO2",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q036-opt-a.png"
+              ]
             },
             {
               "id": "B",
               "text": "Thiol R - CH2 - SH",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q036-opt-b.png"
+              ]
             },
             {
               "id": "C",
-              "text": "Aldehyde O -C H",
-              "images": []
+              "text": "Aldehyde",
+              "images": [
+                "/pharmaquiz-media/ch2-q036-opt-c.png"
+              ]
             },
             {
               "id": "D",
               "text": "Alcohol hydroxyl R - OH",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q036-opt-d.png"
+              ]
             },
             {
               "id": "E",
-              "text": "Ester O -C OR",
-              "images": []
+              "text": "Ester",
+              "images": [
+                "/pharmaquiz-media/ch2-q036-opt-e.png"
+              ]
             }
           ],
           "correct_answers": [
@@ -9443,28 +9505,38 @@
           "options": [
             {
               "id": "A",
-              "text": "  ( V K V K ) T   1 1 2 2 B / a X 100 % а",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q042-opt-a.png"
+              ]
             },
             {
               "id": "B",
-              "text": "   V T K 100   B / a X 100 %   а ( 100 b )",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q042-opt-b.png"
+              ]
             },
             {
               "id": "C",
-              "text": "   V T K V   B / a b . c . X 100 %  а V",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q042-opt-c.png"
+              ]
             },
             {
               "id": "D",
-              "text": "p .    ( V V ) T К p . c . B / a   X 100 % а",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q042-opt-d.png"
+              ]
             },
             {
               "id": "E",
               "text": "",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q042-opt-e.png"
+              ]
             }
           ],
           "correct_answers": [
@@ -12856,8 +12928,10 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-329",
           "question_number": 129,
-          "question_text": "CМ Specify the pharmaceutical forms, for which the formula is applied   V T K   B / A X P g а , where P is the mass or volume of the pharmaceutical form according to the recipe:",
-          "images": [],
+          "question_text": "Specify the pharmaceutical forms, for which the formula is applied, where P is the mass or volume of the pharmaceutical form according to the recipe:",
+          "images": [
+            "/pharmaquiz-media/ch2-q129-body.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -13102,28 +13176,37 @@
           "options": [
             {
               "id": "A",
-              "text": "N N",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q135-opt-a.png"
+              ]
             },
             {
               "id": "B",
-              "text": "H2N SO2 - NH2",
-              "images": []
+              "text": "",
+              "images": [
+                "/pharmaquiz-media/ch2-q135-opt-b.png"
+              ]
             },
             {
               "id": "C",
               "text": "",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q135-opt-c.png"
+              ]
             },
             {
               "id": "D",
-              "text": "NH4Cl O C OH",
+              "text": "NH4Cl",
               "images": []
             },
             {
               "id": "E",
               "text": "",
-              "images": []
+              "images": [
+                "/pharmaquiz-media/ch2-q135-opt-e-top.png",
+                "/pharmaquiz-media/ch2-q135-opt-e-bot.png"
+              ]
             }
           ],
           "correct_answers": [
@@ -13137,8 +13220,10 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-336",
           "question_number": 136,
-          "question_text": "Indicate the quantitative analysis methods for the drug substances with the general formula: R' . HCl R - CH2 - N R\"",
-          "images": [],
+          "question_text": "Indicate the quantitative analysis methods for the drug substances with the general formula:",
+          "images": [
+            "/pharmaquiz-media/ch2-q136-body.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -13217,7 +13302,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-338",
           "question_number": 138,
           "question_text": "The determination of sulfanilic acid of amide derivatives can be performed using the following methods: NH2 SO2 - NH - R",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/ch2-q138-body.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -13262,28 +13349,38 @@
           "options": [
             {
               "id": "A",
-              "text": "Endiole OH HO",
-              "images": []
+              "text": "Endiole",
+              "images": [
+                "/pharmaquiz-media/ch2-q139-opt-a.png"
+              ]
             },
             {
               "id": "B",
-              "text": "Hydrazide R - C - NH - NH2 O",
-              "images": []
+              "text": "Hydrazide",
+              "images": [
+                "/pharmaquiz-media/ch2-q139-opt-b.png"
+              ]
             },
             {
               "id": "C",
-              "text": "Phenol hydroxyl OH",
-              "images": []
+              "text": "Phenol hydroxyl",
+              "images": [
+                "/pharmaquiz-media/ch2-q139-opt-c.png"
+              ]
             },
             {
               "id": "D",
-              "text": "Aldehyde group O C R H",
-              "images": []
+              "text": "Aldehyde group",
+              "images": [
+                "/pharmaquiz-media/ch2-q139-opt-d.png"
+              ]
             },
             {
               "id": "E",
-              "text": "Carboxyl group O C R OH",
-              "images": []
+              "text": "Carboxyl group",
+              "images": [
+                "/pharmaquiz-media/ch2-q139-opt-e.png"
+              ]
             }
           ],
           "correct_answers": [
@@ -18793,7 +18890,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-481",
-          "question_number": 81,
+          "question_number": 241,
           "question_text": "Name the drugs contraindicated in active gastroduodenal ulcer:",
           "images": [],
           "options": [
@@ -18833,7 +18930,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-482",
-          "question_number": 82,
+          "question_number": 242,
           "question_text": "Indicate the antidotes in methanol intoxication:",
           "images": [],
           "options": [
@@ -18872,7 +18969,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-483",
-          "question_number": 83,
+          "question_number": 243,
           "question_text": "Name the drugs from the benzodiazepine group:",
           "images": [],
           "options": [
@@ -18912,7 +19009,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-484",
-          "question_number": 84,
+          "question_number": 244,
           "question_text": "Indicate the characteristic properties of opioid analgesics:",
           "images": [],
           "options": [
@@ -18952,7 +19049,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-485",
-          "question_number": 85,
+          "question_number": 245,
           "question_text": "Identify which of the following drugs have anticonvulsant effects:",
           "images": [],
           "options": [
@@ -18992,7 +19089,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-486",
-          "question_number": 86,
+          "question_number": 246,
           "question_text": "Determine the main indications for opioid analgesics:",
           "images": [],
           "options": [
@@ -19032,7 +19129,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-487",
-          "question_number": 87,
+          "question_number": 247,
           "question_text": "Mark the drug groups indicated in gastroduodenal ulcer:",
           "images": [],
           "options": [
@@ -19072,7 +19169,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-488",
-          "question_number": 88,
+          "question_number": 248,
           "question_text": "Mention the indications for the use of epinephrine:",
           "images": [],
           "options": [
@@ -19112,7 +19209,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-489",
-          "question_number": 89,
+          "question_number": 249,
           "question_text": "List the drugs whose bioavailability may be reduced when administered concomitantly with antacids:",
           "images": [],
           "options": [
@@ -19152,7 +19249,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-490",
-          "question_number": 90,
+          "question_number": 250,
           "question_text": "Select the drugs that suppress cough at the central level:",
           "images": [],
           "options": [
@@ -19191,7 +19288,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-491",
-          "question_number": 91,
+          "question_number": 251,
           "question_text": "Identify the drugs with bronchodilator effect:",
           "images": [],
           "options": [
@@ -19231,7 +19328,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-492",
-          "question_number": 92,
+          "question_number": 252,
           "question_text": "Name the compartments of pharmacokinetics:",
           "images": [],
           "options": [
@@ -19271,7 +19368,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-493",
-          "question_number": 93,
+          "question_number": 253,
           "question_text": "Name which of the following belong to pharmacodynamics:",
           "images": [],
           "options": [
@@ -19311,7 +19408,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-494",
-          "question_number": 94,
+          "question_number": 254,
           "question_text": "Select the factors that influence drug absorption:",
           "images": [],
           "options": [
@@ -19351,7 +19448,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-495",
-          "question_number": 95,
+          "question_number": 255,
           "question_text": "Indicate the enteral routes of drug administration:",
           "images": [],
           "options": [
@@ -19390,7 +19487,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-496",
-          "question_number": 96,
+          "question_number": 256,
           "question_text": "List the drug groups indicated for the treatment of renal colic:",
           "images": [],
           "options": [
@@ -19430,7 +19527,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-497",
-          "question_number": 97,
+          "question_number": 257,
           "question_text": "Select the characteristic symptoms of urolithiasis:",
           "images": [],
           "options": [
@@ -19470,7 +19567,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-498",
-          "question_number": 98,
+          "question_number": 258,
           "question_text": "Indicate the drug groups used in the therapy of chronic heart failure:",
           "images": [],
           "options": [
@@ -19511,7 +19608,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-499",
-          "question_number": 99,
+          "question_number": 259,
           "question_text": "Select the indications for acyclovir:",
           "images": [],
           "options": [
@@ -19551,7 +19648,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-500",
-          "question_number": 100,
+          "question_number": 260,
           "question_text": "Determine the advantages of sublingual drug administration:",
           "images": [],
           "options": [
@@ -19590,7 +19687,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-501",
-          "question_number": 101,
+          "question_number": 261,
           "question_text": "Indicate the clinical symptoms of acute pancreatitis:",
           "images": [],
           "options": [
@@ -19630,7 +19727,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-502",
-          "question_number": 102,
+          "question_number": 262,
           "question_text": "Specify the clinical symptoms of chronic pancreatitis:",
           "images": [],
           "options": [
@@ -19669,7 +19766,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-503",
-          "question_number": 103,
+          "question_number": 263,
           "question_text": "Indicate the pathogenetic factors in the development of acute pancreatitis:",
           "images": [],
           "options": [
@@ -19708,7 +19805,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-504",
-          "question_number": 104,
+          "question_number": 264,
           "question_text": "Name the clinical symptoms of liver cirrhosis:",
           "images": [],
           "options": [
@@ -19749,7 +19846,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-505",
-          "question_number": 105,
+          "question_number": 265,
           "question_text": "Indicate the antibacterial drugs used for the treatment of H. pylori:",
           "images": [],
           "options": [
@@ -19789,7 +19886,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-506",
-          "question_number": 106,
+          "question_number": 266,
           "question_text": "Name the drugs used for the treatment of diabetes mellitus:",
           "images": [],
           "options": [
@@ -19830,7 +19927,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-507",
-          "question_number": 107,
+          "question_number": 267,
           "question_text": "Name the characteristic signs of hyperthyroidism:",
           "images": [],
           "options": [
@@ -19871,7 +19968,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-508",
-          "question_number": 108,
+          "question_number": 268,
           "question_text": "Indicate the causes of hypothyroidism:",
           "images": [],
           "options": [
@@ -19912,7 +20009,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-509",
-          "question_number": 109,
+          "question_number": 269,
           "question_text": "List the drugs used for the treatment of bronchial asthma:",
           "images": [],
           "options": [
@@ -19953,7 +20050,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-510",
-          "question_number": 110,
+          "question_number": 270,
           "question_text": "Name the main symptoms of iron deficiency anemia:",
           "images": [],
           "options": [
@@ -19994,7 +20091,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-511",
-          "question_number": 111,
+          "question_number": 271,
           "question_text": "Indicate the drugs used for the treatment of arterial hypertension:",
           "images": [],
           "options": [
@@ -20035,7 +20132,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-512",
-          "question_number": 112,
+          "question_number": 272,
           "question_text": "Indicate the clinical manifestations of myocardial infarction:",
           "images": [],
           "options": [
@@ -20076,7 +20173,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-513",
-          "question_number": 113,
+          "question_number": 273,
           "question_text": "Select the complications of myocardial infarction:",
           "images": [],
           "options": [
@@ -20117,7 +20214,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-514",
-          "question_number": 114,
+          "question_number": 274,
           "question_text": "Indicate the main signs of heart failure:",
           "images": [],
           "options": [
@@ -20158,7 +20255,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-515",
-          "question_number": 115,
+          "question_number": 275,
           "question_text": "List the drugs used for thrombosis prophylaxis associated with atrial fibrillation:",
           "images": [],
           "options": [
@@ -20198,7 +20295,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-516",
-          "question_number": 116,
+          "question_number": 276,
           "question_text": "Name the drugs used in the treatment of ischemic heart disease:",
           "images": [],
           "options": [
@@ -20238,7 +20335,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-517",
-          "question_number": 117,
+          "question_number": 277,
           "question_text": "Indicate the conditions for which norepinephrine is used:",
           "images": [],
           "options": [
@@ -20278,7 +20375,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-518",
-          "question_number": 118,
+          "question_number": 278,
           "question_text": "Name the groups of diuretics according to mechanism of action:",
           "images": [],
           "options": [
@@ -20319,7 +20416,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-519",
-          "question_number": 119,
+          "question_number": 279,
           "question_text": "Indicate the complications of loop diuretic therapy:",
           "images": [],
           "options": [
@@ -20360,7 +20457,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-520",
-          "question_number": 120,
+          "question_number": 280,
           "question_text": "Name the clinical symptoms of hypothyroidism:",
           "images": [],
           "options": [
@@ -20401,7 +20498,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-521",
-          "question_number": 121,
+          "question_number": 281,
           "question_text": "Name the conditions for which glucocorticoids are used:",
           "images": [],
           "options": [
@@ -20442,7 +20539,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-522",
-          "question_number": 122,
+          "question_number": 282,
           "question_text": "Specify the drug groups used in the treatment of drug-induced allergic reactions:",
           "images": [],
           "options": [
@@ -20481,7 +20578,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-523",
-          "question_number": 123,
+          "question_number": 283,
           "question_text": "Name the drugs that are NOT USED in angina pectoris:",
           "images": [],
           "options": [
@@ -20521,7 +20618,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-524",
-          "question_number": 124,
+          "question_number": 284,
           "question_text": "Name the centrally acting antihypertensive agents:",
           "images": [],
           "options": [
@@ -20560,7 +20657,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-525",
-          "question_number": 125,
+          "question_number": 285,
           "question_text": "Select the drugs used in the treatment of epilepsy:",
           "images": [],
           "options": [
@@ -20600,7 +20697,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-526",
-          "question_number": 126,
+          "question_number": 286,
           "question_text": "Indicate the drug groups used in intestinal atony:",
           "images": [],
           "options": [
@@ -20639,7 +20736,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-527",
-          "question_number": 127,
+          "question_number": 287,
           "question_text": "List the antiemetic drugs:",
           "images": [],
           "options": [
@@ -20678,7 +20775,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-528",
-          "question_number": 128,
+          "question_number": 288,
           "question_text": "Select the characteristic effects of furosemide:",
           "images": [],
           "options": [
@@ -20718,7 +20815,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-529",
-          "question_number": 129,
+          "question_number": 289,
           "question_text": "Name the potassium-sparing diuretics:",
           "images": [],
           "options": [
@@ -20757,7 +20854,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-530",
-          "question_number": 130,
+          "question_number": 290,
           "question_text": "Name the drugs used in gout:",
           "images": [],
           "options": [
@@ -20796,7 +20893,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-531",
-          "question_number": 131,
+          "question_number": 291,
           "question_text": "Indicate the remedies that are NOT USED in pernicious anemia:",
           "images": [],
           "options": [
@@ -20837,7 +20934,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-532",
-          "question_number": 132,
+          "question_number": 292,
           "question_text": "Indicate the remedies used for macrocytic megaloblastic anemia:",
           "images": [],
           "options": [
@@ -20876,7 +20973,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-533",
-          "question_number": 133,
+          "question_number": 293,
           "question_text": "Name the drugs that reduce platelet aggregation:",
           "images": [],
           "options": [
@@ -20916,7 +21013,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-534",
-          "question_number": 134,
+          "question_number": 294,
           "question_text": "Mention the indications for antifibrinolytic agents:",
           "images": [],
           "options": [
@@ -20956,7 +21053,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-535",
-          "question_number": 135,
+          "question_number": 295,
           "question_text": "List the indications for antiplatelet agents:",
           "images": [],
           "options": [
@@ -20996,7 +21093,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-536",
-          "question_number": 136,
+          "question_number": 296,
           "question_text": "Select the direct anticoagulants:",
           "images": [],
           "options": [
@@ -21036,7 +21133,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-537",
-          "question_number": 137,
+          "question_number": 297,
           "question_text": "Drugs used for the treatment of pediculosis are:",
           "images": [],
           "options": [
@@ -21075,7 +21172,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-538",
-          "question_number": 138,
+          "question_number": 298,
           "question_text": "Identify the drugs used for urticaria:",
           "images": [],
           "options": [
@@ -21115,7 +21212,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-539",
-          "question_number": 139,
+          "question_number": 299,
           "question_text": "The treatment of arterial hypertension includes the following drug groups:",
           "images": [],
           "options": [
@@ -21155,7 +21252,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-540",
-          "question_number": 140,
+          "question_number": 300,
           "question_text": "Name the locally acting drugs used in pollinosis:",
           "images": [],
           "options": [
@@ -21195,7 +21292,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-541",
-          "question_number": 141,
+          "question_number": 301,
           "question_text": "Identify the causes of iron-deficiency anemia:",
           "images": [],
           "options": [
@@ -21236,7 +21333,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-542",
-          "question_number": 142,
+          "question_number": 302,
           "question_text": "Identify the characteristic symptoms of viral gastroenteritis:",
           "images": [],
           "options": [
@@ -21276,7 +21373,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-543",
-          "question_number": 143,
+          "question_number": 303,
           "question_text": "Identify possible symptoms in Salmonellosis:",
           "images": [],
           "options": [
@@ -21317,7 +21414,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-544",
-          "question_number": 144,
+          "question_number": 304,
           "question_text": "Name the azole antifungal drugs:",
           "images": [],
           "options": [
@@ -21357,7 +21454,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-545",
-          "question_number": 145,
+          "question_number": 305,
           "question_text": "Determine the characteristics of herpes simplex type I:",
           "images": [],
           "options": [
@@ -21397,7 +21494,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-546",
-          "question_number": 146,
+          "question_number": 306,
           "question_text": "Mark the antiviral drugs used in the treatment of herpes infections:",
           "images": [],
           "options": [
@@ -21436,7 +21533,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-547",
-          "question_number": 147,
+          "question_number": 307,
           "question_text": "The etiology of pyodermas includes the following pathogens:",
           "images": [],
           "options": [
@@ -21476,7 +21573,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-548",
-          "question_number": 148,
+          "question_number": 308,
           "question_text": "Name the complications of diabetes mellitus:",
           "images": [],
           "options": [
@@ -21517,7 +21614,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-549",
-          "question_number": 149,
+          "question_number": 309,
           "question_text": "Name the characteristics of type I diabetes mellitus:",
           "images": [],
           "options": [
@@ -21557,7 +21654,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-550",
-          "question_number": 150,
+          "question_number": 310,
           "question_text": "List drugs that can cause constipation:",
           "images": [],
           "options": [
@@ -21597,7 +21694,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-551",
-          "question_number": 151,
+          "question_number": 311,
           "question_text": "Select drugs used in productive (wet) cough:",
           "images": [],
           "options": [
@@ -21637,7 +21734,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-552",
-          "question_number": 152,
+          "question_number": 312,
           "question_text": "Mark the drugs used in glaucoma:",
           "images": [],
           "options": [
@@ -21678,7 +21775,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-553",
-          "question_number": 153,
+          "question_number": 313,
           "question_text": "Select remedies used in hyperthyroidism:",
           "images": [],
           "options": [
@@ -21717,7 +21814,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-554",
-          "question_number": 154,
+          "question_number": 314,
           "question_text": "List the antibiotics administered in gonorrhea:",
           "images": [],
           "options": [
@@ -21756,7 +21853,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-555",
-          "question_number": 155,
+          "question_number": 315,
           "question_text": "Select drug groups used in the treatment of hemorrhagic stroke:",
           "images": [],
           "options": [
@@ -21795,7 +21892,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-556",
-          "question_number": 156,
+          "question_number": 316,
           "question_text": "Select drug groups used in the treatment of ischemic stroke:",
           "images": [],
           "options": [
@@ -21835,7 +21932,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-557",
-          "question_number": 157,
+          "question_number": 317,
           "question_text": "Name drugs used in depression:",
           "images": [],
           "options": [
@@ -21876,7 +21973,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-558",
-          "question_number": 158,
+          "question_number": 318,
           "question_text": "Name the atipical antidepressants:",
           "images": [],
           "options": [
@@ -21916,7 +22013,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-559",
-          "question_number": 159,
+          "question_number": 319,
           "question_text": "Indicate drugs used in the treatment of constipation:",
           "images": [],
           "options": [
@@ -21956,7 +22053,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-560",
-          "question_number": 160,
+          "question_number": 320,
           "question_text": "List short-acting insulin types:",
           "images": [],
           "options": [
@@ -21996,7 +22093,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-561",
-          "question_number": 161,
+          "question_number": 321,
           "question_text": "Name drugs used in type 2 diabetes mellitus:",
           "images": [],
           "options": [
@@ -22037,7 +22134,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-562",
-          "question_number": 162,
+          "question_number": 322,
           "question_text": "Indicate drugs used for symptomatic treatment of acute viral respiratory infections:",
           "images": [],
           "options": [
@@ -22076,7 +22173,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-563",
-          "question_number": 163,
+          "question_number": 323,
           "question_text": "Name antibiotic groups used in the treatment of bronchitis caused by Streptococcus pneumoniae:",
           "images": [],
           "options": [
@@ -22116,7 +22213,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-564",
-          "question_number": 164,
+          "question_number": 324,
           "question_text": "Indicate drug groups used in the symptomatic treatment of COPD:",
           "images": [],
           "options": [
@@ -22157,7 +22254,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-565",
-          "question_number": 165,
+          "question_number": 325,
           "question_text": "Select drug groups used in the treatment of acute exacerbations of bronchial asthma:",
           "images": [],
           "options": [
@@ -22196,7 +22293,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-566",
-          "question_number": 166,
+          "question_number": 326,
           "question_text": "List antibiotics used in the treatment of acute pneumonia caused by Pseudomonas aeruginosa:",
           "images": [],
           "options": [
@@ -22236,7 +22333,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-567",
-          "question_number": 167,
+          "question_number": 327,
           "question_text": "List antibiotics used in the treatment of acute pneumonia caused by MRSA (methicillin- resistant Staphylococcus aureus):",
           "images": [],
           "options": [
@@ -22275,7 +22372,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-568",
-          "question_number": 168,
+          "question_number": 328,
           "question_text": "List antibiotics used in the treatment of acute pneumonia caused by Mycoplasma pneumoniae:",
           "images": [],
           "options": [
@@ -22315,7 +22412,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-569",
-          "question_number": 169,
+          "question_number": 329,
           "question_text": "Select antibiotics that can cause QT interval prolongation:",
           "images": [],
           "options": [
@@ -22355,7 +22452,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-570",
-          "question_number": 170,
+          "question_number": 330,
           "question_text": "Select antibiotics that have a strong nephrotoxic effect:",
           "images": [],
           "options": [
@@ -22395,7 +22492,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-571",
-          "question_number": 171,
+          "question_number": 331,
           "question_text": "Select the antibiotics that have a strong ototoxic effect:",
           "images": [],
           "options": [
@@ -22435,7 +22532,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-572",
-          "question_number": 172,
+          "question_number": 332,
           "question_text": "Select the antibiotics that may cause tendon rupture:",
           "images": [],
           "options": [
@@ -22475,7 +22572,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-573",
-          "question_number": 173,
+          "question_number": 333,
           "question_text": "Select the antibiotics that can affect dental tissue:",
           "images": [],
           "options": [
@@ -22514,7 +22611,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-574",
-          "question_number": 174,
+          "question_number": 334,
           "question_text": "Select the antianginal drugs that often cause orthostatic hypotension:",
           "images": [],
           "options": [
@@ -22554,7 +22651,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-575",
-          "question_number": 175,
+          "question_number": 335,
           "question_text": "List the drug groups used in the treatment of acute pancreatitis:",
           "images": [],
           "options": [
@@ -22594,7 +22691,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-576",
-          "question_number": 176,
+          "question_number": 336,
           "question_text": "List the non-benzodiazepine drugs used in the treatment of insomnia:",
           "images": [],
           "options": [
@@ -22633,7 +22730,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-577",
-          "question_number": 177,
+          "question_number": 337,
           "question_text": "Name the drugs used in the treatment of migraine:",
           "images": [],
           "options": [
@@ -22674,7 +22771,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-578",
-          "question_number": 178,
+          "question_number": 338,
           "question_text": "Name the drugs used in migraine prophylaxis:",
           "images": [],
           "options": [
@@ -22713,7 +22810,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-579",
-          "question_number": 179,
+          "question_number": 339,
           "question_text": "Name the oral antifungal drugs:",
           "images": [],
           "options": [
@@ -22753,7 +22850,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-580",
-          "question_number": 180,
+          "question_number": 340,
           "question_text": "List the IV drugs used for hypertensive emergency:",
           "images": [],
           "options": [
@@ -22792,7 +22889,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-581",
-          "question_number": 181,
+          "question_number": 341,
           "question_text": "Name the indications for alteplase administration:",
           "images": [],
           "options": [
@@ -22832,7 +22929,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-582",
-          "question_number": 182,
+          "question_number": 342,
           "question_text": "Name the drugs that may be administered to reverse the effects of alteplase:",
           "images": [],
           "options": [
@@ -22871,7 +22968,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-583",
-          "question_number": 183,
+          "question_number": 343,
           "question_text": "Name the main manifestations of ischemic stroke:",
           "images": [],
           "options": [
@@ -22911,7 +23008,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-584",
-          "question_number": 184,
+          "question_number": 344,
           "question_text": "Name the drugs used for prophylaxis of recurrent thrombotic stroke:",
           "images": [],
           "options": [
@@ -22952,7 +23049,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-585",
-          "question_number": 185,
+          "question_number": 345,
           "question_text": "Name the adverse reactions of long-term antiplatelet therapy with acetylsalicylic acid:",
           "images": [],
           "options": [
@@ -22992,7 +23089,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-586",
-          "question_number": 186,
+          "question_number": 346,
           "question_text": "Name the symptoms of hemorrhagic stroke:",
           "images": [],
           "options": [
@@ -23033,7 +23130,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-587",
-          "question_number": 187,
+          "question_number": 347,
           "question_text": "Name the antiepileptic drugs that induce CYP450 enzymes:",
           "images": [],
           "options": [
@@ -23073,7 +23170,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-588",
-          "question_number": 188,
+          "question_number": 348,
           "question_text": "Choose the antiepileptic drugs that can reduce the effectiveness of oral contraceptives:",
           "images": [],
           "options": [
@@ -23112,7 +23209,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-589",
-          "question_number": 189,
+          "question_number": 349,
           "question_text": "Name the antiepileptic drugs with a high risk of teratogenicity:",
           "images": [],
           "options": [
@@ -23152,7 +23249,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-590",
-          "question_number": 190,
+          "question_number": 350,
           "question_text": "Name the antiepileptic drugs that act by decreasing glutamatergic transmission in the CNS:",
           "images": [],
           "options": [
@@ -23192,7 +23289,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-591",
-          "question_number": 191,
+          "question_number": 351,
           "question_text": "Name the symptoms specific to Parkinson’s disease:",
           "images": [],
           "options": [
@@ -23232,7 +23329,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-592",
-          "question_number": 192,
+          "question_number": 352,
           "question_text": "Choose what is characteristic of Parkinson’s disease:",
           "images": [],
           "options": [
@@ -23272,7 +23369,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-593",
-          "question_number": 193,
+          "question_number": 353,
           "question_text": "Name the indications for bromocriptine:",
           "images": [],
           "options": [
@@ -23314,7 +23411,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-594",
-          "question_number": 194,
+          "question_number": 354,
           "question_text": "Choose the “red flags” in headache that indicate a potential severe underlying pathology:",
           "images": [],
           "options": [
@@ -23355,7 +23452,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-595",
-          "question_number": 195,
+          "question_number": 355,
           "question_text": "Name the contraindications for triptans:",
           "images": [],
           "options": [
@@ -23396,7 +23493,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-596",
-          "question_number": 196,
+          "question_number": 356,
           "question_text": "Name the adverse effects of triptans:",
           "images": [],
           "options": [
@@ -23435,7 +23532,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-597",
-          "question_number": 197,
+          "question_number": 357,
           "question_text": "Name the drug interactions of triptans that may lead to serotonin syndrome:",
           "images": [],
           "options": [
@@ -23475,7 +23572,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-598",
-          "question_number": 198,
+          "question_number": 358,
           "question_text": "Name the symptoms of hyperglycemia:",
           "images": [],
           "options": [
@@ -23515,7 +23612,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-599",
-          "question_number": 199,
+          "question_number": 359,
           "question_text": "Name the characteristics of type II diabetes mellitus:",
           "images": [],
           "options": [
@@ -23554,7 +23651,7 @@
         },
         {
           "id": "department-of-pharmacology-and-clinical-pharmacy-600",
-          "question_number": 200,
+          "question_number": 360,
           "question_text": "Choose the antidiabetic drugs with a high risk of causing hypoglycemia:",
           "images": [],
           "options": [
