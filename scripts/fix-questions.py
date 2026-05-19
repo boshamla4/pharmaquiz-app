@@ -80,12 +80,14 @@ if q50:
 # ── 6. Exclude unanswerable / broken questions ─────────────────────────────
 # Q72 already has correct_answers=[] from the parser (no highlight detected)
 
-# Q51 (Ch1): option A is blank (missing from PDF) — exclude to avoid
-# showing a broken question with a visibly empty option to users.
+# Q51 (Ch1): option A text is missing from PDF — fill it in and set correct answer.
 q51 = find_q(ch1, 51)
-if q51 and q51.get("correct_answers"):
-    q51["correct_answers"] = []
-    print("✓ Ch1 Q51 excluded (option A missing in PDF)")
+if q51:
+    opt_a = next((o for o in q51["options"] if o["id"] == "A"), None)
+    if opt_a is not None:
+        opt_a["text"] = "none"
+    q51["correct_answers"] = ["B"]
+    print("✓ Ch1 Q51 opt A → 'none', correct_answers → ['B']")
 
 
 # ── 7. Write output ─────────────────────────────────────────────────────────
