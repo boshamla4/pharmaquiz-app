@@ -1151,27 +1151,27 @@
           "options": [
             {
               "id": "A",
-              "text": "terpene (C 6 H 12 )",
+              "text": "terpene (C6H12)",
               "images": []
             },
             {
               "id": "B",
-              "text": "isoprene (C 5 H 8 )",
+              "text": "isoprene (C5H8)",
               "images": []
             },
             {
               "id": "C",
-              "text": "monoterpene (C 10 H 16 )",
+              "text": "monoterpene (C10H16)",
               "images": []
             },
             {
               "id": "D",
-              "text": "sesquiterpene (C 15 H 20 )",
+              "text": "sesquiterpene (C15H20)",
               "images": []
             },
             {
               "id": "E",
-              "text": "triterpene (C 3 H 6 )",
+              "text": "triterpene (C3H6)",
               "images": []
             }
           ],
@@ -1716,7 +1716,7 @@
         {
           "id": "pharmacognosy-and-pharmaceutical-botany-department-46",
           "question_number": 46,
-          "question_text": "Indicate the phenomenon specific to anthracene derivatives when heating the vegetal product (temperature 210 0 C):",
+          "question_text": "Indicate the phenomenon specific to anthracene derivatives when heating the vegetal product (temperature 2100 C):",
           "images": [],
           "options": [
             {
@@ -1935,9 +1935,7 @@
               "images": []
             }
           ],
-          "correct_answers": [
-            "C"
-          ],
+          "correct_answers": [],
           "type": "single",
           "source_page": 8
         },
@@ -2404,7 +2402,7 @@
           "question_number": 64,
           "question_text": "Specify the chemical structure below:",
           "images": [
-            "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-64-4.png"
+            "/pharmaquiz-media/page-009-pharmacognosy-and-pharmaceutical-botany-department-64-2.png"
           ],
           "options": [
             {
@@ -2444,43 +2442,33 @@
           "question_number": 65,
           "question_text": "Select the vegetal product corresponding to the microscopy below:",
           "images": [
-            "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-65-1.png"
+            "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-65-3.png"
           ],
           "options": [
             {
               "id": "A",
               "text": "Urticae folia",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-65-1.png"
-              ]
+              "images": []
             },
             {
               "id": "B",
               "text": "Origani vulgaris herba",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-65-1.png"
-              ]
+              "images": []
             },
             {
               "id": "C",
               "text": "Chelidonii herba",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-65-1.png"
-              ]
+              "images": []
             },
             {
               "id": "D",
               "text": "Salviae folia",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-65-1.png"
-              ]
+              "images": []
             },
             {
               "id": "E",
               "text": "Delphinii flores",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-65-1.png"
-              ]
+              "images": []
             }
           ],
           "correct_answers": [
@@ -2494,7 +2482,7 @@
           "question_number": 66,
           "question_text": "Select the vegetal product corresponding to the microscopy below:",
           "images": [
-            "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-66-2.png"
+            "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-66-4.png"
           ],
           "options": [
             {
@@ -2505,30 +2493,22 @@
             {
               "id": "B",
               "text": "Glaucii herba",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-66-2.png"
-              ]
+              "images": []
             },
             {
               "id": "C",
               "text": "Chelidonii herba",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-66-2.png"
-              ]
+              "images": []
             },
             {
               "id": "D",
               "text": "Salviae folia",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-66-2.png"
-              ]
+              "images": []
             },
             {
               "id": "E",
               "text": "Uvae-ursi folia",
-              "images": [
-                "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-66-2.png"
-              ]
+              "images": []
             }
           ],
           "correct_answers": [
@@ -2618,7 +2598,7 @@
           "question_number": 69,
           "question_text": "Specify the chemical structure of linalool:",
           "images": [
-            "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-69-3.png"
+            "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-69-5.png"
           ],
           "options": [
             {
@@ -2657,7 +2637,9 @@
           "id": "pharmacognosy-and-pharmaceutical-botany-department-70",
           "question_number": 70,
           "question_text": "Specify the chemical structure of menthol:",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/page-010-pharmacognosy-and-pharmaceutical-botany-department-70-6.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -2696,7 +2678,7 @@
           "question_number": 71,
           "question_text": "Specify the chemical structure below:",
           "images": [
-            "/pharmaquiz-media/page-011-pharmacognosy-and-pharmaceutical-botany-department-71-1.png"
+            "/pharmaquiz-media/page-011-pharmacognosy-and-pharmaceutical-botany-department-71-7.png"
           ],
           "options": [
             {
@@ -2722,9 +2704,7 @@
             {
               "id": "E",
               "text": "carvacrol",
-              "images": [
-                "/pharmaquiz-media/page-011-pharmacognosy-and-pharmaceutical-botany-department-71-1.png"
-              ]
+              "images": []
             }
           ],
           "correct_answers": [
@@ -2738,7 +2718,7 @@
           "question_number": 72,
           "question_text": "Specify the chemical structure of thujone:",
           "images": [
-            "/pharmaquiz-media/page-011-pharmacognosy-and-pharmaceutical-botany-department-72-2.png"
+            "/pharmaquiz-media/page-011-pharmacognosy-and-pharmaceutical-botany-department-72-8.png"
           ],
           "options": [
             {
@@ -2764,9 +2744,7 @@
             {
               "id": "E",
               "text": "5 Λ",
-              "images": [
-                "/pharmaquiz-media/page-011-pharmacognosy-and-pharmaceutical-botany-department-72-2.png"
-              ]
+              "images": []
             }
           ],
           "correct_answers": [],
@@ -3082,7 +3060,7 @@
           "question_number": 81,
           "question_text": "Indicate the vegetal product whose microscopic characteristics are represented in the picture:",
           "images": [
-            "/pharmaquiz-media/page-012-pharmacognosy-and-pharmaceutical-botany-department-81-1.png"
+            "/pharmaquiz-media/page-012-pharmacognosy-and-pharmaceutical-botany-department-81-9.png"
           ],
           "options": [
             {
@@ -3122,29 +3100,23 @@
           "question_number": 82,
           "question_text": "Select the vegetal product, plants family for Barberry:",
           "images": [
-            "/pharmaquiz-media/page-012-pharmacognosy-and-pharmaceutical-botany-department-82-1.png"
+            "/pharmaquiz-media/page-012-pharmacognosy-and-pharmaceutical-botany-department-82-10.png"
           ],
           "options": [
             {
               "id": "A",
               "text": "Berberidis fructus, Berberis vulgare, Berberidaceae",
-              "images": [
-                "/pharmaquiz-media/page-012-pharmacognosy-and-pharmaceutical-botany-department-82-1.png"
-              ]
+              "images": []
             },
             {
               "id": "B",
               "text": "Meliloti officinalis herba, Melilotus officinalis, Fabaceae",
-              "images": [
-                "/pharmaquiz-media/page-012-pharmacognosy-and-pharmaceutical-botany-department-82-1.png"
-              ]
+              "images": []
             },
             {
               "id": "C",
               "text": "Gentianae radices, Gentiana lutea, Gentianaceae",
-              "images": [
-                "/pharmaquiz-media/page-012-pharmacognosy-and-pharmaceutical-botany-department-82-1.png"
-              ]
+              "images": []
             },
             {
               "id": "D",
@@ -3405,7 +3377,7 @@
         {
           "id": "pharmacognosy-and-pharmaceutical-botany-department-89",
           "question_number": 89,
-          "question_text": "Select the vegetal products from Common barberry ( Berberis vulgare):",
+          "question_text": "Select the vegetal products from Common barberry (Berberis vulgare):",
           "images": [],
           "options": [
             {
@@ -7807,7 +7779,7 @@
           "question_number": 199,
           "question_text": "Select alkaloids with purine nucleus:",
           "images": [
-            "/pharmaquiz-media/page-028-pharmacognosy-and-pharmaceutical-botany-department-199-1.png"
+            "/pharmaquiz-media/page-028-pharmacognosy-and-pharmaceutical-botany-department-199-11.png"
           ],
           "options": [
             {
@@ -7848,7 +7820,9 @@
           "id": "pharmacognosy-and-pharmaceutical-botany-department-200",
           "question_number": 200,
           "question_text": "Select the vegetal products with cardiovascular action:",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/page-029-pharmacognosy-and-pharmaceutical-botany-department-200-12.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -7917,7 +7891,7 @@
             },
             {
               "id": "E",
-              "text": "Peroxide compounds ---------------------------------------------------------------------",
+              "text": "Peroxide compounds",
               "images": []
             }
           ],
@@ -7955,7 +7929,7 @@
             },
             {
               "id": "E",
-              "text": "Spectrophotometer ---------------------------------------------------------------------",
+              "text": "Spectrophotometer",
               "images": []
             }
           ],
@@ -7993,7 +7967,7 @@
             },
             {
               "id": "E",
-              "text": "p-Aminobenzoic acid ---------------------------------------------------------------------",
+              "text": "p-Aminobenzoic acid",
               "images": []
             }
           ],
@@ -8031,7 +8005,7 @@
             },
             {
               "id": "E",
-              "text": "Alcohols ---------------------------------------------------------------------",
+              "text": "Alcohols",
               "images": []
             }
           ],
@@ -8069,7 +8043,7 @@
             },
             {
               "id": "E",
-              "text": "β-Lactam ring ---------------------------------------------------------------------",
+              "text": "β-Lactam ring",
               "images": []
             }
           ],
@@ -8082,7 +8056,7 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-206",
           "question_number": 6,
-          "question_text": "According to the chemical structure Epinephrine Hydrochloride (Adrenaline) is: HO . HCl HO CH - CH 2 - NH - CH 3 OH",
+          "question_text": "According to the chemical structure Epinephrine Hydrochloride (Adrenaline) is: HO . HCl HO CH - CH2 - NH - CH3 OH",
           "images": [],
           "options": [
             {
@@ -8107,7 +8081,7 @@
             },
             {
               "id": "E",
-              "text": "Aminoacid --------------------------------------------------------------------- O O - C NH 2 is:",
+              "text": "Aminoacid O O - C NH2 is:",
               "images": []
             }
           ],
@@ -8145,7 +8119,7 @@
             },
             {
               "id": "E",
-              "text": "Urethane group ---------------------------------------------------------------------",
+              "text": "Urethane group",
               "images": []
             }
           ],
@@ -8183,7 +8157,7 @@
             },
             {
               "id": "E",
-              "text": "Glaucine Hydrochloride ---------------------------------------------------------------------",
+              "text": "Glaucine Hydrochloride",
               "images": []
             }
           ],
@@ -8221,7 +8195,7 @@
             },
             {
               "id": "E",
-              "text": "Morphine hydrochloride ---------------------------------------------------------------------",
+              "text": "Morphine hydrochloride",
               "images": []
             }
           ],
@@ -8235,30 +8209,22 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-210",
           "question_number": 10,
           "question_text": "As protogenic solvent in acid-base titration in non-aqueous media is used:",
-          "images": [
-            "/pharmaquiz-media/page-031-tests-for-the-state-exam-speciality-pharmacy-210-2.png"
-          ],
+          "images": [],
           "options": [
             {
               "id": "A",
               "text": "Benzene",
-              "images": [
-                "/pharmaquiz-media/page-031-tests-for-the-state-exam-speciality-pharmacy-210-2.png"
-              ]
+              "images": []
             },
             {
               "id": "B",
               "text": "Alcohol",
-              "images": [
-                "/pharmaquiz-media/page-031-tests-for-the-state-exam-speciality-pharmacy-210-2.png"
-              ]
+              "images": []
             },
             {
               "id": "C",
               "text": "Hydrochloric acid",
-              "images": [
-                "/pharmaquiz-media/page-031-tests-for-the-state-exam-speciality-pharmacy-210-2.png"
-              ]
+              "images": []
             },
             {
               "id": "D",
@@ -8267,10 +8233,8 @@
             },
             {
               "id": "E",
-              "text": "Dimethylformamide ---------------------------------------------------------------------   ( V K V K ) T     1 1 2 2 B / A X 100 % а",
-              "images": [
-                "/pharmaquiz-media/page-031-tests-for-the-state-exam-speciality-pharmacy-210-2.png"
-              ]
+              "text": "Dimethylformamide   ( V K V K ) T     1 1 2 2 B / A X 100 % а",
+              "images": []
             }
           ],
           "correct_answers": [
@@ -8307,7 +8271,7 @@
             },
             {
               "id": "E",
-              "text": "Direct with consideration of humidity ---------------------------------------------------------------------",
+              "text": "Direct with consideration of humidity",
               "images": []
             }
           ],
@@ -8322,7 +8286,7 @@
           "question_number": 12,
           "question_text": "Specify the following image:",
           "images": [
-            "/pharmaquiz-media/page-031-tests-for-the-state-exam-speciality-pharmacy-212-1.png"
+            "/pharmaquiz-media/page-031-tests-for-the-state-exam-speciality-pharmacy-212-13.png"
           ],
           "options": [
             {
@@ -8347,7 +8311,7 @@
             },
             {
               "id": "E",
-              "text": "Cromatogram thin layer ---------------------------------------------------------------------",
+              "text": "Cromatogram thin layer",
               "images": []
             }
           ],
@@ -8361,7 +8325,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-213",
           "question_number": 13,
           "question_text": "Specify the following image:",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/page-031-tests-for-the-state-exam-speciality-pharmacy-213-14.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -8385,7 +8351,7 @@
             },
             {
               "id": "E",
-              "text": "Cromatogram thin layer ---------------------------------------------------------------------",
+              "text": "Cromatogram thin layer",
               "images": []
             }
           ],
@@ -8423,7 +8389,7 @@
             },
             {
               "id": "E",
-              "text": "Gel filtration ---------------------------------------------------------------------",
+              "text": "Gel filtration",
               "images": []
             }
           ],
@@ -8438,7 +8404,7 @@
           "question_number": 15,
           "question_text": "Specify the following image:",
           "images": [
-            "/pharmaquiz-media/page-032-tests-for-the-state-exam-speciality-pharmacy-215-1.png"
+            "/pharmaquiz-media/page-032-tests-for-the-state-exam-speciality-pharmacy-215-15.png"
           ],
           "options": [
             {
@@ -8463,7 +8429,7 @@
             },
             {
               "id": "E",
-              "text": "UV spectrum ---------------------------------------------------------------------",
+              "text": "UV spectrum",
               "images": []
             }
           ],
@@ -8477,7 +8443,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-216",
           "question_number": 16,
           "question_text": "Indicate the physico-chemical method based on the following scheme:",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/page-032-tests-for-the-state-exam-speciality-pharmacy-216-16.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -8501,7 +8469,7 @@
             },
             {
               "id": "E",
-              "text": "Spectrophotometry in IR ---------------------------------------------------------------------",
+              "text": "Spectrophotometry in IR",
               "images": []
             }
           ],
@@ -8539,7 +8507,7 @@
             },
             {
               "id": "E",
-              "text": "---------------------------------------------------------------------",
+              "text": "",
               "images": []
             }
           ],
@@ -8577,7 +8545,7 @@
             },
             {
               "id": "E",
-              "text": "Spectrophotometry ---------------------------------------------------------------------",
+              "text": "Spectrophotometry",
               "images": []
             }
           ],
@@ -8615,7 +8583,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of the content of medicinal substances ---------------------------------------------------------------------",
+              "text": "Determination of the content of medicinal substances",
               "images": []
             }
           ],
@@ -8653,7 +8621,7 @@
             },
             {
               "id": "E",
-              "text": "Alcohol hydroxyl ---------------------------------------------------------------------",
+              "text": "Alcohol hydroxyl",
               "images": []
             }
           ],
@@ -8691,7 +8659,7 @@
             },
             {
               "id": "E",
-              "text": "The indophenol test ---------------------------------------------------------------------",
+              "text": "The indophenol test",
               "images": []
             }
           ],
@@ -8705,7 +8673,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-222",
           "question_number": 22,
           "question_text": "Indicate the physico-chemical method based on the following scheme:",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/page-033-tests-for-the-state-exam-speciality-pharmacy-222-17.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -8729,7 +8699,7 @@
             },
             {
               "id": "E",
-              "text": "Spectrophotometry in UV-VIS ---------------------------------------------------------------------",
+              "text": "Spectrophotometry in UV-VIS",
               "images": []
             }
           ],
@@ -8767,7 +8737,7 @@
             },
             {
               "id": "E",
-              "text": "p-Aminosalicylic acid ---------------------------------------------------------------------",
+              "text": "p-Aminosalicylic acid",
               "images": []
             }
           ],
@@ -8782,15 +8752,13 @@
           "question_number": 24,
           "question_text": "Indicate the physico-chemical method based on the following scheme:",
           "images": [
-            "/pharmaquiz-media/page-034-tests-for-the-state-exam-speciality-pharmacy-224-1.png"
+            "/pharmaquiz-media/page-034-tests-for-the-state-exam-speciality-pharmacy-224-18.png"
           ],
           "options": [
             {
               "id": "A",
               "text": "Determination of pH",
-              "images": [
-                "/pharmaquiz-media/page-034-tests-for-the-state-exam-speciality-pharmacy-224-1.png"
-              ]
+              "images": []
             },
             {
               "id": "B",
@@ -8809,7 +8777,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of the refractive index ---------------------------------------------------------------------",
+              "text": "Determination of the refractive index",
               "images": []
             }
           ],
@@ -8824,7 +8792,7 @@
           "question_number": 25,
           "question_text": "The device in the image is called:",
           "images": [
-            "/pharmaquiz-media/page-034-tests-for-the-state-exam-speciality-pharmacy-225-2.png"
+            "/pharmaquiz-media/page-034-tests-for-the-state-exam-speciality-pharmacy-225-19.png"
           ],
           "options": [
             {
@@ -8849,7 +8817,7 @@
             },
             {
               "id": "E",
-              "text": "Potentiometer ---------------------------------------------------------------------",
+              "text": "Potentiometer",
               "images": []
             }
           ],
@@ -8863,7 +8831,9 @@
           "id": "tests-for-the-state-exam-speciality-pharmacy-226",
           "question_number": 26,
           "question_text": "Specify the following image:",
-          "images": [],
+          "images": [
+            "/pharmaquiz-media/page-035-tests-for-the-state-exam-speciality-pharmacy-226-20.png"
+          ],
           "options": [
             {
               "id": "A",
@@ -8887,7 +8857,7 @@
             },
             {
               "id": "E",
-              "text": "HPLC Chromatogram ---------------------------------------------------------------------",
+              "text": "HPLC Chromatogram",
               "images": []
             }
           ],
@@ -8900,7 +8870,7 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-227",
           "question_number": 27,
-          "question_text": "For the quantitative determination of Sulfanilamide (Streptocide) in ointment, the following method is used in internal pharmaceutical control: H 2 N SO 2 - NH 2",
+          "question_text": "For the quantitative determination of Sulfanilamide (Streptocide) in ointment, the following method is used in internal pharmaceutical control: H2N SO2 - NH2",
           "images": [],
           "options": [
             {
@@ -8925,7 +8895,7 @@
             },
             {
               "id": "E",
-              "text": "Acidimetric ---------------------------------------------------------------------",
+              "text": "Acidimetric",
               "images": []
             }
           ],
@@ -8963,7 +8933,7 @@
             },
             {
               "id": "E",
-              "text": "Refractometric, argentometric ---------------------------------------------------------------------",
+              "text": "Refractometric, argentometric",
               "images": []
             }
           ],
@@ -9001,7 +8971,7 @@
             },
             {
               "id": "E",
-              "text": "Polymerization ---------------------------------------------------------------------",
+              "text": "Polymerization",
               "images": []
             }
           ],
@@ -9039,7 +9009,7 @@
             },
             {
               "id": "E",
-              "text": "Distillation ---------------------------------------------------------------------",
+              "text": "Distillation",
               "images": []
             }
           ],
@@ -9077,7 +9047,7 @@
             },
             {
               "id": "E",
-              "text": "Ammonium oxalate ---------------------------------------------------------------------",
+              "text": "Ammonium oxalate",
               "images": []
             }
           ],
@@ -9090,7 +9060,7 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-232",
           "question_number": 32,
-          "question_text": "Positive reaction with ninhydrin after acid hydrolysis forms the following structural fragment of Folic Acid: OH O N CH 2 - NH C - NH - CH - C N 4 5 3 OH 6 CH 2 2 7 8 1 O H 2 N N N CH 2 O C OH N 3 2 1 H 2 N N",
+          "question_text": "Positive reaction with ninhydrin after acid hydrolysis forms the following structural fragment of Folic Acid: OH O N CH2 - NH C - NH - CH - C N 4 5 3 OH 6 CH2 2 7 8 1 O H2N N N CH2 O C OH N 3 2 1 H2N N",
           "images": [],
           "options": [
             {
@@ -9100,7 +9070,7 @@
             },
             {
               "id": "B",
-              "text": "O NH - CH - C OH CH 2 CH 2 O C OH",
+              "text": "O NH - CH - C OH CH2 CH2 O C OH",
               "images": []
             },
             {
@@ -9110,12 +9080,12 @@
             },
             {
               "id": "D",
-              "text": "OH N CH 2 N H 2 N N N",
+              "text": "OH N CH2 N H2N N N",
               "images": []
             },
             {
               "id": "E",
-              "text": "---------------------------------------------------------------------",
+              "text": "",
               "images": []
             }
           ],
@@ -9128,7 +9098,7 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-233",
           "question_number": 33,
-          "question_text": "Select the structural fragment from the sulphothiazole molecule that leads to the reaction of azo dye: N H 2 N SO 2 - NH S",
+          "question_text": "Select the structural fragment from the sulphothiazole molecule that leads to the reaction of azo dye: N H2N SO2 - NH S",
           "images": [],
           "options": [
             {
@@ -9138,7 +9108,7 @@
             },
             {
               "id": "B",
-              "text": "H 2 N",
+              "text": "H2N",
               "images": []
             },
             {
@@ -9148,12 +9118,12 @@
             },
             {
               "id": "D",
-              "text": "- SO 2 - NH - N S",
+              "text": "- SO2 - NH - N S",
               "images": []
             },
             {
               "id": "E",
-              "text": "---------------------------------------------------------------------",
+              "text": "",
               "images": []
             }
           ],
@@ -9191,7 +9161,7 @@
             },
             {
               "id": "E",
-              "text": "Sodium Hydroxide ---------------------------------------------------------------------",
+              "text": "Sodium Hydroxide",
               "images": []
             }
           ],
@@ -9209,7 +9179,7 @@
           "options": [
             {
               "id": "A",
-              "text": "Sulfamide O O S NH 2",
+              "text": "Sulfamide O O S NH2",
               "images": []
             },
             {
@@ -9219,7 +9189,7 @@
             },
             {
               "id": "C",
-              "text": "Carbamide O -C NH 2",
+              "text": "Carbamide O -C NH2",
               "images": []
             },
             {
@@ -9229,7 +9199,7 @@
             },
             {
               "id": "E",
-              "text": "Ester O -C OR ---------------------------------------------------------------------",
+              "text": "Ester O -C OR",
               "images": []
             }
           ],
@@ -9247,12 +9217,12 @@
           "options": [
             {
               "id": "A",
-              "text": "Nitro - NO 2",
+              "text": "Nitro - NO2",
               "images": []
             },
             {
               "id": "B",
-              "text": "Thiol R - CH 2 - SH",
+              "text": "Thiol R - CH2 - SH",
               "images": []
             },
             {
@@ -9267,7 +9237,7 @@
             },
             {
               "id": "E",
-              "text": "Ester O -C OR ---------------------------------------------------------------------",
+              "text": "Ester O -C OR",
               "images": []
             }
           ],
@@ -9305,7 +9275,7 @@
             },
             {
               "id": "E",
-              "text": "Extern ---------------------------------------------------------------------",
+              "text": "Extern",
               "images": []
             }
           ],
@@ -9343,7 +9313,7 @@
             },
             {
               "id": "E",
-              "text": "Refractometry ---------------------------------------------------------------------",
+              "text": "Refractometry",
               "images": []
             }
           ],
@@ -9381,7 +9351,7 @@
             },
             {
               "id": "E",
-              "text": "Precipitation ---------------------------------------------------------------------",
+              "text": "Precipitation",
               "images": []
             }
           ],
@@ -9419,7 +9389,7 @@
             },
             {
               "id": "E",
-              "text": "Condense ---------------------------------------------------------------------",
+              "text": "Condense",
               "images": []
             }
           ],
@@ -9457,7 +9427,7 @@
             },
             {
               "id": "E",
-              "text": "Acid -baze titration in aqueous media ---------------------------------------------------------------------",
+              "text": "Acid -baze titration in aqueous media",
               "images": []
             }
           ],
@@ -9495,7 +9465,7 @@
             },
             {
               "id": "E",
-              "text": "---------------------------------------------------------------------",
+              "text": "",
               "images": []
             }
           ],
@@ -9513,27 +9483,27 @@
           "options": [
             {
               "id": "A",
-              "text": "К 2 Cr 2 O 7",
+              "text": "К2Cr2O7",
               "images": []
             },
             {
               "id": "B",
-              "text": "К 2 CrO 4",
+              "text": "К2CrO4",
               "images": []
             },
             {
               "id": "C",
-              "text": "NH 4 SCN",
+              "text": "NH4SCN",
               "images": []
             },
             {
               "id": "D",
-              "text": "FeNH 4 (SO 4 ) 2",
+              "text": "FeNH4(SO4)2",
               "images": []
             },
             {
               "id": "E",
-              "text": "KMnO 4 ---------------------------------------------------------------------",
+              "text": "KMnO4",
               "images": []
             }
           ],
@@ -9571,7 +9541,7 @@
             },
             {
               "id": "E",
-              "text": "Ammonium oxalate ---------------------------------------------------------------------",
+              "text": "Ammonium oxalate",
               "images": []
             }
           ],
@@ -9609,7 +9579,7 @@
             },
             {
               "id": "E",
-              "text": "Sodium sulphide ---------------------------------------------------------------------",
+              "text": "Sodium sulphide",
               "images": []
             }
           ],
@@ -9647,7 +9617,7 @@
             },
             {
               "id": "E",
-              "text": "Para-aminobenzoic acid ---------------------------------------------------------------------",
+              "text": "Para-aminobenzoic acid",
               "images": []
             }
           ],
@@ -9685,7 +9655,7 @@
             },
             {
               "id": "E",
-              "text": "Color standard solution ---------------------------------------------------------------------",
+              "text": "Color standard solution",
               "images": []
             }
           ],
@@ -9723,7 +9693,7 @@
             },
             {
               "id": "E",
-              "text": "Ammonium oxalate ---------------------------------------------------------------------",
+              "text": "Ammonium oxalate",
               "images": []
             }
           ],
@@ -9761,7 +9731,7 @@
             },
             {
               "id": "E",
-              "text": "Formation of complex compounds ---------------------------------------------------------------------",
+              "text": "Formation of complex compounds",
               "images": []
             }
           ],
@@ -9799,7 +9769,7 @@
             },
             {
               "id": "E",
-              "text": "The temperature range between the beginning of melting and the decomposition of the substance ---------------------------------------------------------------------",
+              "text": "The temperature range between the beginning of melting and the decomposition of the substance",
               "images": []
             }
           ],
@@ -9837,7 +9807,7 @@
             },
             {
               "id": "E",
-              "text": "Spectrophotometer ---------------------------------------------------------------------",
+              "text": "Spectrophotometer",
               "images": []
             }
           ],
@@ -9875,7 +9845,7 @@
             },
             {
               "id": "E",
-              "text": "Non-unitary quantity of product, taken from the control series (batch), consisting of several exact samples ---------------------------------------------------------------------",
+              "text": "Non-unitary quantity of product, taken from the control series (batch), consisting of several exact samples",
               "images": []
             }
           ],
@@ -9913,7 +9883,7 @@
             },
             {
               "id": "E",
-              "text": "Sodium salts ---------------------------------------------------------------------",
+              "text": "Sodium salts",
               "images": []
             }
           ],
@@ -9951,7 +9921,7 @@
             },
             {
               "id": "E",
-              "text": "Substitution ---------------------------------------------------------------------",
+              "text": "Substitution",
               "images": []
             }
           ],
@@ -9989,7 +9959,7 @@
             },
             {
               "id": "E",
-              "text": "Loss on drying ---------------------------------------------------------------------",
+              "text": "Loss on drying",
               "images": []
             }
           ],
@@ -10027,7 +9997,7 @@
             },
             {
               "id": "E",
-              "text": "Free acids and acids resulting from saponification ---------------------------------------------------------------------",
+              "text": "Free acids and acids resulting from saponification",
               "images": []
             }
           ],
@@ -10065,7 +10035,7 @@
             },
             {
               "id": "E",
-              "text": "Number of hydroxyl groups in the substance ---------------------------------------------------------------------",
+              "text": "Number of hydroxyl groups in the substance",
               "images": []
             }
           ],
@@ -10103,7 +10073,7 @@
             },
             {
               "id": "E",
-              "text": "Phosphomolybdic acid ---------------------------------------------------------------------",
+              "text": "Phosphomolybdic acid",
               "images": []
             }
           ],
@@ -10141,7 +10111,7 @@
             },
             {
               "id": "E",
-              "text": "Indophenol formation reaction ---------------------------------------------------------------------",
+              "text": "Indophenol formation reaction",
               "images": []
             }
           ],
@@ -10179,7 +10149,7 @@
             },
             {
               "id": "E",
-              "text": "Ampicillin ---------------------------------------------------------------------",
+              "text": "Ampicillin",
               "images": []
             }
           ],
@@ -10217,7 +10187,7 @@
             },
             {
               "id": "E",
-              "text": "Potassium tetraiodomercurate (II) in alkaline solution (Nessler's Reagent) ---------------------------------------------------------------------",
+              "text": "Potassium tetraiodomercurate (II) in alkaline solution (Nessler's Reagent)",
               "images": []
             }
           ],
@@ -10255,7 +10225,7 @@
             },
             {
               "id": "E",
-              "text": "Microbiological ---------------------------------------------------------------------",
+              "text": "Microbiological",
               "images": []
             }
           ],
@@ -10293,7 +10263,7 @@
             },
             {
               "id": "E",
-              "text": "Air ---------------------------------------------------------------------",
+              "text": "Air",
               "images": []
             }
           ],
@@ -10331,7 +10301,7 @@
             },
             {
               "id": "E",
-              "text": "Applying results in practice ---------------------------------------------------------------------",
+              "text": "Applying results in practice",
               "images": []
             }
           ],
@@ -10369,7 +10339,7 @@
             },
             {
               "id": "E",
-              "text": "25-3°C ---------------------------------------------------------------------",
+              "text": "25-3°C",
               "images": []
             }
           ],
@@ -10407,7 +10377,7 @@
             },
             {
               "id": "E",
-              "text": "Microbiological ---------------------------------------------------------------------",
+              "text": "Microbiological",
               "images": []
             }
           ],
@@ -10445,7 +10415,7 @@
             },
             {
               "id": "E",
-              "text": "Isopropanol-methanol ---------------------------------------------------------------------",
+              "text": "Isopropanol-methanol",
               "images": []
             }
           ],
@@ -10483,7 +10453,7 @@
             },
             {
               "id": "E",
-              "text": "Palliative treatment ---------------------------------------------------------------------",
+              "text": "Palliative treatment",
               "images": []
             }
           ],
@@ -10521,7 +10491,7 @@
             },
             {
               "id": "E",
-              "text": "Widal test ---------------------------------------------------------------------",
+              "text": "Widal test",
               "images": []
             }
           ],
@@ -10559,7 +10529,7 @@
             },
             {
               "id": "E",
-              "text": "Quantitative analysis ---------------------------------------------------------------------",
+              "text": "Quantitative analysis",
               "images": []
             }
           ],
@@ -10597,7 +10567,7 @@
             },
             {
               "id": "E",
-              "text": "Starch ---------------------------------------------------------------------",
+              "text": "Starch",
               "images": []
             }
           ],
@@ -10635,7 +10605,7 @@
             },
             {
               "id": "E",
-              "text": "Hepatitis B ---------------------------------------------------------------------",
+              "text": "Hepatitis B",
               "images": []
             }
           ],
@@ -10673,7 +10643,7 @@
             },
             {
               "id": "E",
-              "text": "Increase in urinary pH ---------------------------------------------------------------------",
+              "text": "Increase in urinary pH",
               "images": []
             }
           ],
@@ -10711,7 +10681,7 @@
             },
             {
               "id": "E",
-              "text": "In small doses, delays gastric emptying ---------------------------------------------------------------------",
+              "text": "In small doses, delays gastric emptying",
               "images": []
             }
           ],
@@ -10749,7 +10719,7 @@
             },
             {
               "id": "E",
-              "text": "Quinine ---------------------------------------------------------------------",
+              "text": "Quinine",
               "images": []
             }
           ],
@@ -10787,7 +10757,7 @@
             },
             {
               "id": "E",
-              "text": "The sum of two variables ---------------------------------------------------------------------",
+              "text": "The sum of two variables",
               "images": []
             }
           ],
@@ -10825,7 +10795,7 @@
             },
             {
               "id": "E",
-              "text": "Decarboxylation ---------------------------------------------------------------------",
+              "text": "Decarboxylation",
               "images": []
             }
           ],
@@ -10863,7 +10833,7 @@
             },
             {
               "id": "E",
-              "text": "Esophagus ---------------------------------------------------------------------",
+              "text": "Esophagus",
               "images": []
             }
           ],
@@ -10901,7 +10871,7 @@
             },
             {
               "id": "E",
-              "text": "Plasma protein affinity ---------------------------------------------------------------------",
+              "text": "Plasma protein affinity",
               "images": []
             }
           ],
@@ -10939,7 +10909,7 @@
             },
             {
               "id": "E",
-              "text": "Oxazepam --------------------------------------------------------------------- Multiple choice",
+              "text": "Oxazepam Multiple choice",
               "images": []
             }
           ],
@@ -10977,7 +10947,7 @@
             },
             {
               "id": "E",
-              "text": "In case of dispute about the quality of the drugs between the manufacturer and the consumer ---------------------------------------------------------------------",
+              "text": "In case of dispute about the quality of the drugs between the manufacturer and the consumer",
               "images": []
             }
           ],
@@ -11016,7 +10986,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of the content of medicinal substances ---------------------------------------------------------------------",
+              "text": "Determination of the content of medicinal substances",
               "images": []
             }
           ],
@@ -11055,7 +11025,7 @@
             },
             {
               "id": "E",
-              "text": "Melting point ---------------------------------------------------------------------",
+              "text": "Melting point",
               "images": []
             }
           ],
@@ -11093,7 +11063,7 @@
             },
             {
               "id": "E",
-              "text": "Sensitivity ---------------------------------------------------------------------",
+              "text": "Sensitivity",
               "images": []
             }
           ],
@@ -11134,7 +11104,7 @@
             },
             {
               "id": "E",
-              "text": "Packing ---------------------------------------------------------------------",
+              "text": "Packing",
               "images": []
             }
           ],
@@ -11175,7 +11145,7 @@
             },
             {
               "id": "E",
-              "text": "Inspectorate control ---------------------------------------------------------------------",
+              "text": "Inspectorate control",
               "images": []
             }
           ],
@@ -11215,7 +11185,7 @@
             },
             {
               "id": "E",
-              "text": "Optical density ---------------------------------------------------------------------",
+              "text": "Optical density",
               "images": []
             }
           ],
@@ -11255,7 +11225,7 @@
             },
             {
               "id": "E",
-              "text": "The packaging ---------------------------------------------------------------------",
+              "text": "The packaging",
               "images": []
             }
           ],
@@ -11295,7 +11265,7 @@
             },
             {
               "id": "E",
-              "text": "Lactone ring ---------------------------------------------------------------------",
+              "text": "Lactone ring",
               "images": []
             }
           ],
@@ -11335,7 +11305,7 @@
             },
             {
               "id": "E",
-              "text": "Mass of the drug’ form ---------------------------------------------------------------------",
+              "text": "Mass of the drug’ form",
               "images": []
             }
           ],
@@ -11376,7 +11346,7 @@
             },
             {
               "id": "E",
-              "text": "Point of solidification ---------------------------------------------------------------------",
+              "text": "Point of solidification",
               "images": []
             }
           ],
@@ -11417,7 +11387,7 @@
             },
             {
               "id": "E",
-              "text": "Mechanical impurities ---------------------------------------------------------------------",
+              "text": "Mechanical impurities",
               "images": []
             }
           ],
@@ -11458,7 +11428,7 @@
             },
             {
               "id": "E",
-              "text": "Extraction ---------------------------------------------------------------------",
+              "text": "Extraction",
               "images": []
             }
           ],
@@ -11498,7 +11468,7 @@
             },
             {
               "id": "E",
-              "text": "Pyrogenity ---------------------------------------------------------------------",
+              "text": "Pyrogenity",
               "images": []
             }
           ],
@@ -11539,7 +11509,7 @@
             },
             {
               "id": "E",
-              "text": "Sterility ---------------------------------------------------------------------",
+              "text": "Sterility",
               "images": []
             }
           ],
@@ -11580,7 +11550,7 @@
             },
             {
               "id": "E",
-              "text": "Particles’ size ---------------------------------------------------------------------",
+              "text": "Particles’ size",
               "images": []
             }
           ],
@@ -11621,7 +11591,7 @@
             },
             {
               "id": "E",
-              "text": "Level of quantitative indices ---------------------------------------------------------------------",
+              "text": "Level of quantitative indices",
               "images": []
             }
           ],
@@ -11662,7 +11632,7 @@
             },
             {
               "id": "E",
-              "text": "Interaction with carbon dioxide ---------------------------------------------------------------------",
+              "text": "Interaction with carbon dioxide",
               "images": []
             }
           ],
@@ -11703,7 +11673,7 @@
             },
             {
               "id": "E",
-              "text": "Decomposition products for storage ---------------------------------------------------------------------",
+              "text": "Decomposition products for storage",
               "images": []
             }
           ],
@@ -11744,7 +11714,7 @@
             },
             {
               "id": "E",
-              "text": "Mayer's reagent ---------------------------------------------------------------------",
+              "text": "Mayer's reagent",
               "images": []
             }
           ],
@@ -11784,7 +11754,7 @@
             },
             {
               "id": "E",
-              "text": "Alcohol hydroxyl ---------------------------------------------------------------------",
+              "text": "Alcohol hydroxyl",
               "images": []
             }
           ],
@@ -11825,7 +11795,7 @@
             },
             {
               "id": "E",
-              "text": "Neutralization ---------------------------------------------------------------------",
+              "text": "Neutralization",
               "images": []
             }
           ],
@@ -11864,7 +11834,7 @@
             },
             {
               "id": "E",
-              "text": "Redox potential ---------------------------------------------------------------------",
+              "text": "Redox potential",
               "images": []
             }
           ],
@@ -11905,7 +11875,7 @@
             },
             {
               "id": "E",
-              "text": "Dispensing ---------------------------------------------------------------------",
+              "text": "Dispensing",
               "images": []
             }
           ],
@@ -11946,7 +11916,7 @@
             },
             {
               "id": "E",
-              "text": "Heavy metals ---------------------------------------------------------------------",
+              "text": "Heavy metals",
               "images": []
             }
           ],
@@ -11987,7 +11957,7 @@
             },
             {
               "id": "E",
-              "text": "Microbiological ---------------------------------------------------------------------",
+              "text": "Microbiological",
               "images": []
             }
           ],
@@ -12028,7 +11998,7 @@
             },
             {
               "id": "E",
-              "text": "Kjeldal balloon ---------------------------------------------------------------------",
+              "text": "Kjeldal balloon",
               "images": []
             }
           ],
@@ -12067,7 +12037,7 @@
             },
             {
               "id": "E",
-              "text": "Improvement of technological processes ---------------------------------------------------------------------",
+              "text": "Improvement of technological processes",
               "images": []
             }
           ],
@@ -12108,7 +12078,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of density ---------------------------------------------------------------------",
+              "text": "Determination of density",
               "images": []
             }
           ],
@@ -12149,7 +12119,7 @@
             },
             {
               "id": "E",
-              "text": "Microbiological synthesis ---------------------------------------------------------------------",
+              "text": "Microbiological synthesis",
               "images": []
             }
           ],
@@ -12190,7 +12160,7 @@
             },
             {
               "id": "E",
-              "text": "Lactone ring ---------------------------------------------------------------------",
+              "text": "Lactone ring",
               "images": []
             }
           ],
@@ -12230,7 +12200,7 @@
             },
             {
               "id": "E",
-              "text": "Accessibility ---------------------------------------------------------------------",
+              "text": "Accessibility",
               "images": []
             }
           ],
@@ -12271,7 +12241,7 @@
             },
             {
               "id": "E",
-              "text": "Potassium tetraiodomercurate (II) in alkaline solution (Nessler's Reagent) ---------------------------------------------------------------------",
+              "text": "Potassium tetraiodomercurate (II) in alkaline solution (Nessler's Reagent)",
               "images": []
             }
           ],
@@ -12311,7 +12281,7 @@
             },
             {
               "id": "E",
-              "text": "Internal indicator ---------------------------------------------------------------------",
+              "text": "Internal indicator",
               "images": []
             }
           ],
@@ -12351,7 +12321,7 @@
             },
             {
               "id": "E",
-              "text": "Nitrogen-containing heterocycles ---------------------------------------------------------------------",
+              "text": "Nitrogen-containing heterocycles",
               "images": []
             }
           ],
@@ -12372,27 +12342,27 @@
           "options": [
             {
               "id": "A",
-              "text": "AgNO 3 + NH 4 SCN → AgSCN + NH 4 NO 3",
+              "text": "AgNO3 + NH4SCN → AgSCN + NH4NO3",
               "images": []
             },
             {
               "id": "B",
-              "text": "NaCl + AgNO 3 → AgCl+NaNO 3",
+              "text": "NaCl + AgNO3 → AgCl+NaNO3",
               "images": []
             },
             {
               "id": "C",
-              "text": "2AgNO 3 + K 2 CrO 4 → Ag 2 CrO 4 + 2KNO 3",
+              "text": "2AgNO3 + K2CrO4 → Ag2CrO4 + 2KNO3",
               "images": []
             },
             {
               "id": "D",
-              "text": "CaCl 2 + 2AgNO 3 → 2AgCl + Ca(NO 3 ) 2",
+              "text": "CaCl2 + 2AgNO3 → 2AgCl + Ca(NO3)2",
               "images": []
             },
             {
               "id": "E",
-              "text": "3NH 4 SCN + FeNH 4 (SO 4 ) 2 → Fe(SCN) 3 + 2(NH 4 ) 2 SO 4 ---------------------------------------------------------------------",
+              "text": "3NH4SCN + FeNH4(SO4)2 → Fe(SCN)3 + 2(NH4)2SO4",
               "images": []
             }
           ],
@@ -12411,27 +12381,27 @@
           "options": [
             {
               "id": "A",
-              "text": "NH 4 SCN",
+              "text": "NH4SCN",
               "images": []
             },
             {
               "id": "B",
-              "text": "FeNH 4 (SO 4 ) 2",
+              "text": "FeNH4(SO4)2",
               "images": []
             },
             {
               "id": "C",
-              "text": "FeCl 3",
+              "text": "FeCl3",
               "images": []
             },
             {
               "id": "D",
-              "text": "Fe(NO 3 ) 3",
+              "text": "Fe(NO3)3",
               "images": []
             },
             {
               "id": "E",
-              "text": "К 2 CrO 4 ---------------------------------------------------------------------",
+              "text": "К2CrO4",
               "images": []
             }
           ],
@@ -12470,7 +12440,7 @@
             },
             {
               "id": "E",
-              "text": "Phenolphthaleine ---------------------------------------------------------------------",
+              "text": "Phenolphthaleine",
               "images": []
             }
           ],
@@ -12510,7 +12480,7 @@
             },
             {
               "id": "E",
-              "text": "Ethyl alcohol ---------------------------------------------------------------------",
+              "text": "Ethyl alcohol",
               "images": []
             }
           ],
@@ -12550,7 +12520,7 @@
             },
             {
               "id": "E",
-              "text": "Photocolorimetry ---------------------------------------------------------------------",
+              "text": "Photocolorimetry",
               "images": []
             }
           ],
@@ -12566,7 +12536,7 @@
           "question_number": 121,
           "question_text": "CМ Specify the following image:",
           "images": [
-            "/pharmaquiz-media/page-050-tests-for-the-state-exam-speciality-pharmacy-321-1.png"
+            "/pharmaquiz-media/page-050-tests-for-the-state-exam-speciality-pharmacy-321-21.png"
           ],
           "options": [
             {
@@ -12591,7 +12561,7 @@
             },
             {
               "id": "E",
-              "text": "Chromatogram thin layer ---------------------------------------------------------------------",
+              "text": "Chromatogram thin layer",
               "images": []
             }
           ],
@@ -12607,7 +12577,7 @@
           "question_number": 122,
           "question_text": "CМ Indicate the physico-chemical methods based on the following scheme:",
           "images": [
-            "/pharmaquiz-media/page-050-tests-for-the-state-exam-speciality-pharmacy-322-2.png"
+            "/pharmaquiz-media/page-050-tests-for-the-state-exam-speciality-pharmacy-322-22.png"
           ],
           "options": [
             {
@@ -12632,7 +12602,7 @@
             },
             {
               "id": "E",
-              "text": "Refractometry ---------------------------------------------------------------------",
+              "text": "Refractometry",
               "images": []
             }
           ],
@@ -12671,7 +12641,7 @@
             },
             {
               "id": "E",
-              "text": "Loss on drying ---------------------------------------------------------------------",
+              "text": "Loss on drying",
               "images": []
             }
           ],
@@ -12710,7 +12680,7 @@
             },
             {
               "id": "E",
-              "text": "Packaging ---------------------------------------------------------------------",
+              "text": "Packaging",
               "images": []
             }
           ],
@@ -12751,7 +12721,7 @@
             },
             {
               "id": "E",
-              "text": "Determines the intensity of the light flux ---------------------------------------------------------------------",
+              "text": "Determines the intensity of the light flux",
               "images": []
             }
           ],
@@ -12792,7 +12762,7 @@
             },
             {
               "id": "E",
-              "text": "Phosphorus ---------------------------------------------------------------------",
+              "text": "Phosphorus",
               "images": []
             }
           ],
@@ -12832,7 +12802,7 @@
             },
             {
               "id": "E",
-              "text": "Degradation products ---------------------------------------------------------------------",
+              "text": "Degradation products",
               "images": []
             }
           ],
@@ -12872,7 +12842,7 @@
             },
             {
               "id": "E",
-              "text": "Quantitative determination ---------------------------------------------------------------------",
+              "text": "Quantitative determination",
               "images": []
             }
           ],
@@ -12913,7 +12883,7 @@
             },
             {
               "id": "E",
-              "text": "Tablets ---------------------------------------------------------------------",
+              "text": "Tablets",
               "images": []
             }
           ],
@@ -12953,7 +12923,7 @@
             },
             {
               "id": "E",
-              "text": "Copper (II) sulfate ---------------------------------------------------------------------",
+              "text": "Copper (II) sulfate",
               "images": []
             }
           ],
@@ -12969,7 +12939,7 @@
           "question_number": 131,
           "question_text": "CМ Indicate the physicochemical methods that are based on the following scheme:",
           "images": [
-            "/pharmaquiz-media/page-052-tests-for-the-state-exam-speciality-pharmacy-331-1.png"
+            "/pharmaquiz-media/page-052-tests-for-the-state-exam-speciality-pharmacy-331-23.png"
           ],
           "options": [
             {
@@ -12994,7 +12964,7 @@
             },
             {
               "id": "E",
-              "text": "Visible spectrophotometry ---------------------------------------------------------------------",
+              "text": "Visible spectrophotometry",
               "images": []
             }
           ],
@@ -13033,7 +13003,7 @@
             },
             {
               "id": "E",
-              "text": "Redox potential --------------------------------------------------------------------",
+              "text": "Redox potential",
               "images": []
             }
           ],
@@ -13074,7 +13044,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of the state of aggregation ---------------------------------------------------------------------",
+              "text": "Determination of the state of aggregation",
               "images": []
             }
           ],
@@ -13114,7 +13084,7 @@
             },
             {
               "id": "E",
-              "text": "Acidimetry in hydro-organic medium ---------------------------------------------------------------------",
+              "text": "Acidimetry in hydro-organic medium",
               "images": []
             }
           ],
@@ -13129,7 +13099,7 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-335",
           "question_number": 135,
-          "question_text": "Select the functional groups based on which nitrogen is dosed from organic compounds (Kjeldahl method): O R - C NH 2",
+          "question_text": "Select the functional groups based on which nitrogen is dosed from organic compounds (Kjeldahl method): O R - C NH2",
           "images": [],
           "options": [
             {
@@ -13139,7 +13109,7 @@
             },
             {
               "id": "B",
-              "text": "H 2 N SO 2 - NH 2",
+              "text": "H2N SO2 - NH2",
               "images": []
             },
             {
@@ -13149,12 +13119,12 @@
             },
             {
               "id": "D",
-              "text": "NH 4 Cl O C OH",
+              "text": "NH4Cl O C OH",
               "images": []
             },
             {
               "id": "E",
-              "text": "---------------------------------------------------------------------",
+              "text": "",
               "images": []
             }
           ],
@@ -13169,7 +13139,7 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-336",
           "question_number": 136,
-          "question_text": "Indicate the quantitative analysis methods for the drug substances with the general formula: R' . HCl R - CH 2 - N R\"",
+          "question_text": "Indicate the quantitative analysis methods for the drug substances with the general formula: R' . HCl R - CH2 - N R\"",
           "images": [],
           "options": [
             {
@@ -13194,7 +13164,7 @@
             },
             {
               "id": "E",
-              "text": "Bromatometric ---------------------------------------------------------------------",
+              "text": "Bromatometric",
               "images": []
             }
           ],
@@ -13234,7 +13204,7 @@
             },
             {
               "id": "E",
-              "text": "Phenol hydroxyl ---------------------------------------------------------------------",
+              "text": "Phenol hydroxyl",
               "images": []
             }
           ],
@@ -13248,7 +13218,7 @@
         {
           "id": "tests-for-the-state-exam-speciality-pharmacy-338",
           "question_number": 138,
-          "question_text": "The determination of sulfanilic acid of amide derivatives can be performed using the following methods: NH 2 SO 2 - NH - R",
+          "question_text": "The determination of sulfanilic acid of amide derivatives can be performed using the following methods: NH2 SO2 - NH - R",
           "images": [],
           "options": [
             {
@@ -13273,7 +13243,7 @@
             },
             {
               "id": "E",
-              "text": "UV-VIS spectrophotometric ---------------------------------------------------------------------",
+              "text": "UV-VIS spectrophotometric",
               "images": []
             }
           ],
@@ -13299,7 +13269,7 @@
             },
             {
               "id": "B",
-              "text": "Hydrazide R - C - NH - NH 2 O",
+              "text": "Hydrazide R - C - NH - NH2 O",
               "images": []
             },
             {
@@ -13314,7 +13284,7 @@
             },
             {
               "id": "E",
-              "text": "Carboxyl group O C R OH ---------------------------------------------------------------------",
+              "text": "Carboxyl group O C R OH",
               "images": []
             }
           ],
@@ -13355,7 +13325,7 @@
             },
             {
               "id": "E",
-              "text": "Robustness ---------------------------------------------------------------------",
+              "text": "Robustness",
               "images": []
             }
           ],
@@ -13396,7 +13366,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of density ---------------------------------------------------------------------",
+              "text": "Determination of density",
               "images": []
             }
           ],
@@ -13436,7 +13406,7 @@
             },
             {
               "id": "E",
-              "text": "Potasium Iodide ---------------------------------------------------------------------",
+              "text": "Potasium Iodide",
               "images": []
             }
           ],
@@ -13475,7 +13445,7 @@
             },
             {
               "id": "E",
-              "text": "Sulphates ---------------------------------------------------------------------",
+              "text": "Sulphates",
               "images": []
             }
           ],
@@ -13514,7 +13484,7 @@
             },
             {
               "id": "E",
-              "text": "Fehling's reagent ---------------------------------------------------------------------",
+              "text": "Fehling's reagent",
               "images": []
             }
           ],
@@ -13553,7 +13523,7 @@
             },
             {
               "id": "E",
-              "text": "Carbon oxide from the air ---------------------------------------------------------------------",
+              "text": "Carbon oxide from the air",
               "images": []
             }
           ],
@@ -13574,27 +13544,27 @@
           "options": [
             {
               "id": "A",
-              "text": "R≡N + CH 3 COOH → [R≡NH] + + CH 3 COO¯",
+              "text": "R≡N + CH3COOH → [R≡NH]+ + CH3COO¯",
               "images": []
             },
             {
               "id": "B",
-              "text": "CH 3 COOH + HClO 4 → ClO 4 ¯ + CH 3 COOH 2 +",
+              "text": "CH3COOH + HClO4 → ClO4¯ + CH3COOH2+",
               "images": []
             },
             {
               "id": "C",
-              "text": "CH 3 COOH + NaOH → CH 3 COONa + H 2 O",
+              "text": "CH3COOH + NaOH → CH3COONa + H2O",
               "images": []
             },
             {
               "id": "D",
-              "text": "CH 3 COO¯ + CH 3 COOH 2 + → 2CH 3 COOH",
+              "text": "CH3COO¯ + CH3COOH2+→ 2CH3COOH",
               "images": []
             },
             {
               "id": "E",
-              "text": "[R≡NH] + + ClO 4 ¯→ [R≡NH] + . ClO 4 ¯ ---------------------------------------------------------------------",
+              "text": "[R≡NH]+ + ClO4¯→ [R≡NH]+ . ClO4¯",
               "images": []
             }
           ],
@@ -13635,7 +13605,7 @@
             },
             {
               "id": "E",
-              "text": "Behavior (GPC) ---------------------------------------------------------------------",
+              "text": "Behavior (GPC)",
               "images": []
             }
           ],
@@ -13676,7 +13646,7 @@
             },
             {
               "id": "E",
-              "text": "Dimethylformamide ---------------------------------------------------------------------",
+              "text": "Dimethylformamide",
               "images": []
             }
           ],
@@ -13715,7 +13685,7 @@
             },
             {
               "id": "E",
-              "text": "Pyridine ---------------------------------------------------------------------",
+              "text": "Pyridine",
               "images": []
             }
           ],
@@ -13754,7 +13724,7 @@
             },
             {
               "id": "E",
-              "text": "Radiochemical ---------------------------------------------------------------------",
+              "text": "Radiochemical",
               "images": []
             }
           ],
@@ -13794,7 +13764,7 @@
             },
             {
               "id": "E",
-              "text": "Dispensing ------------------------------------------------------------",
+              "text": "Dispensing",
               "images": []
             }
           ],
@@ -13835,7 +13805,7 @@
             },
             {
               "id": "E",
-              "text": "Quality of packaging ---------------------------------------------------------------------",
+              "text": "Quality of packaging",
               "images": []
             }
           ],
@@ -13875,7 +13845,7 @@
             },
             {
               "id": "E",
-              "text": "Chromatographic ---------------------------------------------------------------------",
+              "text": "Chromatographic",
               "images": []
             }
           ],
@@ -13915,7 +13885,7 @@
             },
             {
               "id": "E",
-              "text": "Weight of the dosage form ---------------------------------------------------------------------",
+              "text": "Weight of the dosage form",
               "images": []
             }
           ],
@@ -13956,7 +13926,7 @@
             },
             {
               "id": "E",
-              "text": "Determines the intensity of the light flux ---------------------------------------------------------------------",
+              "text": "Determines the intensity of the light flux",
               "images": []
             }
           ],
@@ -13995,7 +13965,7 @@
             },
             {
               "id": "E",
-              "text": "Qualitative content of active substances ---------------------------------------------------------------------",
+              "text": "Qualitative content of active substances",
               "images": []
             }
           ],
@@ -14036,7 +14006,7 @@
             },
             {
               "id": "E",
-              "text": "Lack of mechanical impurities in liquid medicinal forms ---------------------------------------------------------------------",
+              "text": "Lack of mechanical impurities in liquid medicinal forms",
               "images": []
             }
           ],
@@ -14077,7 +14047,7 @@
             },
             {
               "id": "E",
-              "text": "Carbon monoxide in the air ---------------------------------------------------------------------",
+              "text": "Carbon monoxide in the air",
               "images": []
             }
           ],
@@ -14118,7 +14088,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of pH ---------------------------------------------------------------------",
+              "text": "Determination of pH",
               "images": []
             }
           ],
@@ -14159,7 +14129,7 @@
             },
             {
               "id": "E",
-              "text": "Starch ---------------------------------------------------------------------",
+              "text": "Starch",
               "images": []
             }
           ],
@@ -14199,7 +14169,7 @@
             },
             {
               "id": "E",
-              "text": "Simplicity of the apparatus ---------------------------------------------------------------------",
+              "text": "Simplicity of the apparatus",
               "images": []
             }
           ],
@@ -14240,7 +14210,7 @@
             },
             {
               "id": "E",
-              "text": "Injectable solutions ---------------------------------------------------------------------",
+              "text": "Injectable solutions",
               "images": []
             }
           ],
@@ -14281,7 +14251,7 @@
             },
             {
               "id": "E",
-              "text": "Phosphorus ---------------------------------------------------------------------",
+              "text": "Phosphorus",
               "images": []
             }
           ],
@@ -14321,7 +14291,7 @@
             },
             {
               "id": "E",
-              "text": "Osmolarity ---------------------------------------------------------------------",
+              "text": "Osmolarity",
               "images": []
             }
           ],
@@ -14361,7 +14331,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of the nominal volume of the injectable solution ---------------------------------------------------------------------",
+              "text": "Determination of the nominal volume of the injectable solution",
               "images": []
             }
           ],
@@ -14401,7 +14371,7 @@
             },
             {
               "id": "E",
-              "text": "Sterility ---------------------------------------------------------------------",
+              "text": "Sterility",
               "images": []
             }
           ],
@@ -14441,7 +14411,7 @@
             },
             {
               "id": "E",
-              "text": "Determination of transparency ---------------------------------------------------------------------",
+              "text": "Determination of transparency",
               "images": []
             }
           ],
@@ -14482,7 +14452,7 @@
             },
             {
               "id": "E",
-              "text": "Microbiological purity ---------------------------------------------------------------------",
+              "text": "Microbiological purity",
               "images": []
             }
           ],
@@ -14522,7 +14492,7 @@
             },
             {
               "id": "E",
-              "text": "Ecological processes ---------------------------------------------------------------------",
+              "text": "Ecological processes",
               "images": []
             }
           ],
@@ -14563,7 +14533,7 @@
             },
             {
               "id": "E",
-              "text": "Distribution requirements for medicinal substances ---------------------------------------------------------------------",
+              "text": "Distribution requirements for medicinal substances",
               "images": []
             }
           ],
@@ -14604,7 +14574,7 @@
             },
             {
               "id": "E",
-              "text": "Expert Commissions ---------------------------------------------------------------------",
+              "text": "Expert Commissions",
               "images": []
             }
           ],
@@ -14644,7 +14614,7 @@
             },
             {
               "id": "E",
-              "text": "Classification of the staff ---------------------------------------------------------------------",
+              "text": "Classification of the staff",
               "images": []
             }
           ],
@@ -14683,7 +14653,7 @@
             },
             {
               "id": "E",
-              "text": "Constant prices ---------------------------------------------------------------------",
+              "text": "Constant prices",
               "images": []
             }
           ],
@@ -14722,7 +14692,7 @@
             },
             {
               "id": "E",
-              "text": "Method for preparing culture media ---------------------------------------------------------------------",
+              "text": "Method for preparing culture media",
               "images": []
             }
           ],
@@ -14761,7 +14731,7 @@
             },
             {
               "id": "E",
-              "text": "Reproducibility ---------------------------------------------------------------------",
+              "text": "Reproducibility",
               "images": []
             }
           ],
@@ -14802,7 +14772,7 @@
             },
             {
               "id": "E",
-              "text": "By number of pages ---------------------------------------------------------------------",
+              "text": "By number of pages",
               "images": []
             }
           ],
@@ -14843,7 +14813,7 @@
             },
             {
               "id": "E",
-              "text": "Tertiary ---------------------------------------------------------------------",
+              "text": "Tertiary",
               "images": []
             }
           ],
@@ -14883,7 +14853,7 @@
             },
             {
               "id": "E",
-              "text": "Tertiary ---------------------------------------------------------------------",
+              "text": "Tertiary",
               "images": []
             }
           ],
@@ -14922,7 +14892,7 @@
             },
             {
               "id": "E",
-              "text": "Different laboratories ---------------------------------------------------------------------",
+              "text": "Different laboratories",
               "images": []
             }
           ],
@@ -14962,7 +14932,7 @@
             },
             {
               "id": "E",
-              "text": "The value Rf ---------------------------------------------------------------------",
+              "text": "The value Rf",
               "images": []
             }
           ],
@@ -15001,7 +14971,7 @@
             },
             {
               "id": "E",
-              "text": "Research on the influence of temperature regimes ---------------------------------------------------------------------",
+              "text": "Research on the influence of temperature regimes",
               "images": []
             }
           ],
@@ -15042,7 +15012,7 @@
             },
             {
               "id": "E",
-              "text": "Capsules ---------------------------------------------------------------------",
+              "text": "Capsules",
               "images": []
             }
           ],
@@ -15081,7 +15051,7 @@
             },
             {
               "id": "E",
-              "text": "Basic ---------------------------------------------------------------------",
+              "text": "Basic",
               "images": []
             }
           ],
@@ -15121,7 +15091,7 @@
             },
             {
               "id": "E",
-              "text": "Commercial name ---------------------------------------------------------------------",
+              "text": "Commercial name",
               "images": []
             }
           ],
@@ -15162,7 +15132,7 @@
             },
             {
               "id": "E",
-              "text": "Genetic factors ---------------------------------------------------------------------",
+              "text": "Genetic factors",
               "images": []
             }
           ],
@@ -15203,7 +15173,7 @@
             },
             {
               "id": "E",
-              "text": "Is used for the prophylaxis of diseases ---------------------------------------------------------------------",
+              "text": "Is used for the prophylaxis of diseases",
               "images": []
             }
           ],
@@ -15243,7 +15213,7 @@
             },
             {
               "id": "E",
-              "text": "Stability ---------------------------------------------------------------------",
+              "text": "Stability",
               "images": []
             }
           ],
@@ -15283,7 +15253,7 @@
             },
             {
               "id": "E",
-              "text": "Coagulation factors ---------------------------------------------------------------------",
+              "text": "Coagulation factors",
               "images": []
             }
           ],
@@ -15323,7 +15293,7 @@
             },
             {
               "id": "E",
-              "text": "Thyroxine ---------------------------------------------------------------------",
+              "text": "Thyroxine",
               "images": []
             }
           ],
@@ -15362,7 +15332,7 @@
             },
             {
               "id": "E",
-              "text": "Aldosterone ---------------------------------------------------------------------",
+              "text": "Aldosterone",
               "images": []
             }
           ],
@@ -15403,7 +15373,7 @@
             },
             {
               "id": "E",
-              "text": "Contain species of beneficial bacteria ---------------------------------------------------------------------",
+              "text": "Contain species of beneficial bacteria",
               "images": []
             }
           ],
@@ -15443,7 +15413,7 @@
             },
             {
               "id": "E",
-              "text": "It is used for treatment ---------------------------------------------------------------------",
+              "text": "It is used for treatment",
               "images": []
             }
           ],
@@ -15483,7 +15453,7 @@
             },
             {
               "id": "E",
-              "text": "Rotavirus ---------------------------------------------------------------------",
+              "text": "Rotavirus",
               "images": []
             }
           ],
@@ -15523,7 +15493,7 @@
             },
             {
               "id": "E",
-              "text": "Solvent extraction ---------------------------------------------------------------------",
+              "text": "Solvent extraction",
               "images": []
             }
           ],
@@ -15564,7 +15534,7 @@
             },
             {
               "id": "E",
-              "text": "Commercial name ---------------------------------------------------------------------",
+              "text": "Commercial name",
               "images": []
             }
           ],
@@ -15605,7 +15575,7 @@
             },
             {
               "id": "E",
-              "text": "Insulin ---------------------------------------------------------------------",
+              "text": "Insulin",
               "images": []
             }
           ],
@@ -15645,7 +15615,7 @@
             },
             {
               "id": "E",
-              "text": "T-lymphocytes ---------------------------------------------------------------------",
+              "text": "T-lymphocytes",
               "images": []
             }
           ],
@@ -15685,7 +15655,7 @@
             },
             {
               "id": "E",
-              "text": "Diagnosis of acute intoxications ---------------------------------------------------------------------",
+              "text": "Diagnosis of acute intoxications",
               "images": []
             }
           ],
@@ -15725,7 +15695,7 @@
             },
             {
               "id": "E",
-              "text": "Synthesis (conjugation) ---------------------------------------------------------------------",
+              "text": "Synthesis (conjugation)",
               "images": []
             }
           ],
@@ -15765,7 +15735,7 @@
             },
             {
               "id": "E",
-              "text": "Nature of the extractant ---------------------------------------------------------------------",
+              "text": "Nature of the extractant",
               "images": []
             }
           ],
@@ -24999,7 +24969,7 @@
         {
           "id": "department-of-drug-technology-200-tests-637",
           "question_number": 37,
-          "question_text": "Indicate the values of the difference factor (f 1 ) between two product assortments recommended by the FDA USA:",
+          "question_text": "Indicate the values of the difference factor (f1) between two product assortments recommended by the FDA USA:",
           "images": [],
           "options": [
             {
@@ -25037,7 +25007,7 @@
         {
           "id": "department-of-drug-technology-200-tests-638",
           "question_number": 38,
-          "question_text": "Indicate the values of the similarity factor (f 2 ) between two product assortments recommended by the FDA USA:",
+          "question_text": "Indicate the values of the similarity factor (f2) between two product assortments recommended by the FDA USA:",
           "images": [],
           "options": [
             {
