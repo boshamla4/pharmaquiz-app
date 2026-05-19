@@ -35,7 +35,7 @@ REGIONS = [
     (30, 60,  22, 570,  65, "ch2-q011-body",  1, 11,  "question"),
 
     # ── Q17: Beer-Lambert options A–E (all formulas) ───────────────────────
-    (32, 140,  50, 310, 108, "ch2-q017-opt-a", 1, 17,  "A"),
+    (32, 140,  56, 310, 108, "ch2-q017-opt-a", 1, 17,  "A"),
     (32, 140, 107, 310, 139, "ch2-q017-opt-b", 1, 17,  "B"),
     (32, 140, 138, 310, 159, "ch2-q017-opt-c", 1, 17,  "C"),
     (32, 140, 158, 310, 190, "ch2-q017-opt-d", 1, 17,  "D"),
@@ -77,9 +77,9 @@ REGIONS = [
     (36, 110, 568, 320, 612, "ch2-q036-opt-e", 1, 36,  "E"),
 
     # ── Q42: Titration formula options A–E ─────────────────────────────────
-    (37, 110, 414, 330, 463, "ch2-q042-opt-a", 1, 42,  "A"),
-    (37, 110, 461, 330, 522, "ch2-q042-opt-b", 1, 42,  "B"),
-    (37, 110, 520, 330, 565, "ch2-q042-opt-c", 1, 42,  "C"),
+    (37, 110, 429, 330, 463, "ch2-q042-opt-a", 1, 42,  "A"),
+    (37, 110, 461, 330, 494, "ch2-q042-opt-b", 1, 42,  "B"),
+    (37, 110, 494, 330, 565, "ch2-q042-opt-c", 1, 42,  "C"),
     (37, 110, 563, 330, 602, "ch2-q042-opt-d", 1, 42,  "D"),
     (37, 110, 600, 330, 625, "ch2-q042-opt-e", 1, 42,  "E"),
 
@@ -87,7 +87,7 @@ REGIONS = [
     (50, 110, 414, 570, 470, "ch2-q129-body",  1, 129, "question"),
 
     # ── Q135: Kjeldahl method structural options A–E ────────────────────────
-    (51, 110, 547, 320, 595, "ch2-q135-opt-a", 1, 135, "A"),
+    (51, 110, 553, 320, 595, "ch2-q135-opt-a", 1, 135, "A"),
     (51, 110, 593, 320, 642, "ch2-q135-opt-b", 1, 135, "B"),
     (51, 110, 641, 320, 689, "ch2-q135-opt-c", 1, 135, "C"),
     # opt D is plain text "NH4Cl" — no image
@@ -108,18 +108,29 @@ REGIONS = [
     (53, 110,  90, 320, 157, "ch2-q139-opt-e", 1, 139, "E"),
 ]
 
+# Slugs kept in REGIONS for deduplication but not rendered (blank or duplicate)
+SKIP_RENDER = {"ch2-q033-opt-d", "ch2-q135-opt-e-top"}
+
 # ── Text corrections (applied after image rendering) ────────────────────────
 # (section_index, q_number, field, new_value)
 # field: "question_text" or option letter "A".."E"
 TEXT_FIXES = [
+    # Q10: option E has garbled formula text appended
+    (1, 10,  "E", "Dimethylformamide"),
     # Q6: option E leaked Q7's structure text
     (1, 6,   "E", "Aminoacid"),
+    # Q17: question text has garbled Symbol-font formula appended
+    (1, 17,  "question_text",
+     "The value of specific absorbance is determined by the formula:"),
     # Q17: all options are garbled Symbol-font formulas
     (1, 17,  "A", ""),
     (1, 17,  "B", ""),
     (1, 17,  "C", ""),
     (1, 17,  "D", ""),
     (1, 17,  "E", ""),
+    # Q32: question text has garbled structure text appended
+    (1, 32,  "question_text",
+     "Positive reaction with ninhydrin after acid hydrolysis forms the following structural fragment of Folic Acid:"),
     # Q32: structural fragments (garbled)
     (1, 32,  "A", ""),
     (1, 32,  "B", ""),
@@ -141,6 +152,9 @@ TEXT_FIXES = [
     # Q36: keep name, drop structure fragment
     (1, 36,  "C", "Aldehyde"),
     (1, 36,  "E", "Ester"),
+    # Q42: question text has garbled Symbol-font formula appended
+    (1, 42,  "question_text",
+     "In indirect titration, the content of the analyte is calculated according to the formula:"),
     # Q42: garbled titration formulas
     (1, 42,  "A", ""),
     (1, 42,  "B", ""),
@@ -232,6 +246,8 @@ def main():
     pending: dict = {}   # (sec_idx, q_number, target) → ["/pharmaquiz-media/..."]
 
     for (pi, x0, y0, x1, y1, slug, sec_idx, q_num, target) in REGIONS:
+        if slug in SKIP_RENDER:
+            continue
         filename = f"{slug}.png"
         out_path = os.path.join(MEDIA_DIR, filename)
         render_region(doc, pi, x0, y0, x1, y1, out_path)
@@ -275,7 +291,7 @@ def main():
         json.dump(data, f, ensure_ascii=False, indent=2)
 
     # ── Summary ──────────────────────────────────────────────────────────────
-    total_imgs = len(REGIONS)
+    total_imgs = len(REGIONS) - len(SKIP_RENDER)
     print(f"\nDone. Rendered {total_imgs} region images.")
     print(f"JSON updated: {JSON_PATH}")
 
