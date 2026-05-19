@@ -22,6 +22,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
   const [index, setIndex] = useState(attempt.current_index);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+  const [navigating, setNavigating] = useState(false);
   const [remainingSeconds, setRemainingSeconds] = useState<number | null>(initialRemainingSeconds);
   const [revealedSet, setRevealedSet] = useState<Set<string>>(new Set());
   const [showSubmitModal, setShowSubmitModal] = useState(false);
@@ -113,6 +114,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
       setPending(false);
       return;
     }
+    setNavigating(true);
     router.replace(`/review/${attempt.id}`);
     router.refresh();
   }, [attempt.id, explicitSave, router]);
@@ -246,6 +248,14 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
           </button>
         </div>
       </div>
+
+      {/* Full-screen loading overlay while navigating to results */}
+      {navigating && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-teal-500 border-t-transparent" />
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-300">Loading results…</p>
+        </div>
+      )}
 
       {/* Submit confirmation modal */}
       {showSubmitModal && (
