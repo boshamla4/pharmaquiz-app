@@ -318,7 +318,11 @@ def main():
 
                 for img in all_page_images.get(pi, []):
                     img_box = img["bbox"]
-                    if not bbox_intersects(zone, img_box):
+                    # Use the image's Y-center to determine ownership, not the full
+                    # bbox.  A large image can physically bleed a few pixels into the
+                    # next question's zone while clearly belonging to this question.
+                    img_center_y = (img_box[1] + img_box[3]) / 2
+                    if img_center_y < y_top or img_center_y > y_bot:
                         continue
 
                     key = (img["xref"], tuple(round(v, 2) for v in img_box))
