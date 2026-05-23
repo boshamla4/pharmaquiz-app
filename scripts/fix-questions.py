@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
-"""Apply all manual corrections to the parsed-questions.json."""
+"""Apply all manual corrections to the parsed-questions.json.
+
+Reads from parsed-questions-orig.json (raw parser output, never modified)
+and writes to parsed-questions.json (the working file used by the app).
+This makes the script fully idempotent — safe to run multiple times.
+"""
 import json
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-INPUT = "scripts/generated/parsed-questions.json"
+INPUT  = "scripts/generated/parsed-questions-orig.json"
+OUTPUT = "scripts/generated/parsed-questions.json"
 
 with open(INPUT, encoding="utf-8") as f:
     data = json.load(f)
@@ -16,8 +22,22 @@ files = data["files"]
 def get_section(index):
     return files[index]["questions"]
 
-def find_q(questions, number):
-    return next((q for q in questions if q["question_number"] == number), None)
+def find_q(questions, number, qtype=None):
+    return next(
+        (q for q in questions
+         if q["question_number"] == number
+         and (qtype is None or q.get("type", "single") == qtype)),
+        None,
+    )
+
+def set_answers(q, answers):
+    q["correct_answers"] = sorted(set(answers))
+
+def add_answers(q, *letters):
+    q["correct_answers"] = sorted(set(q["correct_answers"]) | set(letters))
+
+def del_answers(q, *letters):
+    q["correct_answers"] = sorted(set(q["correct_answers"]) - set(letters))
 
 
 # ── 1. Section name fixes ───────────────────────────────────────────────────
@@ -26,21 +46,22 @@ files[3]["file"] = "DEPARTMENT OF DRUG TECHNOLOGY"
 print("✓ Fixed section 2 and 4 names")
 
 
-# ── 2. Ch3: add +80 to all CM (multiple) question numbers ──────────────────
+# ── 2. Ch3 (Pharmacology): shift CM question numbers 1-120 → 81-200 ────────
+#    Input always has CM at 1-120; output stores them as 81-200 to avoid
+#    collision with CS questions 1-80.
 ch3 = get_section(2)
 changed = 0
 for q in ch3:
     if q["type"] == "multiple":
         q["question_number"] += 80
         changed += 1
-print(f"✓ Ch3: bumped {changed} CM question numbers by +80")
+print(f"✓ Ch3: bumped {changed} CM question numbers by +80 (stored as 81-200)")
 
 
 # ── 3. Ch1: rename second Q61 to Q62 ───────────────────────────────────────
 ch1 = get_section(0)
 q61s = [q for q in ch1 if q["question_number"] == 61]
 if len(q61s) == 2:
-    # The second one (Specify the chemical compounds...) gets number 62
     second = next(q for q in q61s if "Specify" in q["question_text"])
     second["question_number"] = 62
     print("✓ Ch1: renamed second Q61 → Q62")
@@ -61,44 +82,94 @@ else:
 # ── 5. Ch5 correct answers ──────────────────────────────────────────────────
 ch5 = get_section(4)
 
-q7 = find_q(ch5, 7)
-if q7:
-    q7["correct_answers"] = ["B"]
-    print("✓ Ch5 Q7 correct_answers → ['B']")
-
-q39 = find_q(ch5, 39)
-if q39:
-    q39["correct_answers"] = ["A"]
-    print("✓ Ch5 Q39 correct_answers → ['A']")
-
-q50 = find_q(ch5, 50)
-if q50:
-    q50["correct_answers"] = ["C"]
-    print("✓ Ch5 Q50 correct_answers → ['C']")
+q = find_q(ch5, 7);  q["correct_answers"] = ["B"] if q else None
+q = find_q(ch5, 39); q["correct_answers"] = ["A"] if q else None
+q = find_q(ch5, 50); q["correct_answers"] = ["C"] if q else None
+print("✓ Ch5 Q7→B, Q39→A, Q50→C")
 
 
-# ── 6. Exclude unanswerable / broken questions ─────────────────────────────
-# Q72 already has correct_answers=[] from the parser (no highlight detected)
-
-# Q51 (Ch1): option A text is missing from PDF — fill it in and set correct answer.
-q51 = find_q(ch1, 51)
-if q51:
-    opt_a = next((o for o in q51["options"] if o["id"] == "A"), None)
+# ── 6. Ch1 Q51: option A text missing from PDF ─────────────────────────────
+q51_ch1 = find_q(ch1, 51)
+if q51_ch1:
+    opt_a = next((o for o in q51_ch1["options"] if o["id"] == "A"), None)
     if opt_a is not None:
         opt_a["text"] = "none"
-    q51["correct_answers"] = ["B"]
+    q51_ch1["correct_answers"] = ["B"]
     print("✓ Ch1 Q51 opt A → 'none', correct_answers → ['B']")
 
 
-# ── 7. Write output ─────────────────────────────────────────────────────────
-with open(INPUT, "w", encoding="utf-8") as f:
+# ── 7. Ch3 (Pharmacology) corrections ──────────────────────────────────────
+# After the +80 bump above, CM questions are stored as PDF_number + 80.
+# CS (single) questions keep their original PDF numbers.
+
+# CS single-choice corrections
+cs = [
+    (1,  ["B"]),
+    (4,  ["E"]),
+    (62, ["E"]),
+]
+for pdf_n, ans in cs:
+    q = find_q(ch3, pdf_n, "single")
+    if q:
+        q["correct_answers"] = ans
+        print(f"✓ Ch3 CS Q{pdf_n} → {ans}")
+    else:
+        print(f"  WARNING: Ch3 CS Q{pdf_n} not found")
+
+# CM multiple-choice corrections (stored number = PDF number + 80)
+# Format: (pdf_number, operation, letters)
+#   operation "set"  → replace correct_answers entirely
+#   operation "add"  → add letters to existing
+#   operation "del"  → remove letters from existing
+cm_fixes = [
+    (2,   "set", ["A", "B"]),
+    (4,   "add", ["E"]),
+    (7,   "add", ["B"]),
+    (12,  "add", ["E"]),
+    (16,  "del", ["E"]),
+    (17,  "del", ["C"]),
+    (19,  "set", ["B", "C", "D", "E"]),
+    (20,  "add", ["B"]),
+    (22,  "add", ["E"]),
+    (34,  "set", ["A", "C", "E"]),
+    (37,  "del", ["E"]),
+    (38,  "add", ["B"]),
+    (42,  "add", ["E"]),
+    (44,  "add", ["D"]),
+    (48,  "add", ["E"]),
+    (51,  "set", ["A", "D", "E"]),
+    (54,  "del", ["C"]),
+    (63,  "set", ["A", "B", "E"]),
+    (82,  "add", ["C"]),
+    (100, "set", ["A", "B", "C", "D"]),
+    (104, "set", ["A", "B"]),
+    (116, "set", ["A", "B", "C", "D"]),
+    (117, "del", ["A"]),   # remove A …
+    (117, "add", ["C"]),   # … add C
+    (120, "add", ["D"]),
+]
+for pdf_n, op, letters in cm_fixes:
+    stored_n = pdf_n + 80
+    q = find_q(ch3, stored_n, "multiple")
+    if q:
+        before = list(q["correct_answers"])
+        if op == "set":
+            set_answers(q, letters)
+        elif op == "add":
+            add_answers(q, *letters)
+        elif op == "del":
+            del_answers(q, *letters)
+        print(f"✓ Ch3 CM Q{pdf_n}(→Q{stored_n}) {op} {letters}: {before} → {q['correct_answers']}")
+    else:
+        print(f"  WARNING: Ch3 CM Q{pdf_n} (stored Q{stored_n}) not found")
+
+
+# ── 8. Write output ─────────────────────────────────────────────────────────
+with open(OUTPUT, "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 
-print(f"\nDone. Written to {INPUT}")
+print(f"\nDone. Written to {OUTPUT}")
 
-# Quick sanity check
-total = sum(len(s["questions"]) for s in files)
-with_ans = sum(
-    1 for s in files for q in s["questions"] if q["correct_answers"]
-)
+total   = sum(len(s["questions"]) for s in files)
+with_ans = sum(1 for s in files for q in s["questions"] if q["correct_answers"])
 print(f"Total questions: {total}, with answers: {with_ans}, excluded: {total - with_ans}")
