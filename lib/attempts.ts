@@ -24,21 +24,6 @@ interface HistoryRow {
   is_correct: boolean | null;
 }
 
-function toQuestionRow(question: QuestionSnapshot) {
-  return {
-    id: question.id,
-    section_name: question.section,
-    question_number: question.question_number,
-    source_order: question.source_order,
-    question_text: question.question_text,
-    question_type: question.type ?? "single",
-    images: question.images ?? [],
-    options: question.options,
-    correct_answers: question.correct_answers,
-    source_page: question.source_page ?? null,
-    updated_at: new Date().toISOString(),
-  };
-}
 
 function parseAttemptQuestion(row: {
   id: string;
@@ -179,19 +164,6 @@ async function applyHistoryFilters(
   return questions.filter((question) => !answeredIds.has(question.id));
 }
 
-async function persistQuestions(questions: QuestionSnapshot[]): Promise<void> {
-  const db = getServiceSupabase();
-  const uniqueRows = Array.from(new Map(questions.map((question) => [question.id, toQuestionRow(question)])).values());
-  if (uniqueRows.length === 0) return;
-
-  // Insert new questions only — never overwrite existing rows so manual
-  // corrections in Supabase are not clobbered by the bundled JSON.
-  const { error } = await db.from("questions").upsert(uniqueRows, { onConflict: "id", ignoreDuplicates: true });
-  if (error) {
-    throw new Error(`Failed to persist question bank rows: ${error.message}`);
-  }
-}
-
 export async function createAttempt(profileId: string, options: StartAttemptOptions): Promise<string> {
   const db = getServiceSupabase();
   const sourceQuestions = options.sourceAttemptId
@@ -208,8 +180,6 @@ export async function createAttempt(profileId: string, options: StartAttemptOpti
   if (selectedQuestions.length === 0) {
     throw new Error("No questions matched the selected filters.");
   }
-
-  await persistQuestions(selectedQuestions);
 
   const now = new Date().toISOString();
   const { data: attemptRow, error: attemptError } = await db
