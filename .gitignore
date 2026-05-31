@@ -42,3 +42,6 @@ next-env.d.ts
 # local parser input — put your PDF in data/ (never commit PDFs)
 /scripts/input/*.pdf
 /data/*.pdf
+
+# Question backups (large, local only)
+scripts/generated/backup_questions_*.json
