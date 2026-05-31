@@ -294,54 +294,52 @@ export async function saveAttemptProgress(
   answers: Array<{ attemptQuestionId: string; selectedAnswerIds: string[] }>,
 ): Promise<void> {
   const db = getServiceSupabase();
-  const attempt = await getAttempt(profileId, attemptId);
-  if (!attempt) {
-    throw new Error("Attempt not found.");
-  }
-  if (attempt.attempt.status !== "in_progress") {
-    throw new Error("Attempt has already been submitted.");
-  }
 
-  // Only update rows whose answers actually changed — avoids N parallel writes for unchanged questions
-  const existingById = new Map(attempt.questions.map((q) => [q.id, q.selected_answer_ids]));
+  // Fetch only what we need: attempt status + slim answer rows (no question_snapshot).
+  // Run both reads in parallel to halve latency.
+  const [{ data: attemptRow, error: attemptError }, { data: existingAnswers }] = await Promise.all([
+    db.from("quiz_attempts").select("status").eq("id", attemptId).eq("profile_id", profileId).maybeSingle(),
+    db.from("attempt_questions").select("id, selected_answer_ids").eq("attempt_id", attemptId),
+  ]);
+
+  if (attemptError || !attemptRow) throw new Error("Attempt not found.");
+  if (attemptRow.status !== "in_progress") throw new Error("Attempt has already been submitted.");
+
+  // Diff: only write rows whose answers actually changed.
+  const existingById = new Map(
+    (existingAnswers ?? []).map((q) => [q.id, (q.selected_answer_ids as string[] | null) ?? []]),
+  );
   const changed = answers.filter((entry) => {
     const prev = existingById.get(entry.attemptQuestionId) ?? [];
     if (prev.length !== entry.selectedAnswerIds.length) return true;
     return entry.selectedAnswerIds.some((id) => !prev.includes(id));
   });
 
-  if (changed.length > 0) {
-    await Promise.all(
-      changed.map((entry) =>
-        db
-          .from("attempt_questions")
-          .update({ selected_answer_ids: entry.selectedAnswerIds })
-          .eq("id", entry.attemptQuestionId)
-          .eq("attempt_id", attemptId),
-      ),
-    );
-  }
+  // answeredQuestions comes from the full payload the client already sent.
+  const answeredQuestions = answers.filter((e) => e.selectedAnswerIds.length > 0).length;
 
-  // Compute answered count from the merged in-memory + changed state (no extra DB round-trip)
-  const mergedAnswers = new Map(existingById);
-  for (const entry of changed) {
-    mergedAnswers.set(entry.attemptQuestionId, entry.selectedAnswerIds);
-  }
-  const answeredQuestions = [...mergedAnswers.values()].filter((ids) => ids.length > 0).length;
-
-  const { error } = await db
-    .from("quiz_attempts")
-    .update({
-      current_index: currentIndex,
-      answered_questions: answeredQuestions,
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", attemptId)
-    .eq("profile_id", profileId);
-
-  if (error) {
-    throw new Error(`Failed to save attempt progress: ${error.message}`);
-  }
+  // Fire changed-answer upsert and attempt-row update in parallel.
+  // All attempt_question rows exist from attempt creation, so upsert always hits the UPDATE path.
+  await Promise.all([
+    changed.length > 0
+      ? db.from("attempt_questions").upsert(
+          changed.map((e) => ({ id: e.attemptQuestionId, selected_answer_ids: e.selectedAnswerIds })),
+          { onConflict: "id" },
+        )
+      : Promise.resolve(),
+    db
+      .from("quiz_attempts")
+      .update({ current_index: currentIndex, answered_questions: answeredQuestions, updated_at: new Date().toISOString() })
+      .eq("id", attemptId)
+      .eq("profile_id", profileId),
+  ]).then(([upsertResult, updateResult]) => {
+    if (upsertResult && "error" in upsertResult && upsertResult.error) {
+      throw new Error(`Failed to save answers: ${upsertResult.error.message}`);
+    }
+    if (updateResult.error) {
+      throw new Error(`Failed to save attempt progress: ${updateResult.error.message}`);
+    }
+  });
 }
 
 export async function submitAttempt(profileId: string, attemptId: string): Promise<{ score: number; total: number }> {
