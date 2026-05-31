@@ -184,7 +184,9 @@ async function persistQuestions(questions: QuestionSnapshot[]): Promise<void> {
   const uniqueRows = Array.from(new Map(questions.map((question) => [question.id, toQuestionRow(question)])).values());
   if (uniqueRows.length === 0) return;
 
-  const { error } = await db.from("questions").upsert(uniqueRows, { onConflict: "id" });
+  // Insert new questions only — never overwrite existing rows so manual
+  // corrections in Supabase are not clobbered by the bundled JSON.
+  const { error } = await db.from("questions").upsert(uniqueRows, { onConflict: "id", ignoreDuplicates: true });
   if (error) {
     throw new Error(`Failed to persist question bank rows: ${error.message}`);
   }
