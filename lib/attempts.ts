@@ -318,28 +318,26 @@ export async function saveAttemptProgress(
   // answeredQuestions comes from the full payload the client already sent.
   const answeredQuestions = answers.filter((e) => e.selectedAnswerIds.length > 0).length;
 
-  // Fire changed-answer upsert and attempt-row update in parallel.
-  // All attempt_question rows exist from attempt creation, so upsert always hits the UPDATE path.
+  // Fire all writes in parallel: one UPDATE per changed answer + the attempt-row update.
+  // Using .update() (not upsert) so it never attempts an INSERT — rows always pre-exist.
+  // Fire all writes in parallel: one UPDATE per changed answer + the attempt-row update.
+  // Using .update() (not upsert) so it never attempts an INSERT — rows always pre-exist.
   await Promise.all([
-    changed.length > 0
-      ? db.from("attempt_questions").upsert(
-          changed.map((e) => ({ id: e.attemptQuestionId, selected_answer_ids: e.selectedAnswerIds })),
-          { onConflict: "id" },
-        )
-      : Promise.resolve(),
+    ...changed.map((e) =>
+      db
+        .from("attempt_questions")
+        .update({ selected_answer_ids: e.selectedAnswerIds })
+        .eq("id", e.attemptQuestionId)
+        .eq("attempt_id", attemptId)
+        .then(),
+    ),
     db
       .from("quiz_attempts")
       .update({ current_index: currentIndex, answered_questions: answeredQuestions, updated_at: new Date().toISOString() })
       .eq("id", attemptId)
-      .eq("profile_id", profileId),
-  ]).then(([upsertResult, updateResult]) => {
-    if (upsertResult && "error" in upsertResult && upsertResult.error) {
-      throw new Error(`Failed to save answers: ${upsertResult.error.message}`);
-    }
-    if (updateResult.error) {
-      throw new Error(`Failed to save attempt progress: ${updateResult.error.message}`);
-    }
-  });
+      .eq("profile_id", profileId)
+      .then(({ error }) => { if (error) throw new Error(`Failed to save attempt progress: ${error.message}`); }),
+  ]);
 }
 
 export async function submitAttempt(profileId: string, attemptId: string): Promise<{ score: number; total: number }> {
