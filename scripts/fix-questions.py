@@ -94,8 +94,8 @@ if q51_ch1:
     opt_a = next((o for o in q51_ch1["options"] if o["id"] == "A"), None)
     if opt_a is not None:
         opt_a["text"] = "none"
-    q51_ch1["correct_answers"] = ["B"]
-    print("✓ Ch1 Q51 opt A → 'none', correct_answers → ['B']")
+    q51_ch1["correct_answers"] = ["C"]
+    print("✓ Ch1 Q51 opt A → 'none', correct_answers → ['C']")
 
 
 # ── 7. Ch3 (Pharmacology) corrections ──────────────────────────────────────
@@ -164,7 +164,62 @@ for pdf_n, op, letters in cm_fixes:
         print(f"  WARNING: Ch3 CM Q{pdf_n} (stored Q{stored_n}) not found")
 
 
-# ── 8. Write output ─────────────────────────────────────────────────────────
+# ── 8. Corrections verified against DB (2026-05-31) ───────────────────────
+# Source of truth: Supabase backup_questions_2026-05-31_21-17.json
+
+# Ch1
+q = find_q(ch1, 51, "single");      q["correct_answers"] = ["C"] if q else None  # already set above, belt-and-suspenders
+
+# Ch2
+q = find_q(ch2, 47, "single");      q["correct_answers"] = ["C"] if q else None
+q = find_q(ch2, 83, "multiple");    q["correct_answers"] = ["A", "B", "D"] if q else None
+
+# Ch3 (Pharmacology) — CM stored as PDF+80
+ch3_db = [
+    (118, ["A", "B", "C", "D"]),   # diuretics by mechanism
+    (180, ["A", "C", "D"]),        # IV drugs for hypertensive emergency
+    (193, ["A", "B", "D", "E"]),   # bromocriptine indications
+]
+for stored_n, ans in ch3_db:
+    q = find_q(ch3, stored_n, "multiple")
+    if q: q["correct_answers"] = ans
+
+# Ch4 (Drug Technology)
+ch4 = get_section(3)
+ch4_db = [
+    (87,  ["A", "C", "D", "E"]),   # substances in liposome aqueous center
+    (140, ["A", "E"]),             # hypertonic eye drops
+]
+for n, ans in ch4_db:
+    q = find_q(ch4, n, "multiple")
+    if q: q["correct_answers"] = ans
+
+# Ch5 (Social Pharmacy) — single
+ch5_single_db = [
+    (19, ["D"]),   # storage of hygroscopic drugs
+    (29, ["B"]),   # pharmacist dispensing norm
+]
+for n, ans in ch5_single_db:
+    q = find_q(ch5, n, "single")
+    if q: q["correct_answers"] = ans
+
+# Ch5 (Social Pharmacy) — multiple
+ch5_multi_db = [
+    (82,  ["A", "B", "C", "D"]),
+    (87,  ["A", "B"]),
+    (104, ["A", "C", "D"]),
+    (108, ["B", "D"]),
+    (118, ["A", "B", "C"]),
+    (194, ["B", "C", "E"]),
+]
+for n, ans in ch5_multi_db:
+    q = find_q(ch5, n, "multiple")
+    if q: q["correct_answers"] = ans
+
+print("✓ Applied 16 DB-verified corrections (Ch1×1, Ch2×2, Ch3×3, Ch4×2, Ch5×8)")
+
+
+# ── 9. Write output ─────────────────────────────────────────────────────────
 with open(OUTPUT, "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 

@@ -1936,7 +1936,7 @@
             }
           ],
           "correct_answers": [
-            "B"
+            "C"
           ],
           "type": "single",
           "source_page": 8
@@ -9730,7 +9730,7 @@
             }
           ],
           "correct_answers": [
-            "D"
+            "C"
           ],
           "type": "single",
           "source_page": 39
@@ -11100,7 +11100,9 @@
             }
           ],
           "correct_answers": [
-            "A"
+            "A",
+            "B",
+            "D"
           ],
           "type": "multiple",
           "source_page": 44
@@ -20410,8 +20412,7 @@
             "A",
             "B",
             "C",
-            "D",
-            "E"
+            "D"
           ],
           "type": "multiple",
           "source_page": 77
@@ -22885,7 +22886,6 @@
           ],
           "correct_answers": [
             "A",
-            "B",
             "C",
             "D"
           ],
@@ -23405,7 +23405,6 @@
           "correct_answers": [
             "A",
             "B",
-            "C",
             "D",
             "E"
           ],
@@ -27018,7 +27017,7 @@
           ],
           "correct_answers": [
             "A",
-            "B",
+            "C",
             "D",
             "E"
           ],
@@ -29128,7 +29127,6 @@
           ],
           "correct_answers": [
             "A",
-            "D",
             "E"
           ],
           "type": "multiple",
@@ -32266,7 +32264,7 @@
             }
           ],
           "correct_answers": [
-            "A"
+            "D"
           ],
           "type": "single",
           "source_page": 120
@@ -32646,7 +32644,7 @@
             }
           ],
           "correct_answers": [
-            "D"
+            "B"
           ],
           "type": "single",
           "source_page": 122
@@ -34699,8 +34697,7 @@
             "A",
             "B",
             "C",
-            "D",
-            "E"
+            "D"
           ],
           "type": "multiple",
           "source_page": 130
@@ -34895,9 +34892,7 @@
           ],
           "correct_answers": [
             "A",
-            "B",
-            "D",
-            "E"
+            "B"
           ],
           "type": "multiple",
           "source_page": 131
@@ -35580,8 +35575,7 @@
           "correct_answers": [
             "A",
             "C",
-            "D",
-            "E"
+            "D"
           ],
           "type": "multiple",
           "source_page": 133
@@ -35739,7 +35733,6 @@
             }
           ],
           "correct_answers": [
-            "A",
             "B",
             "D"
           ],
@@ -36137,8 +36130,7 @@
           "correct_answers": [
             "A",
             "B",
-            "C",
-            "D"
+            "C"
           ],
           "type": "multiple",
           "source_page": 135
@@ -39199,7 +39191,6 @@
           "correct_answers": [
             "B",
             "C",
-            "D",
             "E"
           ],
           "type": "multiple",
