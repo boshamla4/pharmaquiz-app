@@ -87,7 +87,8 @@ export default function QuestionCard({
       <QuestionMedia images={question.images} alt="Question visual" />
 
       <div className="mt-5 space-y-2">
-        {displayOptions.map((option) => {
+        {displayOptions.map((option, displayIndex) => {
+          const displayLabel = String.fromCharCode(65 + displayIndex); // A, B, C, D, E
           const checked = selectedIds.includes(option.id);
           const correct = question.correct_answers.includes(option.id);
           const wrongPick = showResults && checked && !correct;
@@ -137,7 +138,7 @@ export default function QuestionCard({
               <span
                 className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center ${badgeShape} text-xs font-bold transition-colors ${badgeClass}`}
               >
-                {option.id}
+                {displayLabel}
               </span>
               <div className="min-w-0 flex-1">
                 <p className="text-sm leading-relaxed text-gray-800 dark:text-gray-200">{option.text}</p>
