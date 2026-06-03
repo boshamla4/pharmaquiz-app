@@ -1,6 +1,25 @@
+"use client";
+
+import { useMemo } from "react";
 import QuestionMedia from "@/app/components/QuestionMedia";
 import { scoreFeedback } from "@/lib/scoring";
-import type { QuestionSnapshot } from "@/lib/quiz-types";
+import type { ParsedOption, QuestionSnapshot } from "@/lib/quiz-types";
+
+// Deterministic Fisher-Yates shuffle using a seeded LCG.
+// Same seed always produces the same order — stable across renders and re-visits.
+function seededShuffle<T>(arr: T[], seed: string): T[] {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) {
+    h = (Math.imul(31, h) + seed.charCodeAt(i)) | 0;
+  }
+  const result = [...arr];
+  for (let i = result.length - 1; i > 0; i--) {
+    h = (Math.imul(h, 1664525) + 1013904223) | 0; // LCG step
+    const j = Math.abs(h) % (i + 1);
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
 
 interface QuestionCardProps {
   question: QuestionSnapshot;
@@ -9,6 +28,7 @@ interface QuestionCardProps {
   showResults?: boolean;
   scoreWeight?: number | null;
   onToggle?: (optionId: string, checked: boolean) => void;
+  shuffleSeed?: string;
 }
 
 export default function QuestionCard({
@@ -18,8 +38,16 @@ export default function QuestionCard({
   showResults = false,
   scoreWeight = null,
   onToggle,
+  shuffleSeed,
 }: QuestionCardProps) {
   const isMultiple = (question.type ?? "single") === "multiple";
+
+  // Shuffle display order only — option.id values (A/B/C/D/E) are unchanged,
+  // so selected answers, scoring, and history are completely unaffected.
+  const displayOptions = useMemo<ParsedOption[]>(
+    () => (shuffleSeed ? seededShuffle(question.options, shuffleSeed) : question.options),
+    [question.options, shuffleSeed],
+  );
 
   return (
     <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5 shadow-sm">
@@ -59,7 +87,7 @@ export default function QuestionCard({
       <QuestionMedia images={question.images} alt="Question visual" />
 
       <div className="mt-5 space-y-2">
-        {question.options.map((option) => {
+        {displayOptions.map((option) => {
           const checked = selectedIds.includes(option.id);
           const correct = question.correct_answers.includes(option.id);
           const wrongPick = showResults && checked && !correct;

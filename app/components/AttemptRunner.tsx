@@ -187,6 +187,7 @@ export default function AttemptRunner({ attempt, questions, initialRemainingSeco
           showResults={isRevealed}
           disabled={isRevealed}
           onToggle={isRevealed ? undefined : updateSelection}
+          shuffleSeed={`${attempt.id}:${activeQuestion.id}`}
         />
 
         {isMultipleActive && !isRevealed && currentAnswers.length > 0 && (

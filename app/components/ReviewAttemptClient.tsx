@@ -114,6 +114,7 @@ export default function ReviewAttemptClient({
             showResults
             disabled
             scoreWeight={q.score_weight}
+            shuffleSeed={`${attempt.id}:${q.question_snapshot.id}`}
           />
         </div>
       ))}
