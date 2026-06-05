@@ -171,7 +171,7 @@ for pdf_n, op, letters in cm_fixes:
 q = find_q(ch1, 51, "single");      q["correct_answers"] = ["C"] if q else None  # already set above, belt-and-suspenders
 
 # Ch2
-q = find_q(ch2, 47, "single");      q["correct_answers"] = ["C"] if q else None
+q = find_q(ch2, 47, "single");      q["correct_answers"] = ["D"] if q else None  # updated 2026-06-05: C→D
 q = find_q(ch2, 83, "multiple");    q["correct_answers"] = ["A", "B", "D"] if q else None
 
 # Ch3 (Pharmacology) — CM stored as PDF+80
@@ -219,7 +219,21 @@ for n, ans in ch5_multi_db:
 print("✓ Applied 16 DB-verified corrections (Ch1×1, Ch2×2, Ch3×3, Ch4×2, Ch5×8)")
 
 
-# ── 9. Write output ─────────────────────────────────────────────────────────
+# ── 9. Corrections verified against DB (2026-06-05) ───────────────────────
+# Source of truth: Supabase backup_questions_2026-06-05_21-30.json
+
+# Ch1 (Pharmacognosy)
+q = find_q(ch1, 82, "single");   q["correct_answers"] = ["A"]             if q else None
+q = find_q(ch1, 84, "multiple"); q["correct_answers"] = ["B", "C", "D", "E"] if q else None
+
+# Ch2 (Chemistry)
+q = find_q(ch2, 144, "multiple"); q["correct_answers"] = ["A", "C", "E"]       if q else None
+q = find_q(ch2, 155, "multiple"); q["correct_answers"] = ["A", "B", "C", "D"]  if q else None
+
+print("✓ Applied 4 DB-verified corrections (Ch1×2, Ch2×2) — 2026-06-05")
+
+
+# ── 10. Write output ────────────────────────────────────────────────────────
 with open(OUTPUT, "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
 

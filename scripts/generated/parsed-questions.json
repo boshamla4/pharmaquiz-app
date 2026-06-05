@@ -3130,7 +3130,7 @@
             }
           ],
           "correct_answers": [
-            "E"
+            "A"
           ],
           "type": "single",
           "source_page": 12
@@ -3209,6 +3209,7 @@
           "correct_answers": [
             "B",
             "C",
+            "D",
             "E"
           ],
           "type": "multiple",
@@ -9730,7 +9731,7 @@
             }
           ],
           "correct_answers": [
-            "C"
+            "D"
           ],
           "type": "single",
           "source_page": 39
@@ -13586,6 +13587,7 @@
           ],
           "correct_answers": [
             "A",
+            "C",
             "E"
           ],
           "type": "multiple",
@@ -14028,6 +14030,8 @@
           ],
           "correct_answers": [
             "A",
+            "B",
+            "C",
             "D"
           ],
           "type": "multiple",
