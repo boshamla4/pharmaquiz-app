@@ -233,6 +233,31 @@ q = find_q(ch2, 155, "multiple"); q["correct_answers"] = ["A", "B", "C", "D"]  i
 print("✓ Applied 4 DB-verified corrections (Ch1×2, Ch2×2) — 2026-06-05")
 
 
+# ── 11. fix2 additions (new questions, not touched by any earlier section) ──
+# All multiple-choice. Run last so they take precedence by design.
+
+ch1_new = [
+    (174, ["B", "D"]),
+    (184, ["B", "C", "D"]),
+    (187, ["B", "C", "D"]),
+    (190, ["A", "B"]),
+]
+for n, ans in ch1_new:
+    q = find_q(ch1, n, "multiple")
+    if q:
+        q["correct_answers"] = ans
+        print(f"✓ Ch1 Q{n} → {ans}")
+    else:
+        print(f"  WARNING: Ch1 Q{n} (multiple) not found")
+
+q = find_q(ch5, 183, "multiple")
+if q:
+    q["correct_answers"] = ["A", "C", "D", "E"]
+    print("✓ Ch5 Q183 → ['A', 'C', 'D', 'E']")
+else:
+    print("  WARNING: Ch5 Q183 (multiple) not found")
+
+
 # ── 10. Write output ────────────────────────────────────────────────────────
 with open(OUTPUT, "w", encoding="utf-8") as f:
     json.dump(data, f, ensure_ascii=False, indent=2)
